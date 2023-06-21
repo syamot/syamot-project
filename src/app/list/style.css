@@ -1,0 +1,27 @@
+* {
+  background-color: white;
+}
+
+.image-box img {
+  width: 100px;
+  height: auto;
+}
+
+/* .image-list {
+    width: 20px;
+} */
+
+li {
+  margin: 1vh;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* position: absolute; */
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
