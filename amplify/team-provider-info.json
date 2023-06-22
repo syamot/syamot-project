@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newsyamot-dev-223138-authRole",
+      "UnauthRoleArn": "arn:aws:iam::901959098118:role/amplify-newsyamot-dev-223138-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::901959098118:role/amplify-newsyamot-dev-223138-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newsyamot-dev-223138-deployment",
+      "UnauthRoleName": "amplify-newsyamot-dev-223138-unauthRole",
+      "StackName": "amplify-newsyamot-dev-223138",
+      "StackId": "arn:aws:cloudformation:us-east-1:901959098118:stack/amplify-newsyamot-dev-223138/1ff0ac50-1101-11ee-b312-0e16035a060b",
+      "AmplifyAppId": "d3fmkd6bnm39bb"
+    },
+    "categories": {
+      "auth": {
+        "newsyamot7120057e": {}
+      },
+      "api": {
+        "newsyamot": {}
+      }
+    }
+  }
+}
