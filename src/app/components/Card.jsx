@@ -1,12 +1,11 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
-import "./style.css";
+import "./style/card.css";
 import Link from "next/link";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
 
-const Card = () => {
+export const Card = () => {
   const [itemTitle, setItemTitle] = useState("");
   const TitleChange = (target) => {
     setItemTitle(target);
@@ -61,5 +60,3 @@ const Card = () => {
     </>
   );
 };
-
-export default Card;
