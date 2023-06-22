@@ -3,8 +3,8 @@
 }
 
 .image-box img {
-  width: 100px;
-  height: auto;
+  width: auto;
+  height: 130px;
 }
 
 /* .image-list {
@@ -12,7 +12,12 @@
 } */
 
 li {
-  margin: 1vh;
+  /* margin: 1vh; */
+  object-fit: cover;
+  width: 180px;
+  height: 180px;
+  background-color: #ccc;
+  border: 1px solid #ccc;
 }
 
 ul {
