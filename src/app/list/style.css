@@ -1,0 +1,32 @@
+* {
+  background-color: white;
+}
+
+.image-box img {
+  width: auto;
+  height: 130px;
+}
+
+/* .image-list {
+    width: 20px;
+} */
+
+li {
+  /* margin: 1vh; */
+  object-fit: cover;
+  width: 180px;
+  height: 180px;
+  background-color: #ccc;
+  border: 1px solid #ccc;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* position: absolute; */
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
