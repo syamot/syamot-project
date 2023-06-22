@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import "./style/card.css";
-import Link from "next/link";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
 
-export const Card = () => {
+const Card = (props) => {
+  const { setSelectFlag } = props;
   const [itemTitle, setItemTitle] = useState("");
   const TitleChange = (target) => {
     setItemTitle(target);
@@ -27,7 +25,6 @@ export const Card = () => {
 
   return (
     <>
-      <Header />
       <div className="mainBrock">
         <h2 className="title">title: {itemTitle}</h2>
         <div className="imageBrock">
@@ -44,19 +41,16 @@ export const Card = () => {
           {/* チャット表示ここに記載 */}
         </div>
         <div className="buyBrock">
-          <button className="buyBtn">
-            <Link
-              href={{
-                pathname: "/transaction",
-                query: { itemTitle: itemTitle },
-              }}
-            >
-              Buy (buy後取引チャット)
-            </Link>
+          <button
+            className="buyBtn"
+            onClick={() => setSelectFlag("transaction")}
+          >
+            Buy (buy後取引チャット)
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
+
+export default Card;

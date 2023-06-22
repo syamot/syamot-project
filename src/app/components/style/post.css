@@ -7,6 +7,13 @@ p {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: stretch;
+  position: fixed;
+  top: 10vh;
+  width: 100%;
+  max-height: 82vh;
+  display: flex;
+  height: 82vh;
+  overflow-y: scroll;
 }
 .post-box-piece {
   display: flex;

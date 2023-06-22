@@ -1,17 +1,22 @@
 import React from "react";
-import "../card/style.css";
+import Link from "next/link";
+import "./style/footer.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsSend } from "react-icons/bs";
 import { GiSettingsKnobs } from "react-icons/gi";
 
-export const Footer = () => {
+const Footer = (props) => {
+  const { setSelectFlag } = props;
   return (
     <>
       <footer>
         <AiOutlineSearch className="searchIcon" />
-        <BsSend className="postIcon" />
+
+        <BsSend className="postIcon" onClick={() => setSelectFlag("post")} />
+
         <GiSettingsKnobs className="settingIcon" />
       </footer>
     </>
   );
 };
+export default Footer;

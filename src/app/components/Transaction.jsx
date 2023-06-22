@@ -1,17 +1,14 @@
-"use client";
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BiMailSend } from "react-icons/bi";
 import "./style/transaction.css";
-export const Transaction = () => {
+
+const Transaction = () => {
   const router = useSearchParams();
 
   return (
     <>
-      <Header />
       <div className="titleBrock">
         <BsFillChatDotsFill className="chatIcon" />
         <h2 className="title">title: {router.get("itemTitle")}</h2>
@@ -25,7 +22,7 @@ export const Transaction = () => {
         <button className="approvalBtn">Approval</button>
         <button className="completeBtn">Receipt complete</button>
       </div>
-      <Footer />
     </>
   );
 };
+export default Transaction;

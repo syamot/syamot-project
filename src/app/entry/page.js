@@ -3,7 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import postStyle from "./style.css";
 
-export default function Post() {
+export default function Entry() {
   function sliceMaxLength(elem, maxLength) {
     console.log("インプットされました");
     console.log(elem.target.value);

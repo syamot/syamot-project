@@ -1,0 +1,36 @@
+header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0vh;
+  width: 100%;
+  height: 10vh;
+  margin-top: 0;
+  background-color: #808080;
+  justify-content: space-around;
+}
+
+.userIcon,
+.backIcon {
+  width: 6vh;
+  height: 6vh;
+}
+
+.userIcon {
+  position: relative;
+  left: -7%;
+  margin-left: 3vh;
+}
+.backIcon {
+  position: relative;
+  left: 7%;
+  margin-right: 3vh;
+}
+
+.header1 {
+  font-size: 4vh;
+}
