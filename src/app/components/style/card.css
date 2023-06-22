@@ -24,48 +24,10 @@ body {
   border-style: solid;
   border-radius: 2vh;
 }
-header {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0vh;
-  width: 100%;
-  height: 10vh;
-  background-color: pink;
-  margin-top: 0;
-  background-color: #808080;
-}
-.userIcon,
-.backIcon,
-.searchIcon,
-.postIcon,
-.settingIcon {
-  width: 6vh;
-  height: 6vh;
-}
-.userIcon {
-  position: relative;
-  right: 18vh;
-}
-.backIcon {
-  position: relative;
-  right: -18vh;
-}
-.searchIcon,
-.postIcon,
-.settingIcon {
-  margin: 5vh;
-}
-.settingIcon {
-  rotate: 90deg;
-}
+
 .title {
   position: relative;
-  top: -1vh;
+  top: 4vh;
 }
 .imageBrock {
   display: flex;
@@ -75,7 +37,7 @@ header {
   justify-content: center;
   align-items: center;
   position: relative;
-  top: 1vh;
+  top: 5vh;
 }
 .cardItemBrock {
   display: flex;
@@ -85,7 +47,7 @@ header {
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  top: 2vh;
+  top: 5vh;
 }
 .goodIcon {
   width: 5vh;
@@ -118,17 +80,4 @@ header {
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-}
-footer {
-  position: fixed;
-  bottom: 0vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 8vh;
-  background-color: #808080;
 }

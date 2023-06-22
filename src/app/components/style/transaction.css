@@ -10,6 +10,7 @@
   top: 13vh;
 }
 .title {
+  top: -1vh;
 }
 .footerBrock {
   display: flex;
