@@ -1,0 +1,134 @@
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.mainBrock {
+  position: fixed;
+  top: 12vh;
+  width: 93%;
+  height: 69vh;
+  max-height: 69vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border-style: solid;
+  border-radius: 2vh;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0vh;
+  width: 100%;
+  height: 10vh;
+  background-color: pink;
+  margin-top: 0;
+  background-color: #808080;
+}
+.userIcon,
+.backIcon,
+.searchIcon,
+.postIcon,
+.settingIcon {
+  width: 6vh;
+  height: 6vh;
+}
+.userIcon {
+  position: relative;
+  right: 18vh;
+}
+.backIcon {
+  position: relative;
+  right: -18vh;
+}
+.searchIcon,
+.postIcon,
+.settingIcon {
+  margin: 5vh;
+}
+.settingIcon {
+  rotate: 90deg;
+}
+.title {
+  position: relative;
+  top: -1vh;
+}
+.imageBrock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 1vh;
+}
+.cardItemBrock {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  top: 2vh;
+}
+.goodIcon {
+  width: 5vh;
+  height: 5vh;
+  position: absolute;
+  top: 2vh;
+  left: 1vh;
+  color: red;
+}
+.cardItem {
+  font-size: 3vh;
+}
+.itemImage {
+  width: 25vh;
+}
+.buyBrock {
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 10vh;
+}
+.buyBtn {
+  width: 40vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+}
+footer {
+  position: fixed;
+  bottom: 0vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  background-color: #808080;
+}
