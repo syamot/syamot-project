@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./style/post.css";
 
 const ItemPost = (props) => {
-  const { URL } = props;
+  const { setSelectFlag, URL } = props;
   const [imgPathArr, setImgPathArr] = useState([]);
   const [itemObj, setItemObj] = useState({
     item_name: "",
@@ -76,6 +76,7 @@ const ItemPost = (props) => {
       }
     };
     changeStatus();
+    setSelectFlag("list");
   };
 
   return (
