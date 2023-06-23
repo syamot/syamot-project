@@ -7,28 +7,28 @@ import Card from "./components/Card";
 import Transaction from "./components/Transaction";
 import ItemPost from "./components/ItemPost";
 import Swipe from "./components/Swipe";
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://syamot.onrender.com/"
+    : "http://localhost:8000";
 
 function App() {
-  const URL = "http://localhost:8000"
-  // const URL = "http://localhost:8000"
-
   const [selectFlag, setSelectFlag] = useState("list");
-  const [users, setUsers] = useState([])
-  const [items, setItems] = useState([])
-  const [selectImg, setSelectImg] = useState({})
+  const [users, setUsers] = useState([]);
+  const [items, setItems] = useState([]);
+  const [selectImg, setSelectImg] = useState({});
 
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
-    return userData
-  }
+    return userData;
+  };
 
   const getAllItems = async () => {
-    const resItemData = await fetch(`${URL}/itemAllData`)
-    const itemData = await resItemData.json()
-    return itemData
-
-  }
+    const resItemData = await fetch(`${URL}/itemAllData`);
+    const itemData = await resItemData.json();
+    return itemData;
+  };
 
   useEffect(() => {
     let userData;
@@ -36,30 +36,43 @@ function App() {
     const asyncPkg = async () => {
       userData = await getAllUsers();
       itemData = await getAllItems();
-      itemData.forEach(elem => {
-        elem.item_img = JSON.parse(elem.item_img)
-      })
+      itemData.forEach((elem) => {
+        elem.item_img = JSON.parse(elem.item_img);
+      });
       setUsers(userData);
-      setItems(itemData)
-
-    }
+      setItems(itemData);
+    };
     asyncPkg();
-  }, [])
-
+  }, []);
 
   return (
     <>
       <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
       {selectFlag === "list" ? (
-        <List setSelectFlag={setSelectFlag} items={items} setItems={setItems} setSelectImg={setSelectImg} getAllItems={getAllItems} />
+        <List
+          setSelectFlag={setSelectFlag}
+          items={items}
+          setItems={setItems}
+          setSelectImg={setSelectImg}
+          getAllItems={getAllItems}
+        />
       ) : selectFlag === "card" ? (
-        <Card setSelectFlag={setSelectFlag} selectImg={selectImg} users={users} URL={URL} />
+        <Card
+          setSelectFlag={setSelectFlag}
+          selectImg={selectImg}
+          users={users}
+          URL={URL}
+        />
       ) : selectFlag === "transaction" ? (
-        <Transaction setSelectFlag={setSelectFlag} selectImg={selectImg} users={users} />
+        <Transaction
+          setSelectFlag={setSelectFlag}
+          selectImg={selectImg}
+          users={users}
+        />
       ) : selectFlag === "swipe" ? (
         <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
       ) : (
-        <ItemPost setSelectFlag={setSelectFlag} />
+        <ItemPost setSelectFlag={setSelectFlag} URL={URL} />
       )}
 
       <Footer setSelectFlag={setSelectFlag} />
