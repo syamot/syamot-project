@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./style/post.css";
 
 const ItemPost = (props) => {
-  const { setSelectFlag, userId, URL } = props;
+  const { URL } = props;
   const [imgPathArr, setImgPathArr] = useState([]);
   const [itemObj, setItemObj] = useState({
     item_name: "",

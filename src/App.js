@@ -9,7 +9,7 @@ import ItemPost from "./components/ItemPost";
 import Swipe from "./components/Swipe";
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://syamot.onrender.com/"
+    ? "https://syamot.onrender.com"
     : "http://localhost:8000";
 
 function App() {

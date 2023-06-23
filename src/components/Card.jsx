@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiFillHeart } from "react-icons/ai";
 import "./style/card.css";
 import Swipe from "./Swipe";

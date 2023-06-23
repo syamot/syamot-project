@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BiMailSend } from "react-icons/bi";
-import { FaUserCircle } from "react-icons/fa";
 
 import "./style/transaction.css";
 
 const Transaction = (props) => {
-  const { selectImg, users } = props;
+  const { selectImg } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
 
