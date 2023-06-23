@@ -1,43 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import "./style/card.css";
+import Swipe from "./Swipe";
 
 const Card = (props) => {
-  const { setSelectFlag } = props;
-  const [itemTitle, setItemTitle] = useState("");
-  const TitleChange = (target) => {
-    setItemTitle(target);
-  };
-  const data = {
-    img: "https://webdesignmagazine.net/wp-content/uploads/2022/10/design-refrigerator9.jpg",
-    title: "冷蔵庫",
-    category: "家電",
-    status: "販売中",
-    num: 1,
-    weight: 50,
-    Deadline: "2023-06-21",
-    seller: "はぎぃ",
-  };
-
-  useEffect(() => {
-    TitleChange(data.title);
-  }, []);
-
+  const { setSelectFlag, selectImg, users } = props;
+  // 日付までを取得
+  const dateString = selectImg.item_deadline;
+  const date = new Date(dateString);
+  const formattedDate = date.toISOString().split("T")[0];
+  console.log(users);
+  const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
+  console.log(sellerUser);
   return (
     <>
       <div className="mainBrock">
-        <h2 className="title">title: {itemTitle}</h2>
+        <h2 className="cardTitle">{selectImg.item_name}</h2>
         <div className="imageBrock">
           <AiFillHeart className="goodIcon" />
-          <img src={data.img} alt="product" className="itemImage" />
+          {/* <img src={data.img} alt="product" className="itemImage" /> */}
+          <Swipe etSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
         <div className="cardItemBrock">
-          <p className="cardItem">カテゴリ: {data.category}</p>
-          <p className="cardItem">ステータス: {data.status}</p>
-          <p className="cardItem">個数: {data.num}</p>
-          <p className="cardItem">重さ: {data.weight}</p>
-          <p className="cardItem">期限: {data.Deadline}</p>
-          <p className="cardItem">販売者: {data.seller}</p>
+          <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
+          <p className="cardItem">ステータス: {selectImg.item_status}</p>
+          <p className="cardItem">個数: {selectImg.item_num}</p>
+          {/* <p className="cardItem">重さ: {data.weight}</p> */}
+          <p className="cardItem">期限: {formattedDate}</p>
+          <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
           {/* チャット表示ここに記載 */}
         </div>
         <div className="buyBrock">

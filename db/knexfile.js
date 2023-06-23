@@ -7,8 +7,8 @@ module.exports = {
   development: {
     client: "pg",
     connection: {
-      user: process.env.DB_USER || "default",
-      database: process.env.DB_NAME || "default",
+      user: process.env.DB_USER || "saitorui",
+      database: process.env.DB_NAME || "syamot",
       password: process.env.DB_PASSWORD,
     },
     migrations: {

@@ -1,0 +1,40 @@
+.swiper {
+  width: 25vh;
+}
+.slide {
+  width: 30vh;
+}
+.itemImage {
+  width: 25vh;
+}
+.slider__wrapper {
+  position: relative;
+}
+.swipeBrock {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  top: 4vh;
+}
+#button_prev {
+  position: relative;
+  left: -18vh;
+  top: -15vh;
+}
+#button_next {
+  position: relative;
+  left: 18vh;
+  top: -22vh;
+}
+.leftAllow {
+  height: 6vh;
+  width: 6vh;
+}
+.rightAllow {
+  height: 6vh;
+  width: 6vh;
+}

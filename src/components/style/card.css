@@ -28,9 +28,9 @@
   border-radius: 2vh;
 }
 
-.title {
+.cardTitle {
   position: relative;
-  top: 4vh;
+  top: 12vh;
 }
 .imageBrock {
   display: flex;
@@ -50,18 +50,21 @@
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  top: 5vh;
+  top: 0vh;
 }
 .goodIcon {
   width: 5vh;
   height: 5vh;
   position: absolute;
-  top: 2vh;
-  left: 1vh;
+  top: -5%;
+  right: -45%;
   color: red;
+  z-index: 2;
 }
 .cardItem {
   font-size: 3vh;
+  margin-bottom: 1vh;
+  margin-top: 1vh;
 }
 .itemImage {
   width: 25vh;
