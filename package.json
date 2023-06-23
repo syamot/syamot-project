@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "s-start": "node server.js && react-scripts start",
-    "build": "npm run migrate-back && npm run migrate-latest && npm run seed-data && react-scripts build",
+    "build": "npm install && npm run migrate-back && npm run migrate-latest && npm run seed-data && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node server.js",
