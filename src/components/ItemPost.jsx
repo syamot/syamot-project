@@ -1,13 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./style/post.css";
+const imgPath = [
+  "./photo/41jKcetq9eL._AC_UL400_.jpg",
+  "./photo/51DlWwrJEqL._AC_UL400_.jpg",
+  "./photo/51ds51DYFzS._AC_UL400_.jpg",
+];
 
 const ItemPost = () => {
+  const [imgPathArr, setImgPathArr] = useState([]);
+
+  const resetImg = () => {
+    setImgPathArr([]);
+  };
+  const setImg = (e) => {
+    for (let i = 0; i < e.target.files.length; i++) {
+      setImgPathArr((cur) => [
+        ...cur,
+        window.URL.createObjectURL(e.target.files[i]),
+      ]);
+    }
+  };
+  useEffect(() => {
+    console.log(imgPathArr);
+  }, [imgPathArr]);
+
   return (
     <>
       <div className="post-box">
         <div className="post-box-piece">
           <p>商品画像</p>
-          <input type="file" accept="image/*" multiple></input>
+          <input
+            type="file"
+            accept="image/*"
+            onClick={() => resetImg()}
+            onChange={(e) => setImg(e)}
+            multiple
+          ></input>
+          <div className="post-inner-item">
+            {imgPathArr.map((elem, index) => {
+              return (
+                <div key={index} className="post-image-box">
+                  <img key={index} src={elem} alt="商品画像" />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <h4>商品の詳細</h4>
         <div className="post-box-piece-side">
@@ -100,3 +137,62 @@ const ItemPost = () => {
 };
 
 export default ItemPost;
+
+{
+  /* <form action="http://localhost:3000/api/test" method="post">
+  <input type="number" name="testText"></input>
+  <input type="submit" value="送信"></input>
+</form>; */
+}
+
+// export default function PageWithJSbasedForm() {
+//   // Handles the submit event on form submit.
+//   const handleSubmit = async (event) => {
+//     // Stop the form from submitting and refreshing the page.
+//     event.preventDefault()
+
+//     // Get data from the form.
+//     const data = {
+//       first: event.target.first.value,
+//       last: event.target.last.value,
+//     }
+
+//     // Send the data to the server in JSON format.
+//     const JSONdata = JSON.stringify(data)
+
+//     // API endpoint where we send form data.
+//     const endpoint = '/api/form'
+
+//     // Form the request for sending data to the server.
+//     const options = {
+//       // The method is POST because we are sending data.
+//       method: 'POST',
+//       // Tell the server we're sending JSON.
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       // Body of the request is the JSON data we created above.
+//       body: JSONdata,
+//     }
+
+//     // Send the form data to our forms API on Vercel and get a response.
+//     const response = await fetch(endpoint, options)
+
+//     // Get the response data from server as JSON.
+//     // If server returns the name submitted, that means the form works.
+//     const result = await response.json()
+//     alert(`Is this your full name: ${result.data}`)
+//   }
+//   return (
+//     // We pass the event to the handleSubmit() function on submit.
+//     <form onSubmit={handleSubmit}>
+//       <label htmlFor="first">First Name</label>
+//       <input type="text" id="first" name="first" required />
+
+//       <label htmlFor="last">Last Name</label>
+//       <input type="text" id="last" name="last" required />
+
+//       <button type="submit">Submit</button>
+//     </form>
+//   )
+// }

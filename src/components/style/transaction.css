@@ -26,7 +26,9 @@
 .transMainBrock {
   position: fixed;
   top: 19vh;
-  width: 93%;
+  width: 97%;
+  margin-left: 1%;
+  margin-right: 2%;
   height: 52vh;
   max-height: 52vh;
   display: flex;
@@ -71,7 +73,10 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 20vh;
+  bottom: 18vh;
+  width: 97%;
+  margin-left: 1%;
+  margin-right: 2%;
 }
 .chatInput {
   font-size: 3vh;
