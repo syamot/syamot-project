@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import "./style/footer.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsSend } from "react-icons/bs";

@@ -1,4 +1,4 @@
-body {
+/* body {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -6,11 +6,14 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
+} */
 .mainBrock {
   position: fixed;
   top: 12vh;
-  width: 93%;
+  /* width: 93%; */
+  width: 97%;
+  margin-left: 1%;
+  margin-right: 2%;
   height: 69vh;
   max-height: 69vh;
   display: flex;

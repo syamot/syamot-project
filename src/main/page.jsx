@@ -7,6 +7,7 @@ import List from "../components/List";
 import Card from "../components/Card";
 import Transaction from "../components/Transaction";
 import ItemPost from "../components/ItemPost";
+
 export default function Main() {
   const [selectFlag, setSelectFlag] = useState("list");
 

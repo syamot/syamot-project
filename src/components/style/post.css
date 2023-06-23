@@ -1,19 +1,26 @@
 p {
   margin: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .post-box {
-  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  align-items: stretch;
   position: fixed;
   top: 10vh;
-  width: 100%;
-  max-height: 82vh;
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
+  max-height: 81vh;
   display: flex;
-  height: 82vh;
+  height: 81vh;
   overflow-y: scroll;
+  align-items: stretch;
+}
+
+.post-box button {
+  margin: 2vh 10vh;
 }
 .post-box-piece {
   display: flex;
@@ -22,7 +29,7 @@ p {
   align-items: stretch;
   border-bottom: solid;
   border-bottom: solid 0.1px;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 .post-box-piece-side {
@@ -40,5 +47,20 @@ p {
 
 .post-inner-item {
   display: flex;
+  align-items: center;
+}
+
+.post-image-box img {
+  width: auto;
+  height: 100px;
+  max-width: 100px;
+  margin: 5px;
+}
+.post-image-box {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  width: 150px;
+  background-color: rgba(255, 255, 255, 1);
   align-items: center;
 }
