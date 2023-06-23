@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style/list.css";
 
 function List(props) {
-  const { setSelectFlag, items, setSelectImg } = props;
-  console.log("items", items);
+  const { setSelectFlag, items, setItems, setSelectImg, getAllItems } = props;
   const clickImg = (e) => {
     setSelectImg(items[e.target.id]);
   };
-
+  useEffect(() => {
+    let itemData;
+    const asyncPkg = async () => {
+      itemData = await getAllItems();
+      itemData.forEach((elem) => {
+        elem.item_img = JSON.parse(elem.item_img);
+      });
+      setItems(itemData);
+    };
+    asyncPkg();
+  });
   return (
     <div className="mainBrock-list">
       <ul className="image-list">

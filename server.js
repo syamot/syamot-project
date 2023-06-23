@@ -2,11 +2,12 @@ const express = require("express");
 const knex = require("./db/knex");
 const app = express();
 const PORT = process.env.PORT || 8000;
+const path = require("path")
 
 app.use(express.static("build"));
 app.use(express.json());
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
@@ -79,6 +80,28 @@ app.post("/addItems", async (req, res) => {
   }
   await knex("items").insert(itemInfo)
   res.status(200).send("アイテム登録完了");
+});
+
+// ステータス更新
+app.put("/putItemStatus", async (req, res) => {
+  console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items").update({
+      item_status: "売却済",
+    }).where("id", obj.id);
+    const result = await knex.select("*").from("items");
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+})
+
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './build/index.html'));
 });
 
 app.listen(PORT, () => {

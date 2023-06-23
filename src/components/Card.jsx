@@ -4,7 +4,7 @@ import "./style/card.css";
 import Swipe from "./Swipe";
 
 const Card = (props) => {
-  const { setSelectFlag, selectImg, users } = props;
+  const { setSelectFlag, selectImg, users, URL } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
   const date = new Date(dateString);
@@ -12,6 +12,23 @@ const Card = (props) => {
   console.log(users);
   const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
   console.log(sellerUser);
+
+  const changeStatus = async () => {
+    if (selectImg.item_status !== "売却済") {
+      try {
+        await fetch(URL + "/putItemStatus", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectImg),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       <div className="mainBrock">
@@ -33,7 +50,10 @@ const Card = (props) => {
         <div className="buyBrock">
           <button
             className="buyBtn"
-            onClick={() => setSelectFlag("transaction")}
+            onClick={() => {
+              setSelectFlag("transaction");
+              changeStatus();
+            }}
           >
             Buy (buy後取引チャット)
           </button>

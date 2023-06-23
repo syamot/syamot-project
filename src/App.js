@@ -51,11 +51,11 @@ function App() {
     <>
       <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
       {selectFlag === "list" ? (
-        <List setSelectFlag={setSelectFlag} items={items} setSelectImg={setSelectImg} />
+        <List setSelectFlag={setSelectFlag} items={items} setItems={setItems} setSelectImg={setSelectImg} getAllItems={getAllItems} />
       ) : selectFlag === "card" ? (
-        <Card setSelectFlag={setSelectFlag} selectImg={selectImg} users={users} />
+        <Card setSelectFlag={setSelectFlag} selectImg={selectImg} users={users} URL={URL} />
       ) : selectFlag === "transaction" ? (
-        <Transaction setSelectFlag={setSelectFlag} />
+        <Transaction setSelectFlag={setSelectFlag} selectImg={selectImg} users={users} />
       ) : selectFlag === "swipe" ? (
         <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
       ) : (
