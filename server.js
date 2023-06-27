@@ -215,16 +215,16 @@ app.get("*", (req, res) => {
 
 // S3 を操作するためのインスタンスを生成
 const s3Client = new AWS.S3({
-  accessKeyId: `AKIA5EAHTT4DNK7LZGBU`,
-  secretAccessKey: `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`,
-  region: `us-east-1`,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_S3_REGION
 });
 
 // multerの設定;
 const upload = multer({
   storage: multerS3({
     s3: s3Client,
-    bucket: "saito3110",
+    Bucket: process.env.AWS_S3_BUCKET,
     acl: "public-read",
     metadata: (req, file, cb) => {
       cb(null, { fieldName: file.fieldname });
@@ -251,7 +251,7 @@ app.get("/download", (req, res) => {
   const { filename } = req.query;
 
   const params = {
-    Bucket: "saito3110",
+    Bucket: process.env.AWS_S3_BUCKET,
     Key: filename,
   };
 
@@ -275,7 +275,7 @@ app.get("/download", (req, res) => {
  */
 app.get("/list", (req, res) => {
   const params = {
-    Bucket: "saito3110",
+    Bucket: process.env.AWS_S3_BUCKET,
   };
 
   s3Client.listObjects(params, (err, data) => {
@@ -296,7 +296,7 @@ app.get("/display", (req, res) => {
   const { filename } = req.query;
 
   const params = {
-    Bucket: "saito3110",
+    Bucket: process.env.AWS_S3_BUCKET,
     Key: filename,
   };
 
