@@ -20,7 +20,9 @@ function App() {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
-
+  useEffect(() => {
+    console.log(selectImg);
+  }, [selectImg])
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
@@ -126,6 +128,9 @@ function App() {
                   setSelectFlag={setSelectFlag}
                   selectImg={selectImg}
                   users={users}
+                  URL={URL}
+                  getAllItems={getAllItems}
+                  setItems={setItems}
                 />
                 <Footer setSelectFlag={setSelectFlag} />
               </>

@@ -23,6 +23,7 @@ const SignIn = (props) => {
       );
       if (sha512(pass.value) === foundUser.password) {
         console.log("パスワードが一致しました");
+        localStorage.setItem("user", user.value);
         setSelectFlag("list");
       } else {
         console.log("パスワードが違います");

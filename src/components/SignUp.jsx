@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { sha512 } from "js-sha512";
 
 const SignUp = (props) => {
-  const { setSelectFlag, URL, addUser, setAdduser, setMessage } = props;
+  const { setSelectFlag, setAdduser, setMessage } = props;
 
   const [employeeCode, setEmployeeCode] = useState("");
   const changeCode = (e) => {

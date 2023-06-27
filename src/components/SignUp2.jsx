@@ -30,7 +30,7 @@ export const SignUp2 = (props) => {
   };
 
   useEffect(() => {
-    sendMail();
+    // sendMail();
   }, []);
 
   // 新規登録処理

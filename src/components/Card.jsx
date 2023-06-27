@@ -14,7 +14,10 @@ const Card = (props) => {
   console.log(sellerUser);
 
   const changeStatus = async () => {
-    if (selectImg.item_status !== "売却済") {
+    if (
+      selectImg.item_status !== "売却済" ||
+      selectImg.item_status !== "取引中"
+    ) {
       try {
         await fetch(URL + "/putItemStatus", {
           method: "PUT",
@@ -39,10 +42,18 @@ const Card = (props) => {
           <Swipe etSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
         <div className="cardItemBrock">
+          <p className="cardItem">説明</p>
+          <textarea
+            className="cardItemTxtarea"
+            defaultValue={selectImg.item_explanation}
+          ></textarea>
           <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
           <p className="cardItem">ステータス: {selectImg.item_status}</p>
           <p className="cardItem">個数: {selectImg.item_num}</p>
-          {/* <p className="cardItem">重さ: {data.weight}</p> */}
+          <p className="cardItem">重さ: {selectImg.item_weight}</p>
+          <p className="cardItem">長さ: {selectImg.item_size_vertical}</p>
+          <p className="cardItem">幅: {selectImg.item_size_width}</p>
+          <p className="cardItem">高さ: {selectImg.item_size_height}</p>
           <p className="cardItem">期限: {formattedDate}</p>
           <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
           {/* チャット表示ここに記載 */}
@@ -55,7 +66,7 @@ const Card = (props) => {
               changeStatus();
             }}
           >
-            Buy (buy後取引チャット)
+            取引き
           </button>
         </div>
       </div>

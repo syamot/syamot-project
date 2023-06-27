@@ -2,6 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("items").del();
@@ -24,6 +25,8 @@ exports.seed = async function (knex) {
         "https://www.lg.com/jp/images/refrigerators/GR-Q23FGNGL/gallery/GalleryImages_1100x730_02.jpg",
       ]),
       item_seller: 1,
+      item_approval_flag: false,
+      item_transaction_flag: false
     },
     {
       item_name: "テレビ",
@@ -43,6 +46,9 @@ exports.seed = async function (knex) {
         "https://shop.kodomonokagaku.com/upload/save_image/06301826_62bd6c3e99c71.jpg",
       ]),
       item_seller: 2,
+      item_approval_flag: false,
+      item_transaction_flag: false
+
     },
     {
       item_name: "タンス",
@@ -61,7 +67,11 @@ exports.seed = async function (knex) {
         "https://www.rafuju.jp/upload/save_image/r-049774/IMG_0009.jpg",
         "https://img.dinos.co.jp/kp/defaultMall/images/goods/C11/0232/etc/763419c1.jpg?Mode=main2",
       ]),
+
       item_seller: 3,
+      item_approval_flag: false,
+      item_transaction_flag: false
+
     },
   ]);
 };

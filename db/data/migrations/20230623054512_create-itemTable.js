@@ -18,6 +18,9 @@ exports.up = function (knex) {
     table.text("item_img").notNullable();
     table.integer("item_seller").notNullable();
     table.foreign("item_seller").references("user.id");
+    table.boolean("item_transaction_flag").notNullable();
+    table.boolean("item_approval_flag").notNullable();
+
   });
 };
 

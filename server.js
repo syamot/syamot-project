@@ -17,7 +17,11 @@ app.get("/userAllData", async (req, res) => {
   const allUsers = await knex.select("*").from("user");
   res.send(allUsers);
 });
-
+app.get("/user/:name", async (req, res) => {
+  const name = req.params.name
+  const allUsers = await knex.select("*").from("user").where("user_name", name);
+  res.send(allUsers);
+});
 app.get("/itemAllData", async (req, res) => {
   const allItems = await knex.select("*").from("items");
   res.set("content-type", "application/json").status(200).send(allItems);
@@ -104,9 +108,32 @@ app.post("/addItems", async (req, res) => {
     item_deadline: item_deadline,
     item_img: item_img,
     item_seller: item_seller,
+    item_transaction_flag: false,
+    item_approval_flag: false
   };
   await knex("items").insert(itemInfo);
   res.status(200).send("アイテム登録完了");
+});
+
+app.post("/addChat", async (req, res) => {
+  const {
+    transaction_date,
+    transaction_flag,
+    item_id,
+    user_id,
+    message,
+  } = req.body;
+
+  console.log(req.body);
+  const addItemObj = {
+    transaction_date: transaction_date,
+    transaction_flag: transaction_flag,
+    item_id: item_id,
+    user_id: user_id,
+    message: message,
+  };
+  await knex("chat").insert(addItemObj);
+  res.send("チャット送信完了");
 });
 
 // ステータス更新
@@ -116,17 +143,53 @@ app.put("/putItemStatus", async (req, res) => {
   try {
     await knex("items")
       .update({
-        item_status: "売却済",
+        item_status: "取引中",
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
+    console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
     res.status(500);
   }
 });
-
+// 承認フラグ更新
+app.put("/putApprovalFlag", async (req, res) => {
+  console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        item_approval_flag: true,
+      })
+      .where("id", obj.id);
+    const result = await knex.select("*").from("items");
+    console.log(result);
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+// 取引フラグ更新
+app.put("/putTransactionFlag", async (req, res) => {
+  console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        item_transaction_flag: true,
+      })
+      .where("id", obj.id);
+    const result = await knex.select("*").from("items");
+    console.log(result);
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./build/index.html"));
 });

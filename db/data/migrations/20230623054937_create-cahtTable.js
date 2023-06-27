@@ -11,6 +11,7 @@ exports.up = function (knex) {
         table.integer("user_id").notNullable();
         table.foreign("item_id").references("items.id");
         table.foreign("user_id").references("user.id");
+        table.text("message").notNullable()
     })
 };
 
