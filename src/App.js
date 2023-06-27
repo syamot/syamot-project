@@ -10,7 +10,7 @@ import Swipe from "./components/Swipe";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SignUp2 } from "./components/SignUp2";
-const URL = "http://localhost:8000";
+const URL = "https://syamot.onrender.com";
 // process.env.NODE_ENV === "production"
 //   ? "https://syamot.onrender.com"
 //   : "http://localhost:8000";
