@@ -3,6 +3,9 @@ const knex = require("./db/knex");
 const app = express();
 const PORT = process.env.PORT || 8000;
 const path = require("path");
+const AWS = require("aws-sdk");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
 
 app.use(express.static("build"));
 app.use(express.json());
@@ -18,7 +21,7 @@ app.get("/userAllData", async (req, res) => {
   res.send(allUsers);
 });
 app.get("/user/:name", async (req, res) => {
-  const name = req.params.name
+  const name = req.params.name;
   const allUsers = await knex.select("*").from("user").where("user_name", name);
   res.send(allUsers);
 });
@@ -26,7 +29,10 @@ app.get("/itemAllData", async (req, res) => {
   const allItems = await knex.select("*").from("items");
   res.set("content-type", "application/json").status(200).send(allItems);
 });
-
+app.get("/chatAllData", async (req, res) => {
+  const allChat = await knex.select("*").from("chat");
+  res.send(allChat);
+});
 app.get("/test", (req, res) => {
   res.send("接続完了しました。");
 });
@@ -109,20 +115,15 @@ app.post("/addItems", async (req, res) => {
     item_img: item_img,
     item_seller: item_seller,
     item_transaction_flag: false,
-    item_approval_flag: false
+    item_approval_flag: false,
   };
   await knex("items").insert(itemInfo);
   res.status(200).send("アイテム登録完了");
 });
 
 app.post("/addChat", async (req, res) => {
-  const {
-    transaction_date,
-    transaction_flag,
-    item_id,
-    user_id,
-    message,
-  } = req.body;
+  const { transaction_date, transaction_flag, item_id, user_id, message } =
+    req.body;
 
   console.log(req.body);
   const addItemObj = {
@@ -144,6 +145,24 @@ app.put("/putItemStatus", async (req, res) => {
     await knex("items")
       .update({
         item_status: "取引中",
+      })
+      .where("id", obj.id);
+    const result = await knex.select("*").from("items");
+    console.log(result);
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+// 完了ステータス更新
+app.put("/putCompleteStatus", async (req, res) => {
+  console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        item_status: "取引終了",
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
@@ -192,6 +211,104 @@ app.put("/putTransactionFlag", async (req, res) => {
 });
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./build/index.html"));
+});
+
+// S3 を操作するためのインスタンスを生成
+const s3Client = new AWS.S3({
+  accessKeyId: `AKIA5EAHTT4DNK7LZGBU`,
+  secretAccessKey: `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`,
+  region: `us-east-1`,
+});
+
+// multerの設定;
+const upload = multer({
+  storage: multerS3({
+    s3: s3Client,
+    bucket: "saito3110",
+    acl: "public-read",
+    metadata: (req, file, cb) => {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: (req, file, cb) => {
+      cb(null, Date.now().toString() + ".jpg");
+    },
+    contentType: multerS3.AUTO_CONTENT_TYPE, // ファイルのContent-Typeを自動設定
+  }),
+});
+
+/**
+ * POST /upload
+ */
+app.post("/upload", upload.single("file"), (req, res) => {
+  const fileUrl = req.file.location;
+  res.send({ fileUrl });
+});
+
+/**
+ * GET /download?filename=***
+ */
+app.get("/download", (req, res) => {
+  const { filename } = req.query;
+
+  const params = {
+    Bucket: "saito3110",
+    Key: filename,
+  };
+
+  // ブラウザにダウンロードダイアログを表示させるための
+  // レスポンスヘッダーを付与
+  res.attachment(filename);
+
+  // S3からダウンロードしたファイルの内容を
+  // ストリームオブジェクトに変換し、レスポンスに書き込む
+  s3Client
+    .getObject(params)
+    .createReadStream()
+    .on("error", (err) => {
+      res.status(500).send({ error: err });
+    })
+    .pipe(res);
+});
+
+/**
+ * GET /list
+ */
+app.get("/list", (req, res) => {
+  const params = {
+    Bucket: "saito3110",
+  };
+
+  s3Client.listObjects(params, (err, data) => {
+    if (err) {
+      res.status(500).send({ error: err });
+      return;
+    }
+
+    const files = data.Contents.map((file) => file.Key);
+    res.send({ files });
+  });
+});
+
+/**
+ * GET /display?filename=***
+ */
+app.get("/display", (req, res) => {
+  const { filename } = req.query;
+
+  const params = {
+    Bucket: "saito3110",
+    Key: filename,
+  };
+
+  s3Client.getObject(params, (err, data) => {
+    if (err) {
+      res.status(500).send({ error: err });
+      return;
+    }
+
+    res.setHeader("Content-Type", data.ContentType);
+    res.send(data.Body);
+  });
 });
 
 app.listen(PORT, () => {

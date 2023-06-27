@@ -10,7 +10,7 @@ import Swipe from "./components/Swipe";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SignUp2 } from "./components/SignUp2";
-const URL = "http://localhost:8000"
+const URL = "http://localhost:8000";
 // process.env.NODE_ENV === "production"
 //   ? "https://syamot.onrender.com"
 //   : "http://localhost:8000";
@@ -22,7 +22,7 @@ function App() {
   const [selectImg, setSelectImg] = useState({});
   useEffect(() => {
     console.log(selectImg);
-  }, [selectImg])
+  }, [selectImg]);
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
@@ -48,16 +48,16 @@ function App() {
       setItems(itemData);
     };
     asyncPkg();
-    console.log(users)
+    console.log(users);
   }, [selectFlag]);
 
   // 新規登録ユーザー情報
-  const [addUser, setAdduser] = useState({})
+  const [addUser, setAdduser] = useState({});
   const [message, setMessage] = useState(""); // 「お問い合わせ内容」の部分
 
   useEffect(() => {
     console.log(addUser);
-  }, [addUser])
+  }, [addUser]);
   useEffect(() => {
     console.log(message);
   }, [message]);
@@ -73,76 +73,77 @@ function App() {
           setSelectImg={setSelectImg}
           getAllItems={getAllItems}
         />
-      )
-        : selectFlag === "signUp" ? (
-          <SignUp
+      ) : selectFlag === "signUp" ? (
+        <SignUp
+          setSelectFlag={setSelectFlag}
+          items={items}
+          setItems={setItems}
+          setSelectImg={setSelectImg}
+          getAllItems={getAllItems}
+          setAdduser={setAdduser}
+          URL={URL}
+          setMessage={setMessage}
+        />
+      ) : selectFlag === "signUp2" ? (
+        <SignUp2
+          setSelectFlag={setSelectFlag}
+          addUser={addUser}
+          setAdduser={setAdduser}
+          setSelectImg={setSelectImg}
+          getAllItems={getAllItems}
+          URL={URL}
+          setMessage={setMessage}
+          message={message}
+        />
+      ) : selectFlag === "list" ? (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <List
             setSelectFlag={setSelectFlag}
             items={items}
             setItems={setItems}
             setSelectImg={setSelectImg}
             getAllItems={getAllItems}
-            setAdduser={setAdduser}
-            URL={URL}
-            setMessage={setMessage}
           />
-        )
-          : selectFlag === "signUp2" ? (
-            <SignUp2
-              setSelectFlag={setSelectFlag}
-              addUser={addUser}
-              setAdduser={setAdduser}
-              setSelectImg={setSelectImg}
-              getAllItems={getAllItems}
-              URL={URL}
-              setMessage={setMessage}
-              message={message}
-            />
-          )
-            : selectFlag === "list" ? (
-              <>
-                <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-                <List
-                  setSelectFlag={setSelectFlag}
-                  items={items}
-                  setItems={setItems}
-                  setSelectImg={setSelectImg}
-                  getAllItems={getAllItems}
-                />
-                <Footer setSelectFlag={setSelectFlag} />
-              </>
-            ) : selectFlag === "card" ? (
-              <>
-                <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-                <Card
-                  setSelectFlag={setSelectFlag}
-                  selectImg={selectImg}
-                  users={users}
-                  URL={URL}
-                />
-                <Footer setSelectFlag={setSelectFlag} />
-              </>
-            ) : selectFlag === "transaction" ? (
-              <>
-                <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-                <Transaction
-                  setSelectFlag={setSelectFlag}
-                  selectImg={selectImg}
-                  users={users}
-                  URL={URL}
-                  getAllItems={getAllItems}
-                  setItems={setItems}
-                />
-                <Footer setSelectFlag={setSelectFlag} />
-              </>
-            ) : selectFlag === "swipe" ? (
-              <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
-            ) : (
-              <>
-                <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-                <ItemPost setSelectFlag={setSelectFlag} URL={URL} />
-                <Footer setSelectFlag={setSelectFlag} />
-              </>
-            )}
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      ) : selectFlag === "card" ? (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Card
+            setSelectFlag={setSelectFlag}
+            selectImg={selectImg}
+            users={users}
+            URL={URL}
+          />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      ) : selectFlag === "transaction" ? (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Transaction
+            setSelectFlag={setSelectFlag}
+            selectImg={selectImg}
+            users={users}
+            URL={URL}
+            getAllItems={getAllItems}
+            setItems={setItems}
+          />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      ) : selectFlag === "swipe" ? (
+        <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
+      ) : (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <ItemPost
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            URL={URL}
+          />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      )}
 
       {/* <Footer setSelectFlag={setSelectFlag} /> */}
     </>

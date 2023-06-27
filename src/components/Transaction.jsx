@@ -9,6 +9,8 @@ const Transaction = (props) => {
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [chatData, setChatData] = useState([]);
+
   useEffect(() => {
     (async () => {
       const userName = localStorage.getItem("user");
@@ -16,8 +18,15 @@ const Transaction = (props) => {
       const data = await fetch(URL + "/user/" + userName);
       const jsonData = await data.json();
       setUserData(jsonData);
+      // チャット情報を取得
+      const chat = await fetch(URL + "/chatAllData");
+      const chatJson = await chat.json();
+      setChatData(chatJson);
     })();
   }, []);
+  useEffect(() => {
+    console.log(chatData);
+  }, [chatData]);
   useEffect(() => {
     console.log(userData);
   }, [userData]);
@@ -83,6 +92,18 @@ const Transaction = (props) => {
           console.log(itemData);
         };
         asyncPkg();
+        if (
+          selectImg.item_transaction_flag === true &&
+          selectImg.item_transaction_flag === true
+        ) {
+          await fetch(URL + "/putCompleteStatus", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(selectImg),
+          });
+        }
       } catch (error) {
         console.log(error);
       }

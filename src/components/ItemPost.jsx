@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style/post.css";
 
+let imagePathArr;
 const ItemPost = (props) => {
   const { setSelectFlag, URL } = props;
   const [imgPathArr, setImgPathArr] = useState([]);
@@ -19,20 +20,26 @@ const ItemPost = (props) => {
     item_seller: 1,
   });
 
+  useEffect(() => {
+    console.log(itemObj);
+  }, [itemObj]);
+
   const resetImg = () => {
     setImgPathArr([]);
   };
+
   const setImg = (e) => {
+    imagePathArr = [];
     for (let i = 0; i < e.target.files.length; i++) {
       setImgPathArr((cur) => [
         ...cur,
         window.URL.createObjectURL(e.target.files[i]),
       ]);
+      imagePathArr.push(e.target.files[i]);
     }
   };
 
   const handleChange = (e, tag) => {
-    console.log(e.target.value);
     if (tag === "家電" || tag === "家具" || tag === "工具") {
       tag = "item_category";
     } else if (
@@ -61,23 +68,80 @@ const ItemPost = (props) => {
     setItemObj({ ...itemObj, [tag]: inputValue });
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    let postImageNum = 0;
+    const postImagePath = [];
+    const fetchPostImage = async () => {
+      const file = imagePathArr[postImageNum];
+
+      if (file === undefined || postImageNum > 3) return;
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const responseFileName = await fetch(URL + "/upload", {
+        method: "POST",
+        // headers: {
+        //   "Content-Type": "image/jpeg",
+        // },
+        body: formData,
+      })
+        .then((response) => response.json())
+
+        .catch((e) => {
+          console.error(e);
+        });
+      console.log("responseFileName", responseFileName);
+      postImagePath.push(responseFileName.fileUrl);
+      postImageNum++;
+    };
+    await fetchPostImage();
+    await fetchPostImage();
+    await fetchPostImage();
+
+    // const setImageJSON = async () => {
+    //   console.log("postImagePath", postImagePath);
+    //   const postImagePathJSON = JSON.stringify(postImagePath);
+    //   setItemObj({ ...itemObj, item_img: postImagePathJSON });
+    // };
+
     const changeStatus = async () => {
+      const testObj = itemObj;
+      testObj.item_img = JSON.stringify(postImagePath);
+      console.log("itemObj", testObj);
       try {
         await fetch(URL + "/addItems", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(itemObj),
+          body: JSON.stringify(testObj),
         });
       } catch (error) {
         console.log(error);
       }
     };
-    changeStatus();
+    await changeStatus();
+    // await changeStatus();
     setSelectFlag("list");
   };
+
+  // const setImgaaaaa = async (e) => {
+  //   const file = e.target.files[0];
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+
+  //   await fetch("http://localhost:8000/upload", {
+  //     method: "POST",
+  //     // headers: {
+  //     //   "Content-Type": "image/jpeg",
+  //     // },
+  //     body: formData,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .catch((e) => {
+  //       console.error(e);
+  //     });
 
   return (
     <>
