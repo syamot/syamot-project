@@ -6,7 +6,9 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-
+require("dotenv").config({
+  // path: "./.env",
+});
 app.use(express.static("build"));
 app.use(express.json());
 app.use((req, res, next) => {
@@ -224,7 +226,7 @@ const s3Client = new AWS.S3({
 const upload = multer({
   storage: multerS3({
     s3: s3Client,
-    Bucket: process.env.AWS_S3_BUCKET,
+    bucket: process.env.AWS_S3_BUCKET,
     acl: "public-read",
     metadata: (req, file, cb) => {
       cb(null, { fieldName: file.fieldname });
@@ -311,6 +313,7 @@ app.get("/display", (req, res) => {
   });
 });
 
+console.log(`バケット：${process.env.AWS_S3_BUCKET}`)
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
