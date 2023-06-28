@@ -13,24 +13,24 @@ const Card = (props) => {
   const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
   console.log(sellerUser);
 
-  const changeStatus = async () => {
-    if (
-      selectImg.item_status !== "売却済" ||
-      selectImg.item_status !== "取引中"
-    ) {
-      try {
-        await fetch(URL + "/putItemStatus", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(selectImg),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  // const changeStatus = async () => {
+  //   if (
+  //     selectImg.item_status !== "売却済" ||
+  //     selectImg.item_status !== "取引中"
+  //   ) {
+  //     try {
+  //       await fetch(URL + "/putItemStatus", {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(selectImg),
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
 
   return (
     <>
@@ -47,8 +47,9 @@ const Card = (props) => {
             className="cardItemTxtarea"
             defaultValue={selectImg.item_explanation}
           ></textarea>
+          <p className="cardItem">取引状況: {selectImg.item_status}</p>
           <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
-          <p className="cardItem">ステータス: {selectImg.item_status}</p>
+          <p className="cardItem">ステータス: {selectImg.item_condition}</p>
           <p className="cardItem">個数: {selectImg.item_num}</p>
           <p className="cardItem">重さ: {selectImg.item_weight}</p>
           <p className="cardItem">長さ: {selectImg.item_size_vertical}</p>
@@ -63,7 +64,7 @@ const Card = (props) => {
             className="buyBtn"
             onClick={() => {
               setSelectFlag("transaction");
-              changeStatus();
+              // changeStatus();
             }}
           >
             取引き

@@ -21,7 +21,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
   useEffect(() => {
-    console.log(selectImg);
+    console.log("selectImg#####################", selectImg);
   }, [selectImg]);
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
@@ -48,7 +48,7 @@ function App() {
       setItems(itemData);
     };
     asyncPkg();
-    console.log(users);
+    console.log(selectFlag);
   }, [selectFlag]);
 
   // 新規登録ユーザー情報
@@ -124,6 +124,7 @@ function App() {
           <Transaction
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
+            setSelectImg={setSelectImg}
             users={users}
             URL={URL}
             getAllItems={getAllItems}

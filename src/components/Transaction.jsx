@@ -5,15 +5,15 @@ import { BiMailSend } from "react-icons/bi";
 import "./style/transaction.css";
 
 const Transaction = (props) => {
-  const { selectImg, URL, getAllItems, setItems } = props;
+  const { selectImg, URL, getAllItems, setItems, setSelectImg } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
   const [userData, setUserData] = useState([]);
   const [chatData, setChatData] = useState([]);
 
   useEffect(() => {
+    const userName = localStorage.getItem("user");
     (async () => {
-      const userName = localStorage.getItem("user");
       console.log(URL + "/user/" + userName);
       const data = await fetch(URL + "/user/" + userName);
       const jsonData = await data.json();
@@ -28,7 +28,7 @@ const Transaction = (props) => {
     console.log(chatData);
   }, [chatData]);
   useEffect(() => {
-    console.log(userData);
+    console.log("userData:  ", userData);
   }, [userData]);
   const changeTxt = (e) => {
     setSendTxt(e.target.value);
@@ -60,6 +60,11 @@ const Transaction = (props) => {
           console.log(itemData);
         };
         asyncPkg();
+        setSelectImg({
+          ...selectImg,
+          item_approval_flag: true,
+        });
+        changeStatus(); // 取引中に変更
       } catch (error) {
         console.log(error);
       }
@@ -92,10 +97,20 @@ const Transaction = (props) => {
           console.log(itemData);
         };
         asyncPkg();
+        console.log("＃＃＃＃＃＃＃確認＃＃＃＃＃＃＃＃＃＃＃＃");
+        console.log(
+          selectImg.item_approval_flag,
+          selectImg.item_transaction_flag
+        );
+        setSelectImg({
+          ...selectImg,
+          item_transaction_flag: true,
+        });
         if (
-          selectImg.item_transaction_flag === true &&
+          selectImg.item_approval_flag === true &&
           selectImg.item_transaction_flag === true
         ) {
+          console.log("取引完了処理スタート");
           await fetch(URL + "/putCompleteStatus", {
             method: "PUT",
             headers: {
@@ -176,6 +191,27 @@ const Transaction = (props) => {
     }
   };
 
+  const changeStatus = async () => {
+    if (
+      selectImg.item_status !== "取引終了" ||
+      selectImg.item_status !== "取引中"
+    ) {
+      try {
+        await fetch(URL + "/putItemStatus", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectImg),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  // console.log("userData.user_name ", userData[0].user_name);
+
   return (
     <>
       <div className="titleBrock">
@@ -215,12 +251,24 @@ const Transaction = (props) => {
         <BiMailSend className="sendBtn" onClick={createMessage} />
       </div>
       <div className="footerBrock">
-        <button className="approvalBtn" onClick={() => approval()}>
-          取引承認
-        </button>
-        <button className="completeBtn" onClick={() => complete()}>
-          受取連絡
-        </button>
+        {userData.length !== 0 &&
+          (userData[0].id === selectImg.item_seller ? (
+            <button
+              className="approvalBtn"
+              disabled={selectImg.item_approval_flag}
+              onClick={() => approval()}
+            >
+              取引承認
+            </button>
+          ) : (
+            <button
+              className="completeBtn"
+              disabled={selectImg.item_transaction_flag}
+              onClick={() => complete()}
+            >
+              受取連絡
+            </button>
+          ))}
       </div>
     </>
   );

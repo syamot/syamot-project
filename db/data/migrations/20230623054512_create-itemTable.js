@@ -9,6 +9,7 @@ exports.up = function (knex) {
     table.string("item_category", 100).notNullable();
     table.text("item_explanation").notNullable();
     table.string("item_status", 100).notNullable();
+    table.string("item_condition", 100).notNullable();
     table.integer("item_num").notNullable();
     table.float("item_weight").notNullable();
     table.integer("item_size_vertical").notNullable();

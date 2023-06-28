@@ -12,7 +12,8 @@ exports.seed = async function (knex) {
       item_category: "家電",
       item_explanation:
         "この商品は2022年に当たったもので、使う場面がなかったので一度も使っていません。どなたか必要な方がいましたらお譲りします。",
-      item_status: "新品",
+      item_status: "在庫あり",
+      item_condition: "新品",
       item_num: 1,
       item_weight: 0.5,
       item_size_vertical: 1000,
@@ -20,9 +21,9 @@ exports.seed = async function (knex) {
       item_size_height: 1500,
       item_deadline: "2022-01-01",
       item_img: JSON.stringify([
-        "https://kadenfan.hitachi.co.jp/rei/assets/img/common/R-WXC74T.png",
-        "https://asset.watch.impress.co.jp/img/kdw/docs/1473/520/1_l.jpg",
-        "https://www.lg.com/jp/images/refrigerators/GR-Q23FGNGL/gallery/GalleryImages_1100x730_02.jpg",
+        "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+        "https://images.unsplash.com/photo-1585338667391-5b279a0c5eb8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+        "https://images.unsplash.com/photo-1562919479-b0c98b0d7f8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=706&q=80",
       ]),
       item_seller: 1,
       item_approval_flag: false,
@@ -33,7 +34,8 @@ exports.seed = async function (knex) {
       item_category: "家電",
       item_explanation:
         "この商品は2022年に当たったもので、使う場面がなかったので一度も使っていません。どなたか必要な方がいましたらお譲りします。",
-      item_status: "傷あり",
+      item_status: "在庫あり",
+      item_condition: "新品",
       item_num: 1,
       item_weight: 1.5,
       item_size_vertical: 1000,
@@ -41,9 +43,9 @@ exports.seed = async function (knex) {
       item_size_height: 1500,
       item_deadline: "2020-05-23",
       item_img: JSON.stringify([
-        "https://static.mercdn.net/item/detail/orig/photos/m36706401804_1.jpg",
-        "https://static.mercdn.net/item/detail/orig/photos/m83279631488_1.jpg",
-        "https://shop.kodomonokagaku.com/upload/save_image/06301826_62bd6c3e99c71.jpg",
+        "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80",
+        "https://images.unsplash.com/photo-1558888401-3cc1de77652d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80",
+        "https://images.unsplash.com/photo-1579353174740-9e4e39428d6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
       ]),
       item_seller: 2,
       item_approval_flag: false,
@@ -55,7 +57,8 @@ exports.seed = async function (knex) {
       item_category: "家具",
       item_explanation:
         "この商品は2022年に当たったもので、使う場面がなかったので一度も使っていません。どなたか必要な方がいましたらお譲りします。",
-      item_status: "かなり傷がある",
+      item_status: "在庫あり",
+      item_condition: "新品",
       item_num: 1,
       item_weight: 1,
       item_size_vertical: 1000,
@@ -63,9 +66,9 @@ exports.seed = async function (knex) {
       item_size_height: 1500,
       item_deadline: "2000-10-30",
       item_img: JSON.stringify([
-        "https://www.cecile.co.jp/cmdty/img/31209/512/31209XG-1431_D1.jpg",
-        "https://www.rafuju.jp/upload/save_image/r-049774/IMG_0009.jpg",
-        "https://img.dinos.co.jp/kp/defaultMall/images/goods/C11/0232/etc/763419c1.jpg?Mode=main2",
+        "https://images.unsplash.com/photo-1558997519-83ea9252edf8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+        "https://images.unsplash.com/photo-1609709295948-17d77cb2a69b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+        "https://images.unsplash.com/photo-1453486030486-0a5ffcd82cd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=663&q=80",
       ]),
 
       item_seller: 3,
