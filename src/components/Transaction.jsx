@@ -106,19 +106,14 @@ const Transaction = (props) => {
           ...selectImg,
           item_transaction_flag: true,
         });
-        if (
-          selectImg.item_approval_flag === true &&
-          selectImg.item_transaction_flag === true
-        ) {
-          console.log("取引完了処理スタート");
-          await fetch(URL + "/putCompleteStatus", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(selectImg),
-          });
-        }
+        console.log("取引完了処理スタート");
+        await fetch(URL + "/putCompleteStatus", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectImg),
+        });
       } catch (error) {
         console.log(error);
       }
@@ -263,7 +258,9 @@ const Transaction = (props) => {
           ) : (
             <button
               className="completeBtn"
-              disabled={selectImg.item_transaction_flag}
+              disabled={
+                !selectImg.item_approval_flag || selectImg.item_transaction_flag
+              }
               onClick={() => complete()}
             >
               受取連絡

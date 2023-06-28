@@ -26,7 +26,7 @@ const Swipe = (props) => {
             src={
               selectImg.item_img[0]
                 ? selectImg.item_img[0]
-                : "http://placehold.jp/700x400.png?text=1"
+                : process.env.PUBLIC_URL + "/photo/noImage.png"
             }
             alt=""
             className="itemImage"
@@ -37,7 +37,7 @@ const Swipe = (props) => {
             src={
               selectImg.item_img[1]
                 ? selectImg.item_img[1]
-                : "http://placehold.jp/700x400.png?text=2"
+                : process.env.PUBLIC_URL + "/photo/noImage.png"
             }
             alt=""
             className="itemImage"
@@ -48,7 +48,7 @@ const Swipe = (props) => {
             src={
               selectImg.item_img[2]
                 ? selectImg.item_img[2]
-                : "http://placehold.jp/700x400.png?text=3"
+                : process.env.PUBLIC_URL + "/photo/noImage.png"
             }
             alt=""
             className="itemImage"
