@@ -10,6 +10,8 @@ import Swipe from "./components/Swipe";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SignUp2 } from "./components/SignUp2";
+import MyPage from "./components/MyPage";
+
 const URL =
   process.env.NODE_ENV === "production"
     ? "https://syamot.onrender.com"
@@ -133,8 +135,8 @@ function App() {
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
-      ) : selectFlag === "swipe" ? (
-        <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
+      ) : selectFlag === "myPage" ? (
+        <MyPage />
       ) : (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
