@@ -19,32 +19,30 @@ app.use((req, res, next) => {
 });
 
 //チャット
-const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const cors = require("cors");
-app.use(cors());
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  },
-});
+// const http = require("http");
+// const server = http.createServer(app);
+// const { Server } = require("socket.io");
+// const cors = require("cors");
+// app.use(cors());
+// const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   },
+// });
 
-//クライアントと通信
-io.on("connection", (socket) => {
-  console.log("繋がったぁぁぁぁぁあ！");
+// //クライアントと通信
+// io.on("connection", (socket) => {
+//   console.log("接続された");
 
-  //クライアントから受信
-  socket.on("chatMessage", (data) => {
-    console.log(data);
-    //クライアントへ返信
-    io.emit("received_message", data);
-  });
-});
-//
-
+//   //クライアントから受信
+//   socket.on("chatMessage", (data) => {
+//     console.log(data);
+//     //クライアントへ返信
+//     io.emit("received_message", data);
+//   });
+// });
 
 
 //User内容編集画面
@@ -111,7 +109,6 @@ app.post("/addUsers", async (req, res) => {
     registration_date,
   } = req.body;
 
-  console.log(req.body);
   const addItemObj = {
     password: password,
     user_name: user_name,
@@ -136,7 +133,6 @@ app.post("/addUsers", async (req, res) => {
 //   "item_seller": 1
 // }
 app.post("/addItems", async (req, res) => {
-  // console.log("/addItems", req.body);
   const {
     item_name,
     item_category,
@@ -178,7 +174,6 @@ app.post("/addChat", async (req, res) => {
   const { transaction_date, transaction_flag, item_id, user_id, message } =
     req.body;
 
-  // console.log(req.body);
   const addItemObj = {
     transaction_date: transaction_date,
     transaction_flag: transaction_flag,
@@ -192,7 +187,6 @@ app.post("/addChat", async (req, res) => {
 
 // ステータス更新
 app.put("/putItemStatus", async (req, res) => {
-  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -201,7 +195,6 @@ app.put("/putItemStatus", async (req, res) => {
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
-    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -210,7 +203,6 @@ app.put("/putItemStatus", async (req, res) => {
 });
 // ステータスキャンセル更新
 app.put("/putItemStatusCancel", async (req, res) => {
-  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -219,7 +211,6 @@ app.put("/putItemStatusCancel", async (req, res) => {
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
-    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -228,7 +219,6 @@ app.put("/putItemStatusCancel", async (req, res) => {
 });
 // 完了ステータス更新
 app.put("/putCompleteStatus", async (req, res) => {
-  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -237,7 +227,6 @@ app.put("/putCompleteStatus", async (req, res) => {
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
-    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -246,7 +235,6 @@ app.put("/putCompleteStatus", async (req, res) => {
 });
 // 承認フラグ更新
 app.put("/putApprovalFlag", async (req, res) => {
-  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -255,7 +243,6 @@ app.put("/putApprovalFlag", async (req, res) => {
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
-    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -264,7 +251,6 @@ app.put("/putApprovalFlag", async (req, res) => {
 });
 // 承認フラグ更新キャンセル
 app.put("/putApprovalFlagCancel", async (req, res) => {
-  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -273,7 +259,6 @@ app.put("/putApprovalFlagCancel", async (req, res) => {
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
-    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -282,7 +267,6 @@ app.put("/putApprovalFlagCancel", async (req, res) => {
 });
 // 取引フラグ更新
 app.put("/putTransactionFlag", async (req, res) => {
-  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -291,7 +275,6 @@ app.put("/putTransactionFlag", async (req, res) => {
       })
       .where("id", obj.id);
     const result = await knex.select("*").from("items");
-    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -400,10 +383,10 @@ app.get("/display", (req, res) => {
   });
 });
 
-console.log(`バケット：${process.env.AWS_S3_BUCKET}`);
-server.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
-// app.listen(PORT, () => {
+// console.log(`バケット：${process.env.AWS_S3_BUCKET}`);
+// server.listen(PORT, () => {
 //   console.log(`Example app listening on port ${PORT}`);
 // });
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});

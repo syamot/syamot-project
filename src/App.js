@@ -6,7 +6,6 @@ import List from "./components/List";
 import Card from "./components/Card";
 import Transaction from "./components/Transaction";
 import ItemPost from "./components/ItemPost";
-import Swipe from "./components/Swipe";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SignUp2 } from "./components/SignUp2";
@@ -30,14 +29,7 @@ function App() {
   const [oneUser, setOneUser] = useState("");
   const [userData, setUserData] = useState({});
 
-  useEffect(() => {
-    console.log("ログイン者の情報", userData)
-    console.log("ログイン者の情報", userData.id)
-  }, [userData])
 
-  useEffect(() => {
-    console.log("selectImg#####################", selectImg);
-  }, [selectImg]);
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
@@ -64,7 +56,6 @@ function App() {
       setItems(itemData);
     };
     asyncPkg();
-    console.log(selectFlag);
   }, [selectFlag]);
 
   useEffect(() => {
@@ -78,12 +69,6 @@ function App() {
   const [addUser, setAdduser] = useState({});
   const [message, setMessage] = useState(""); // 「お問い合わせ内容」の部分
 
-  useEffect(() => {
-    console.log(addUser);
-  }, [addUser]);
-  useEffect(() => {
-    console.log(message);
-  }, [message]);
   switch (selectFlag) {
     case "signIn":
       return (

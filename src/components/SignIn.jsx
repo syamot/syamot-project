@@ -13,22 +13,14 @@ const SignIn = (props) => {
     let pass = e.target.previousElementSibling;
     let user = pass.previousElementSibling;
     const foundUser = getUserByName(user.value);
-    console.log(foundUser);
     if (foundUser) {
-      console.log("ユーザーが見つかりました:", foundUser);
       // ユーザーが存在したら、パスワードを比較
-      console.log(
-        "パスワード確認結果：",
-        sha512(pass.value) === foundUser.password
-      );
       if (sha512(pass.value) === foundUser.password) {
-        console.log("パスワードが一致しました");
         localStorage.setItem("user", user.value);
         setSelectFlag("list");
         // 成功したらユーザー情報を格納する
         const userName = localStorage.getItem("user");
         (async () => {
-          console.log(URL + "/user/" + userName);
           const data = await fetch(URL + "/user/" + userName);
           const jsonData = await data.json();
           setUserData(jsonData[0]);

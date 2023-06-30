@@ -24,17 +24,12 @@ const ItemPost = (props) => {
   useEffect(() => {
     const userName = localStorage.getItem("user");
     (async () => {
-      console.log(URL + "/user/" + userName);
       const data = await fetch(URL + "/user/" + userName);
       const jsonData = await data.json();
       // setUserData(jsonData);
       setItemObj({ ...itemObj, item_seller: Number(jsonData[0].id) });
     })();
   }, []);
-
-  useEffect(() => {
-    console.log(itemObj);
-  }, [itemObj]);
 
   const resetImg = () => {
     setImgPathArr([]);
@@ -102,7 +97,6 @@ const ItemPost = (props) => {
         .catch((e) => {
           console.error(e);
         });
-      console.log("responseFileName", responseFileName);
       postImagePath.push(responseFileName.fileUrl);
       postImageNum++;
     };
@@ -119,7 +113,6 @@ const ItemPost = (props) => {
     const changeStatus = async () => {
       const testObj = itemObj;
       testObj.item_img = JSON.stringify(postImagePath);
-      console.log("itemObj", testObj);
       try {
         await fetch(URL + "/addItems", {
           method: "POST",
