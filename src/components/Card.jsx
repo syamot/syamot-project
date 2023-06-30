@@ -6,7 +6,7 @@ import Swipe from "./Swipe";
 
 //詳細情報ページ
 const Card = (props) => {
-  const { setSelectFlag, selectImg, users, oneUser, setOneUser } = props;
+  const { setSelectFlag, selectImg, users, oneUser, setOneUser, URL } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
   const date = new Date(dateString);
@@ -15,17 +15,39 @@ const Card = (props) => {
 
   const changeHeart = () => {
     console.log("ハートが押されました。");
+
+    const objOneUser = oneUser;
+    console.log("objOneUser", objOneUser);
     if (oneUser.favorite.includes(selectImg.id)) {
       setOneUser((prevState) => ({
         ...prevState,
         favorite: prevState.favorite.filter((item) => item !== selectImg.id),
       }));
+      objOneUser.favorite = objOneUser.favorite.filter((elem) => {
+        console.log("elem", elem);
+        console.log("elem", typeof elem);
+        console.log("selectImg.id", selectImg.id);
+        console.log("selectImg.id", typeof selectImg.id);
+        return elem !== selectImg.id;
+      });
     } else {
       setOneUser((prevState) => ({
         ...prevState,
         favorite: [...prevState.favorite, selectImg.id],
       }));
+      objOneUser.favorite.push(selectImg.id);
     }
+    console.log(objOneUser);
+    const postUpDataItem = async () => {
+      await fetch(URL + "/favoriteItems", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(objOneUser),
+      });
+    };
+    postUpDataItem();
   };
 
   return (

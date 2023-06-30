@@ -80,6 +80,21 @@ app.put("/buyer", async (req, res) => {
     res.status(500);
   }
 });
+app.put("/favoriteItems", async (req, res) => {
+  console.log("sfsdfafewnajkfbwaeijfw", req.body);
+  const obj = req.body;
+  try {
+    await knex("user")
+      .update({
+        favorite: JSON.stringify(obj.favorite),
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
 
 //ここまで
 
