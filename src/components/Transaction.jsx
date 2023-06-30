@@ -296,7 +296,10 @@ const Transaction = (props) => {
       ]);
       setSendTxt("");
     }
-    socket.emit("chatMessage", "送ってみた");
+    socket.emit("chatMessage", {
+      text: sendTxt,
+      user: localStorage.getItem("user"),
+    });
   };
 
   // ボタン操作によるチャットステータス送信
