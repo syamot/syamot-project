@@ -11,7 +11,7 @@ const Card = (props) => {
   const formattedDate = date.toISOString().split("T")[0];
   console.log(users);
   const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
-  console.log(sellerUser);
+  console.log("販売者の情報: ", sellerUser);
 
   return (
     <>

@@ -22,21 +22,24 @@ app.use((req, res, next) => {
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const cors = require("cors");
+app.use(cors());
 const io = new Server(server, {
   cors: {
-    origin: ["https://localhost:3000"],
+    origin: "*",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
 
-  //クライアントと通信
+//クライアントと通信
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("繋がったぁぁぁぁぁあ！");
 
   //クライアントから受信
-  socket.on("send_message", (data) => {
+  socket.on("chatMessage", (data) => {
     console.log(data);
-  //クライアントへ返信
+    //クライアントへ返信
     io.emit("received_message", data);
   });
 });
@@ -76,8 +79,8 @@ app.get("/itemAllData", async (req, res) => {
 // チャットに対して、userとitemsを結合
 app.get("/chatAllData", async (req, res) => {
   const allChat = await knex.select("*").from("chat")
-  .leftJoin('user', 'user.id', 'chat.user_id')
-  .leftJoin('items', 'items.id', 'chat.item_id')
+    .leftJoin('user', 'user.id', 'chat.user_id')
+    .leftJoin('items', 'items.id', 'chat.item_id')
 
   res.send(allChat);
 });
@@ -398,6 +401,9 @@ app.get("/display", (req, res) => {
 });
 
 console.log(`バケット：${process.env.AWS_S3_BUCKET}`);
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+// app.listen(PORT, () => {
+//   console.log(`Example app listening on port ${PORT}`);
+// });

@@ -2,7 +2,7 @@ import React from "react";
 import { sha512 } from "js-sha512";
 import "./style/signIn.css";
 const SignIn = (props) => {
-  const { setSelectFlag, users } = props;
+  const { setSelectFlag, users, setUserData, URL } = props;
   // ログインユーザー名を確認する処理
   function getUserByName(userName) {
     return users.find((user) => user.user_name === userName);
@@ -25,6 +25,14 @@ const SignIn = (props) => {
         console.log("パスワードが一致しました");
         localStorage.setItem("user", user.value);
         setSelectFlag("list");
+        // 成功したらユーザー情報を格納する
+        const userName = localStorage.getItem("user");
+        (async () => {
+          console.log(URL + "/user/" + userName);
+          const data = await fetch(URL + "/user/" + userName);
+          const jsonData = await data.json();
+          setUserData(jsonData[0]);
+        })();
       } else {
         console.log("パスワードが違います");
       }

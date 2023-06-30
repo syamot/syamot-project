@@ -1,33 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BiMailSend } from "react-icons/bi";
-// import io from "socket.io-client";
-// const socket = io("http://localhost:8000");
-
 import "./style/transaction.css";
+import io from "socket.io-client";
 
 const Transaction = (props) => {
-  const { selectImg, URL, getAllItems, setItems, setSelectImg } = props;
+  const {
+    selectImg,
+    URL,
+    getAllItems,
+    setItems,
+    setSelectImg,
+    userData,
+    setUserData,
+  } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
-  const [userData, setUserData] = useState({});
   const [chatData, setChatData] = useState([]);
 
+  const socket = io("http://localhost:8000");
+  socket.on("connect", () => {
+    console.log(`socket.connectを出力`);
+    console.log(socket.connect()); // サーバに接続できたかどうかを表示
+  });
+  socket.on("received_message", (data) => {
+    console.log("受信＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝", data);
+  });
+
   useEffect(() => {
-    const userName = localStorage.getItem("user");
     (async () => {
-      console.log(URL + "/user/" + userName);
-      const data = await fetch(URL + "/user/" + userName);
-      const jsonData = await data.json();
-      setUserData(jsonData[0]);
-    })();
-    (async()=>{
       // チャット情報を取得
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      const filterChat = chatJson.filter((e1)=> e1.item_id === selectImg.id).filter((e2)=> e2.user_id === userData.id)
+      const filterChat = chatJson
+        .filter((e1) => e1.item_id === selectImg.id)
+        .filter(
+          (e2) =>
+            e2.user_id === userData.id ||
+            e2.item_seller === selectImg.item_seller
+        );
       setChatData(filterChat);
-    })()
+    })();
   }, []);
 
   useEffect(() => {
@@ -51,6 +64,7 @@ const Transaction = (props) => {
       existMessage.push({ text: chatObj.message, user: chatObj.user_name });
       console.log("existMessage:", existMessage);
       setMessages(existMessage);
+      return console.log("既存メッセージ内容表示完了");
     });
     // console.log("chatDataElm:", chatObj.message);
   }, [chatData]);
@@ -259,7 +273,7 @@ const Transaction = (props) => {
         transaction_date: getCurrentTime(),
         transaction_flag: transaction_flag,
         item_id: selectImg.id,
-        user_id: userData[0].id,
+        user_id: userData.id,
         message: sendTxt,
       };
       try {
@@ -282,6 +296,7 @@ const Transaction = (props) => {
       ]);
       setSendTxt("");
     }
+    socket.emit("chatMessage", "送ってみた");
   };
 
   // ボタン操作によるチャットステータス送信
@@ -307,7 +322,7 @@ const Transaction = (props) => {
         transaction_date: getCurrentTime(),
         transaction_flag: transaction_flag,
         item_id: selectImg.id,
-        user_id: userData[0].id,
+        user_id: userData.id,
         message: message,
       };
       try {
@@ -379,14 +394,18 @@ const Transaction = (props) => {
       </div>
       <div className="transMainBrock">
         {messages.map((message, index) => {
-          if (message.user === "approve" || message.text==="承認完了" || message.text==="承認キャンセル"|| message.text==="受取完了") {
+          if (
+            message.user === "approve" ||
+            message.text === "承認完了" ||
+            message.text === "承認キャンセル" ||
+            message.text === "受取完了"
+          ) {
             return (
               <div key={index} className="messageBlock2">
                 <p className="messageContent">{message.text}</p>
               </div>
             );
-          } 
-          else if (message.user === localStorage.getItem("user")) {
+          } else if (message.user === localStorage.getItem("user")) {
             return (
               <div key={index} className="messageBlock">
                 <p className="messageContent">{message.text}</p>
@@ -412,7 +431,7 @@ const Transaction = (props) => {
       </div>
       <div className="footerBrock">
         {userData.length !== 0 &&
-          (userData[0].id === selectImg.item_seller ? (
+          (userData.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
               <button
                 className="approvalBtn"

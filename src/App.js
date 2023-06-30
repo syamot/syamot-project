@@ -28,6 +28,13 @@ function App() {
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
   const [oneUser, setOneUser] = useState("");
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    console.log("ログイン者の情報", userData)
+    console.log("ログイン者の情報", userData.id)
+  }, [userData])
+
   useEffect(() => {
     console.log("selectImg#####################", selectImg);
   }, [selectImg]);
@@ -88,6 +95,9 @@ function App() {
             setItems={setItems}
             setSelectImg={setSelectImg}
             getAllItems={getAllItems}
+            userData={userData}
+            setUserData={setUserData}
+            URL={URL}
           />
         </>
       );
@@ -160,6 +170,8 @@ function App() {
             URL={URL}
             getAllItems={getAllItems}
             setItems={setItems}
+            userData={userData}
+            setUserData={setUserData}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

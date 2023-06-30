@@ -6,18 +6,7 @@ function List(props) {
   const clickImg = (e) => {
     setSelectImg(items[e.target.id]);
   };
-  // useEffect(() => {
-  //   let itemData;
-  //   const asyncPkg = async () => {
-  //     //Itemをバックからとる
-  //     itemData = await getAllItems();
-  //     itemData.forEach((elem) => {
-  //       elem.item_img = JSON.parse(elem.item_img);
-  //     });
-  //     setItems(itemData);
-  //   };
-  //   asyncPkg();
-  // });
+
   return (
     <div className="mainBrock-list">
       <ul className="image-list">
