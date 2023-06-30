@@ -27,7 +27,7 @@ exports.seed = async function (knex) {
       ]),
       item_seller: 1,
       item_approval_flag: false,
-      item_transaction_flag: false
+      item_transaction_flag: false,
     },
     {
       item_name: "テレビ",
@@ -49,8 +49,7 @@ exports.seed = async function (knex) {
       ]),
       item_seller: 2,
       item_approval_flag: false,
-      item_transaction_flag: false
-
+      item_transaction_flag: false,
     },
     {
       item_name: "タンス",
@@ -73,8 +72,7 @@ exports.seed = async function (knex) {
 
       item_seller: 3,
       item_approval_flag: false,
-      item_transaction_flag: false
-
+      item_transaction_flag: false,
     },
   ]);
 };

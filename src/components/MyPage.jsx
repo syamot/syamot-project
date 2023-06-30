@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 //まいぺ➖じ
 const MyPage = (props) => {
   const { setSelectFlag } = props;
+
   const userName = localStorage.getItem("user");
   return (
     <>
@@ -46,8 +47,9 @@ const MyPage = (props) => {
             setSelectFlag("purchaseList");
           }}
         >
-          購入リスト
+          購入履歴
         </p>
+        <p>ログアウト</p>
       </div>
     </>
   );
