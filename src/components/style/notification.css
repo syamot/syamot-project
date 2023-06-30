@@ -1,0 +1,14 @@
+.notification-box {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: fixed;
+  top: 10vh;
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
+  max-height: 81vh;
+  display: flex;
+  height: 81vh;
+  overflow-y: scroll;
+  align-items: stretch;
+}
