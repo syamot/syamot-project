@@ -1,5 +1,6 @@
 import React from "react";
 import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
 import Swipe from "./Swipe";
 
@@ -17,7 +18,7 @@ const Card = (props) => {
       <div className="mainBrock">
         <h2 className="cardTitle">{selectImg.item_name}</h2>
         <div className="imageBrock">
-          <AiFillHeart className="goodIcon" />
+          <AiOutlineHeart className="goodIcon" />
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
           <Swipe etSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>

@@ -27,9 +27,11 @@ function App() {
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
   const [oneUser, setOneUser] = useState("");
-  const [userData, setUserData] = useState({});
+  const [exhibitList, setExhibitList] = useState("");
 
-
+  useEffect(() => {
+    console.log("selectImg#####################", selectImg);
+  }, [selectImg]);
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
@@ -54,6 +56,16 @@ function App() {
       });
       setUsers(userData);
       setItems(itemData);
+
+      const index = users.findIndex(
+        (elem) => elem.user_name === localStorage.getItem("user")
+      );
+      const userItemData = itemData.filter(
+        (elem) => elem.item_seller === index
+      );
+      setExhibitList(userItemData);
+      console.log("userItemData", userItemData);
+      console.log(itemData);
     };
     asyncPkg();
   }, [selectFlag]);
@@ -194,7 +206,13 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <ExhibitionList />
+          <ExhibitionList
+            setSelectFlag={setSelectFlag}
+            items={items}
+            setSelectImg={setSelectImg}
+            exhibitList={exhibitList}
+            setExhibitList={setExhibitList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -210,7 +228,13 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <PurchaseList />
+          <PurchaseList
+            setSelectFlag={setSelectFlag}
+            items={items}
+            setSelectImg={setSelectImg}
+            exhibitList={exhibitList}
+            setExhibitList={setExhibitList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
