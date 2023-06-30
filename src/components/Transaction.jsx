@@ -24,21 +24,26 @@ const Transaction = (props) => {
       setChatData(chatJson);
     })();
   }, []);
+
   useEffect(() => {
-    console.log(chatData);
+    // console.log(chatData);
   }, [chatData]);
   useEffect(() => {
-    console.log("userData:  ", userData);
+    // console.log("userData:  ", userData);
   }, [userData]);
   const changeTxt = (e) => {
     setSendTxt(e.target.value);
   };
+
   // 取引承認処理
   const approval = async () => {
+    // 承認フラグ判定
     if (selectImg.item_approval_flag !== true) {
+      console.log("============取引承認処理=============");
       console.log("承認状況：", selectImg.item_approval_flag);
       console.log("取引状況：", selectImg.item_transaction_flag);
       try {
+        //DBのitems_TBの要素に対して「item_approval_flag: true」に変更
         await fetch(URL + "/putApprovalFlag", {
           method: "PUT",
           headers: {
@@ -46,10 +51,15 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
+        // チャットメッセージを追加
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: "承認完了", user: "approve" },
         ]);
+
+        // チャットTBを書き換え
+        createMessageStatus(false, "承認完了");
+        // Item_TBを全部取得
         let itemData;
         const asyncPkg = async () => {
           itemData = await getAllItems();
@@ -57,9 +67,11 @@ const Transaction = (props) => {
             elem.item_img = JSON.parse(elem.item_img);
           });
           setItems(itemData);
-          console.log(itemData);
+          // console.log(itemData);
         };
         asyncPkg();
+
+        // SelectImgのitem_approval_flagを変更
         setSelectImg({
           ...selectImg,
           item_approval_flag: true,
@@ -70,6 +82,55 @@ const Transaction = (props) => {
       }
     }
   };
+
+  // 取引キャンセル処理
+  const approvalCancel = async () => {
+    // 承認フラグ判定
+    if (selectImg.item_approval_flag === true) {
+      console.log("============取引キャンセル処理=============");
+      console.log("承認状況：", selectImg.item_approval_flag);
+      console.log("取引状況：", selectImg.item_transaction_flag);
+      try {
+        //DBのitems_TBの要素に対して「item_approval_flag: False」に変更
+        await fetch(URL + "/putApprovalFlagCancel", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectImg),
+        });
+        // チャットメッセージを追加
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: "承認キャンセル", user: "approve" },
+        ]);
+
+        // チャットTBを書き換え
+        createMessageStatus(false, "承認キャンセル");
+        // Item_TBを全部取得
+        let itemData;
+        const asyncPkg = async () => {
+          itemData = await getAllItems();
+          itemData.forEach((elem) => {
+            elem.item_img = JSON.parse(elem.item_img);
+          });
+          setItems(itemData);
+          // console.log(itemData);
+        };
+        asyncPkg();
+
+        // SelectImgのitem_approval_flagを変更
+        setSelectImg({
+          ...selectImg,
+          item_approval_flag: false,
+        });
+        changeStatusCancel(); // 在庫ありに変更
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   // 取引完了処理
   const complete = async () => {
     if (selectImg.item_transaction_flag !== true) {
@@ -85,8 +146,11 @@ const Transaction = (props) => {
         });
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: "受取完了", user: "approve" },
+          { text: "取引完了", user: "approve" },
         ]);
+
+        // チャットTBを書き換え
+        createMessageStatus(true, "取引完了");
         let itemData;
         const asyncPkg = async () => {
           itemData = await getAllItems();
@@ -94,19 +158,19 @@ const Transaction = (props) => {
             elem.item_img = JSON.parse(elem.item_img);
           });
           setItems(itemData);
-          console.log(itemData);
+          // console.log(itemData);
         };
         asyncPkg();
-        console.log("＃＃＃＃＃＃＃確認＃＃＃＃＃＃＃＃＃＃＃＃");
-        console.log(
-          selectImg.item_approval_flag,
-          selectImg.item_transaction_flag
-        );
+        // console.log("＃＃＃＃＃＃＃確認＃＃＃＃＃＃＃＃＃＃＃＃");
+        // console.log(
+        //   selectImg.item_approval_flag,
+        //   selectImg.item_transaction_flag
+        // );
         setSelectImg({
           ...selectImg,
           item_transaction_flag: true,
         });
-        console.log("取引完了処理スタート");
+        // console.log("取引完了処理スタート");
         await fetch(URL + "/putCompleteStatus", {
           method: "PUT",
           headers: {
@@ -134,7 +198,7 @@ const Transaction = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(sendTxt);
+    // console.log(sendTxt);
   }, [sendTxt]);
 
   //   今の日付を確認する
@@ -166,6 +230,7 @@ const Transaction = (props) => {
         message: sendTxt,
       };
       try {
+        // チャットTBに書き換え
         await fetch(URL + "/addChat", {
           method: "POST",
           headers: {
@@ -186,6 +251,55 @@ const Transaction = (props) => {
     }
   };
 
+  // ボタン操作によるチャットステータス送信
+  const createMessageStatus = async (transaction_flag, message) => {
+    // let transaction_flag = false;
+    // 取引完了していたら処理しない
+    if (
+      !(
+        selectImg.item_approval_flag === true &&
+        selectImg.item_transaction_flag === true
+      )
+    ) {
+      // 処理が完了してたらフラグをtrueに設定
+      // let message = "承認完了";
+      // if (
+      //   selectImg.item_approval_flag === true &&
+      //   selectImg.item_transaction_flag === false
+      // ) {
+      //   message = "受取完了";
+      //   transaction_flag = true;
+      // }
+      const obj = {
+        transaction_date: getCurrentTime(),
+        transaction_flag: transaction_flag,
+        item_id: selectImg.id,
+        user_id: userData[0].id,
+        message: message,
+      };
+      try {
+        // チャットTBに書き換え
+        await fetch(URL + "/addChat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        });
+        console.log("ボタンステータス変更チャットが送信されました");
+      } catch (error) {
+        console.log(error);
+      }
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: sendTxt, user: localStorage.getItem("user") },
+      ]);
+      setSendTxt("");
+    }
+  };
+
+  //ステータスを取引中に変更
   const changeStatus = async () => {
     if (
       selectImg.item_status !== "取引終了" ||
@@ -193,6 +307,23 @@ const Transaction = (props) => {
     ) {
       try {
         await fetch(URL + "/putItemStatus", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectImg),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  //取引中をキャンセルして、在庫ありに変更
+  const changeStatusCancel = async () => {
+    if (selectImg.item_status === "取引中") {
+      try {
+        await fetch(URL + "/putItemStatusCancel", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -248,13 +379,25 @@ const Transaction = (props) => {
       <div className="footerBrock">
         {userData.length !== 0 &&
           (userData[0].id === selectImg.item_seller ? (
-            <button
-              className="approvalBtn"
-              disabled={selectImg.item_approval_flag}
-              onClick={() => approval()}
-            >
-              取引承認
-            </button>
+            selectImg.item_approval_flag === false ? (
+              <button
+                className="approvalBtn"
+                disabled={selectImg.item_approval_flag}
+                onClick={() => approval()}
+              >
+                取引承認
+              </button>
+            ) : (
+              <>
+                <button
+                  className="approvalBtn"
+                  disabled={!selectImg.item_approval_flag}
+                  onClick={() => approvalCancel()}
+                >
+                  取引キャンセル
+                </button>
+              </>
+            )
           ) : (
             <button
               className="completeBtn"
