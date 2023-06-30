@@ -11,6 +11,11 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SignUp2 } from "./components/SignUp2";
 import MyPage from "./components/MyPage";
+import Profile from "./components/Profile";
+import Notification from "./components/Notification";
+import ExhibitionList from "./components/ExhibitionList";
+import Favorite from "./components/Favorite";
+import PurchaseList from "./components/PurchaseList";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -22,6 +27,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
+  const [oneUser, setOneUser] = useState("");
   useEffect(() => {
     console.log("selectImg#####################", selectImg);
   }, [selectImg]);
@@ -54,6 +60,13 @@ function App() {
     console.log(selectFlag);
   }, [selectFlag]);
 
+  useEffect(() => {
+    const index = users.findIndex(
+      (elem) => elem.user_name === localStorage.getItem("user")
+    );
+    setOneUser(users[index]);
+  }, [users]);
+
   // 新規登録ユーザー情報
   const [addUser, setAdduser] = useState({});
   const [message, setMessage] = useState(""); // 「お問い合わせ内容」の部分
@@ -64,41 +77,52 @@ function App() {
   useEffect(() => {
     console.log(message);
   }, [message]);
-  return (
-    <>
-      {/* <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} /> */}
-      {selectFlag === "signIn" ? (
-        <SignIn
-          setSelectFlag={setSelectFlag}
-          users={users}
-          items={items}
-          setItems={setItems}
-          setSelectImg={setSelectImg}
-          getAllItems={getAllItems}
-        />
-      ) : selectFlag === "signUp" ? (
-        <SignUp
-          setSelectFlag={setSelectFlag}
-          items={items}
-          setItems={setItems}
-          setSelectImg={setSelectImg}
-          getAllItems={getAllItems}
-          setAdduser={setAdduser}
-          URL={URL}
-          setMessage={setMessage}
-        />
-      ) : selectFlag === "signUp2" ? (
-        <SignUp2
-          setSelectFlag={setSelectFlag}
-          addUser={addUser}
-          setAdduser={setAdduser}
-          setSelectImg={setSelectImg}
-          getAllItems={getAllItems}
-          URL={URL}
-          setMessage={setMessage}
-          message={message}
-        />
-      ) : selectFlag === "list" ? (
+  switch (selectFlag) {
+    case "signIn":
+      return (
+        <>
+          <SignIn
+            setSelectFlag={setSelectFlag}
+            users={users}
+            items={items}
+            setItems={setItems}
+            setSelectImg={setSelectImg}
+            getAllItems={getAllItems}
+          />
+        </>
+      );
+    case "signUp":
+      return (
+        <>
+          <SignUp
+            setSelectFlag={setSelectFlag}
+            items={items}
+            setItems={setItems}
+            setSelectImg={setSelectImg}
+            getAllItems={getAllItems}
+            setAdduser={setAdduser}
+            URL={URL}
+            setMessage={setMessage}
+          />
+        </>
+      );
+    case "signUp2":
+      return (
+        <>
+          <SignUp2
+            setSelectFlag={setSelectFlag}
+            addUser={addUser}
+            setAdduser={setAdduser}
+            setSelectImg={setSelectImg}
+            getAllItems={getAllItems}
+            URL={URL}
+            setMessage={setMessage}
+            message={message}
+          />
+        </>
+      );
+    case "list":
+      return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <List
@@ -110,7 +134,9 @@ function App() {
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
-      ) : selectFlag === "card" ? (
+      );
+    case "card":
+      return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <Card
@@ -121,7 +147,9 @@ function App() {
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
-      ) : selectFlag === "transaction" ? (
+      );
+    case "transaction":
+      return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <Transaction
@@ -135,9 +163,62 @@ function App() {
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
-      ) : selectFlag === "myPage" ? (
-        <MyPage />
-      ) : (
+      );
+    case "myPage":
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <MyPage setSelectFlag={setSelectFlag} />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+    case "profile":
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Profile
+            setSelectFlag={setSelectFlag}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
+            URL={URL}
+          />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+    case "notification":
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Notification />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+    case "exhibitionList":
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <ExhibitionList />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+    case "favorite":
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Favorite />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+    case "purchaseList":
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <PurchaseList />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+    case "post":
+      return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <ItemPost
@@ -147,11 +228,10 @@ function App() {
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
-      )}
-
-      {/* <Footer setSelectFlag={setSelectFlag} /> */}
-    </>
-  );
+      );
+    default:
+      break;
+  }
 }
 
 export default App;

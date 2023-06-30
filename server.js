@@ -18,6 +18,22 @@ app.use((req, res, next) => {
   next();
 });
 
+//坂本テスト
+app.put("/users", async (req, res) => {
+  console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("user").update(obj).where("id", obj.id);
+    const result = await knex.select("*").from("user");
+    console.log(result);
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+//ここまで
+
 app.get("/userAllData", async (req, res) => {
   const allUsers = await knex.select("*").from("user");
   res.send(allUsers);
@@ -221,7 +237,7 @@ app.get("*", (req, res) => {
 const s3Client = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_S3_REGION
+  region: process.env.AWS_S3_REGION,
 });
 
 // multerの設定;
@@ -315,7 +331,7 @@ app.get("/display", (req, res) => {
   });
 });
 
-console.log(`バケット：${process.env.AWS_S3_BUCKET}`)
+console.log(`バケット：${process.env.AWS_S3_BUCKET}`);
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
