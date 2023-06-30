@@ -9,7 +9,7 @@ const ItemPost = (props) => {
     item_name: "",
     item_category: "家電",
     item_explanation: "",
-    item_status: "出品中",
+    item_status: "在庫あり",
     item_condition: "",
     item_num: 0,
     item_weight: 0,
