@@ -221,7 +221,7 @@ app.get("*", (req, res) => {
 const s3Client = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_S3_REGION
+  region: process.env.AWS_S3_REGION,
 });
 
 // multerの設定;
@@ -315,7 +315,7 @@ app.get("/display", (req, res) => {
   });
 });
 
-console.log(`バケット：${process.env.AWS_S3_BUCKET}`)
+console.log(`バケット：${process.env.AWS_S3_BUCKET}`);
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
