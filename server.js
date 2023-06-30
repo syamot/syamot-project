@@ -18,7 +18,33 @@ app.use((req, res, next) => {
   next();
 });
 
-//坂本テスト
+//チャット
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: ["https://localhost:3000"],
+    credentials: true,
+  },
+});
+
+  //クライアントと通信
+io.on("connection", (socket) => {
+  console.log("a user connected");
+
+  //クライアントから受信
+  socket.on("send_message", (data) => {
+    console.log(data);
+  //クライアントへ返信
+    io.emit("received_message", data);
+  });
+});
+//
+
+
+
+//User内容編集画面
 app.put("/users", async (req, res) => {
   console.log(req.body);
   const obj = req.body;
@@ -47,8 +73,12 @@ app.get("/itemAllData", async (req, res) => {
   const allItems = await knex.select("*").from("items");
   res.set("content-type", "application/json").status(200).send(allItems);
 });
+// チャットに対して、userとitemsを結合
 app.get("/chatAllData", async (req, res) => {
-  const allChat = await knex.select("*").from("chat");
+  const allChat = await knex.select("*").from("chat")
+  .leftJoin('user', 'user.id', 'chat.user_id')
+  .leftJoin('items', 'items.id', 'chat.item_id')
+
   res.send(allChat);
 });
 app.get("/test", (req, res) => {

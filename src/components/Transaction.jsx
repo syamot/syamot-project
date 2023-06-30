@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BiMailSend } from "react-icons/bi";
+// import io from "socket.io-client";
+// const socket = io("http://localhost:8000");
 
 import "./style/transaction.css";
 
@@ -8,7 +10,7 @@ const Transaction = (props) => {
   const { selectImg, URL, getAllItems, setItems, setSelectImg } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({});
   const [chatData, setChatData] = useState([]);
 
   useEffect(() => {
@@ -17,23 +19,54 @@ const Transaction = (props) => {
       console.log(URL + "/user/" + userName);
       const data = await fetch(URL + "/user/" + userName);
       const jsonData = await data.json();
-      setUserData(jsonData);
+      setUserData(jsonData[0]);
+    })();
+    (async()=>{
       // チャット情報を取得
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      setChatData(chatJson);
-    })();
+      const filterChat = chatJson.filter((e1)=> e1.item_id === selectImg.id).filter((e2)=> e2.user_id === userData.id)
+      setChatData(filterChat);
+    })()
   }, []);
 
   useEffect(() => {
-    // console.log(chatData);
+    console.log("chatData:", chatData);
   }, [chatData]);
   useEffect(() => {
-    // console.log("userData:  ", userData);
+    console.log("userData:  ", userData);
   }, [userData]);
   const changeTxt = (e) => {
     setSendTxt(e.target.value);
   };
+
+  // console.log("messages:", messages);
+
+  //既存メッセージの表示（板倉）
+  // [{text: 'a', user: 'admin'}]//
+  useEffect(() => {
+    console.log("messages:", messages);
+    const existMessage = [];
+    chatData.map((chatObj) => {
+      existMessage.push({ text: chatObj.message, user: chatObj.user_name });
+      console.log("existMessage:", existMessage);
+      setMessages(existMessage);
+    });
+    // console.log("chatDataElm:", chatObj.message);
+  }, [chatData]);
+
+  // const handleSendMessage = () => {
+  //   //サーバーへ送信
+  //   socket.emit("send_message", { message: message });//messageはtext
+  // };
+
+  //   //サーバーから受信
+  //   socket.on("received_message", (data) => {
+  //     console.log("サーバーから受信:",data);
+  //     setList([...list, data]);
+  //   });
+
+  //
 
   // 取引承認処理
   const approval = async () => {
@@ -131,7 +164,7 @@ const Transaction = (props) => {
     }
   };
 
-  // 取引完了処理
+  // 受取完了処理
   const complete = async () => {
     if (selectImg.item_transaction_flag !== true) {
       console.log("承認状況：", selectImg.item_approval_flag);
@@ -146,11 +179,11 @@ const Transaction = (props) => {
         });
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: "取引完了", user: "approve" },
+          { text: "受取完了", user: "approve" },
         ]);
 
         // チャットTBを書き換え
-        createMessageStatus(true, "取引完了");
+        createMessageStatus(true, "受取完了");
         let itemData;
         const asyncPkg = async () => {
           itemData = await getAllItems();
@@ -170,7 +203,7 @@ const Transaction = (props) => {
           ...selectImg,
           item_transaction_flag: true,
         });
-        // console.log("取引完了処理スタート");
+        // console.log("受取完了処理スタート");
         await fetch(URL + "/putCompleteStatus", {
           method: "PUT",
           headers: {
@@ -254,7 +287,7 @@ const Transaction = (props) => {
   // ボタン操作によるチャットステータス送信
   const createMessageStatus = async (transaction_flag, message) => {
     // let transaction_flag = false;
-    // 取引完了していたら処理しない
+    // 受取完了していたら処理しない
     if (
       !(
         selectImg.item_approval_flag === true &&
@@ -346,15 +379,16 @@ const Transaction = (props) => {
       </div>
       <div className="transMainBrock">
         {messages.map((message, index) => {
-          if (message.user === localStorage.getItem("user")) {
+          if (message.user === "approve" || message.text==="承認完了" || message.text==="承認キャンセル"|| message.text==="受取完了") {
             return (
-              <div key={index} className="messageBlock">
+              <div key={index} className="messageBlock2">
                 <p className="messageContent">{message.text}</p>
               </div>
             );
-          } else if (message.user === "approve") {
+          } 
+          else if (message.user === localStorage.getItem("user")) {
             return (
-              <div key={index} className="messageBlock2">
+              <div key={index} className="messageBlock">
                 <p className="messageContent">{message.text}</p>
               </div>
             );
