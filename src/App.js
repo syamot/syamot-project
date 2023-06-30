@@ -29,6 +29,7 @@ function App() {
   const [selectImg, setSelectImg] = useState({});
   const [oneUser, setOneUser] = useState("");
   const [exhibitList, setExhibitList] = useState("");
+  const [purchaseList, setPurchaseList] = useState("");
 
   useEffect(() => {
     console.log("selectImg#####################", selectImg);
@@ -55,18 +56,29 @@ function App() {
       itemData.forEach((elem) => {
         elem.item_img = JSON.parse(elem.item_img);
       });
+      userData.forEach((elem) => {
+        elem.favorite = JSON.parse(elem.favorite);
+      });
+
+      console.log("aaaaaaaaaaaa", userData);
       setUsers(userData);
       setItems(itemData);
 
-      const index = users.findIndex(
-        (elem) => elem.user_name === localStorage.getItem("user")
-      );
+      let openUserId;
+      userData.forEach((elem) => {
+        if (elem.user_name === localStorage.getItem("user")) {
+          openUserId = elem.id;
+        }
+      });
       const userItemData = itemData.filter(
-        (elem) => elem.item_seller === index
+        (elem) => elem.item_seller === openUserId
       );
       setExhibitList(userItemData);
-      console.log("userItemData", userItemData);
-      console.log(itemData);
+
+      const userPurchaseList = itemData.filter(
+        (elem) => elem.buyer_id === openUserId
+      );
+      setPurchaseList(userPurchaseList);
     };
     asyncPkg();
     console.log(selectFlag);
@@ -156,6 +168,9 @@ function App() {
             selectImg={selectImg}
             users={users}
             URL={URL}
+            setSelectImg={setSelectImg}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -232,11 +247,10 @@ function App() {
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <PurchaseList
-            setSelectFlag={setSelectFlag}
             items={items}
+            setSelectFlag={setSelectFlag}
             setSelectImg={setSelectImg}
-            exhibitList={exhibitList}
-            setExhibitList={setExhibitList}
+            purchaseList={purchaseList}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

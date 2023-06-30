@@ -2,10 +2,16 @@ import React from "react";
 import "./style/purchaseList.css";
 
 const PurchaseList = (props) => {
-  const { items, setSelectFlag, setSelectImg, exhibitList, setExhibitList } =
-    props;
+  const { items, setSelectFlag, setSelectImg, purchaseList } = props;
   const clickImg = (e) => {
-    setSelectImg(items[e.target.id]);
+    let item;
+    let numTargetId = Number(e.target.id);
+    items.forEach((elem) => {
+      if (elem.id === numTargetId) {
+        item = elem;
+      }
+    });
+    setSelectImg(item);
   };
 
   return (
@@ -15,12 +21,12 @@ const PurchaseList = (props) => {
       </div>
       <div>
         <ul className="image-list">
-          {exhibitList.length !== 0 &&
-            exhibitList.map((item, index) => (
+          {purchaseList.length !== 0 &&
+            purchaseList.map((item, index) => (
               <li key={item.id} className="image-item">
                 <div className="image-box">
                   <img
-                    id={index}
+                    id={item.id}
                     src={item.item_img[0]}
                     alt={item.item_name}
                     onClick={(e) => {

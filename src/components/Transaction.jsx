@@ -144,6 +144,18 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
+
+        await fetch(URL + "/buyer", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            buyer_id: userData[0].id,
+            item_id: selectImg.id,
+          }),
+        });
+
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: "取引完了", user: "approve" },

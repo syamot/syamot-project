@@ -32,6 +32,23 @@ app.put("/users", async (req, res) => {
     res.status(500);
   }
 });
+
+app.put("/buyer", async (req, res) => {
+  console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        buyer_id: obj.buyer_id,
+      })
+      .where("id", obj.item_id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+
 //ここまで
 
 app.get("/userAllData", async (req, res) => {
