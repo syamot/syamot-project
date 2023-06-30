@@ -26,7 +26,7 @@ const MyPage = (props) => {
             setSelectFlag("notification");
           }}
         >
-          通知内容
+          暫定のもの何入れる？使わない？
         </p>
         <p
           onClick={() => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
@@ -6,19 +6,49 @@ import Swipe from "./Swipe";
 
 //詳細情報ページ
 const Card = (props) => {
-  const { setSelectFlag, selectImg, users } = props;
+  const { setSelectFlag, selectImg, users, oneUser, setOneUser } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
   const date = new Date(dateString);
   const formattedDate = date.toISOString().split("T")[0];
   const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
-  console.log(sellerUser[0]);
+
+  const changeHeart = () => {
+    console.log("ハートが押されました。");
+    if (oneUser.favorite.includes(selectImg.id)) {
+      setOneUser((prevState) => ({
+        ...prevState,
+        favorite: prevState.favorite.filter((item) => item !== selectImg.id),
+      }));
+    } else {
+      setOneUser((prevState) => ({
+        ...prevState,
+        favorite: [...prevState.favorite, selectImg.id],
+      }));
+    }
+  };
+
   return (
     <>
       <div className="mainBrock">
         <h2 className="cardTitle">{selectImg.item_name}</h2>
         <div className="imageBrock">
-          <AiOutlineHeart className="goodIcon" />
+          {oneUser.favorite.includes(selectImg.id) ? (
+            <AiFillHeart
+              className="goodIcon"
+              onClick={() => {
+                changeHeart();
+              }}
+            />
+          ) : (
+            <AiOutlineHeart
+              className="goodIcon"
+              onClick={() => {
+                changeHeart();
+              }}
+            />
+          )}
+
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
           <Swipe etSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
