@@ -9,8 +9,7 @@ const ItemPost = (props) => {
     item_name: "",
     item_category: "家電",
     item_explanation: "",
-    item_status: "出品中",
-    item_condition: "",
+    item_status: "新品、未使用",
     item_num: 0,
     item_weight: 0,
     item_size_vertical: 0,
@@ -20,17 +19,6 @@ const ItemPost = (props) => {
     item_img: "[]",
     item_seller: 1,
   });
-  // const [userData, setUserData] = useState([]);
-  useEffect(() => {
-    const userName = localStorage.getItem("user");
-    (async () => {
-      console.log(URL + "/user/" + userName);
-      const data = await fetch(URL + "/user/" + userName);
-      const jsonData = await data.json();
-      // setUserData(jsonData);
-      setItemObj({ ...itemObj, item_seller: Number(jsonData[0].id) });
-    })();
-  }, []);
 
   useEffect(() => {
     console.log(itemObj);
@@ -62,7 +50,7 @@ const ItemPost = (props) => {
       tag === "傷や汚れあり" ||
       tag === "全体的に状態が悪い"
     ) {
-      tag = "item_condition";
+      tag = "item_status";
     }
     let inputValue;
     if (
@@ -189,7 +177,7 @@ const ItemPost = (props) => {
 
         <div className="post-box-piece-side">
           <p>商品の状態</p>
-          <select onChange={(e) => handleChange(e, "item_condition")}>
+          <select onChange={(e) => handleChange(e, "item_status")}>
             <option value="新品、未使用">新品、未使用</option>
             <option value="未使用に近い">未使用に近い</option>
             <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>

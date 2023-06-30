@@ -2,20 +2,10 @@
   width: 25vh;
 }
 .slide {
-  width: 167px;
-  margin-right: 5px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
+  width: 30vh;
 }
 .itemImage {
-  width: auto;
-  height: 177px;
-  max-width: 200px;
-  margin: 5px;
+  width: 25vh;
 }
 .slider__wrapper {
   position: relative;

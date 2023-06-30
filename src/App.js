@@ -41,7 +41,6 @@ function App() {
     const asyncPkg = async () => {
       userData = await getAllUsers();
       itemData = await getAllItems();
-
       itemData.forEach((elem) => {
         elem.item_img = JSON.parse(elem.item_img);
       });

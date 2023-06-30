@@ -51,7 +51,7 @@
   left: -1vh;
 }
 .approvalBtn {
-  width: 52vh;
+  width: 40vh;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
@@ -59,7 +59,7 @@
   height: 5vh;
 }
 .completeBtn {
-  width: 52vh;
+  width: 40vh;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;

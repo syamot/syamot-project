@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import "./style/list.css";
 
@@ -69,6 +70,27 @@ function List(props) {
     setSortedItems(filteredArray);
   };
 
+=======
+import React, { useEffect } from "react";
+import "./style/list.css";
+
+function List(props) {
+  const { setSelectFlag, items, setItems, setSelectImg, getAllItems } = props;
+  const clickImg = (e) => {
+    setSelectImg(items[e.target.id]);
+  };
+  useEffect(() => {
+    let itemData;
+    const asyncPkg = async () => {
+      itemData = await getAllItems();
+      itemData.forEach((elem) => {
+        elem.item_img = JSON.parse(elem.item_img);
+      });
+      setItems(itemData);
+    };
+    asyncPkg();
+  });
+>>>>>>> parent of 2a2d6d2 (デプロイテスト)
   return (
     <>
       <div className="mainBrock-list">
