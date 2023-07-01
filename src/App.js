@@ -238,7 +238,12 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <Favorite />
+          <Favorite
+            oneUser={oneUser}
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
