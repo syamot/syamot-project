@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
@@ -14,20 +14,13 @@ const Card = (props) => {
   const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
 
   const changeHeart = () => {
-    console.log("ハートが押されました。");
-
     const objOneUser = oneUser;
-    console.log("objOneUser", objOneUser);
     if (oneUser.favorite.includes(selectImg.id)) {
       setOneUser((prevState) => ({
         ...prevState,
         favorite: prevState.favorite.filter((item) => item !== selectImg.id),
       }));
       objOneUser.favorite = objOneUser.favorite.filter((elem) => {
-        console.log("elem", elem);
-        console.log("elem", typeof elem);
-        console.log("selectImg.id", selectImg.id);
-        console.log("selectImg.id", typeof selectImg.id);
         return elem !== selectImg.id;
       });
     } else {
@@ -37,7 +30,6 @@ const Card = (props) => {
       }));
       objOneUser.favorite.push(selectImg.id);
     }
-    console.log(objOneUser);
     const postUpDataItem = async () => {
       await fetch(URL + "/favoriteItems", {
         method: "PUT",
