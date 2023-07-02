@@ -31,12 +31,16 @@ const Header = (props) => {
           />
 
           <h1 className="header1">シャモティー</h1>
-          <MdClose
-            className="backIcon"
-            onClick={() => {
-              pageHandler();
-            }}
-          />
+          {selectFlag !== "list" ? (
+            <MdClose
+              className="backIcon"
+              onClick={() => {
+                pageHandler();
+              }}
+            />
+          ) : (
+            <div className="backIcon" />
+          )}
         </header>
       </>
     );

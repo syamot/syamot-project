@@ -3,17 +3,18 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    return knex.schema.createTable("chat", (table) => {
-        table.increments("id").primary().notNullable();
-        table.date("send_date").notNullable();
-        table.integer("partner_id").notNullable();
-        table.boolean("read_flag").notNullable();
-        table.integer("item_id").notNullable();
-        table.integer("user_id").notNullable();
-        table.foreign("item_id").references("items.id");
-        table.foreign("user_id").references("user.id");
-        table.text("message").notNullable()
-    })
+  return knex.schema.createTable("chat", (table) => {
+    table.increments("id").primary().notNullable();
+    // table.bigint("send_date").notNullable();
+    table.timestamp("send_date").notNullable().defaultTo(knex.fn.now());
+    table.integer("partner_id").notNullable();
+    table.boolean("read_flag").notNullable();
+    table.integer("item_id").notNullable();
+    table.integer("user_id").notNullable();
+    table.foreign("item_id").references("items.id");
+    table.foreign("user_id").references("user.id");
+    table.text("message").notNullable();
+  });
 };
 
 /**
@@ -21,6 +22,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return knex.schema.dropTable("chat");
-
+  return knex.schema.dropTable("chat");
 };

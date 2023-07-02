@@ -6,6 +6,12 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+
+// //日付取得
+// const formatToTimeZone = require("date-fns-timezone");
+// const FORMAT = "YYYY-MM-DD_HH:mm:ss";
+// const TIME_ZONE_TOKYO = "Asia/Tokyo";
+
 require("dotenv").config({
   // path: "./.env",
 });
@@ -44,7 +50,6 @@ app.use((req, res, next) => {
 //   });
 // });
 
-
 //User内容編集画面
 app.put("/users", async (req, res) => {
   console.log(req.body);
@@ -76,9 +81,11 @@ app.get("/itemAllData", async (req, res) => {
 });
 // チャットに対して、userとitemsを結合
 app.get("/chatAllData", async (req, res) => {
-  const allChat = await knex.select("*").from("chat")
-    .leftJoin('user', 'user.id', 'chat.user_id')
-    .leftJoin('items', 'items.id', 'chat.item_id')
+  const allChat = await knex
+    .select("*")
+    .from("chat")
+    .leftJoin("user", "user.id", "chat.user_id")
+    .leftJoin("items", "items.id", "chat.item_id");
 
   res.send(allChat);
 });
@@ -138,12 +145,12 @@ app.post("/addItems", async (req, res) => {
     item_category,
     item_explanation,
     item_status,
-    item_condition,
+    // item_condition,
     item_num,
-    item_weight,
-    item_size_vertical,
-    item_size_width,
-    item_size_height,
+    // item_weight,
+    // item_size_vertical,
+    // item_size_width,
+    // item_size_height,
     item_deadline,
     item_img,
     item_seller,
@@ -154,12 +161,12 @@ app.post("/addItems", async (req, res) => {
     item_category: item_category,
     item_explanation: item_explanation,
     item_status: item_status,
-    item_condition: item_condition,
+    // item_condition: item_condition,
     item_num: item_num,
-    item_weight: item_weight,
-    item_size_vertical: item_size_vertical,
-    item_size_width: item_size_width,
-    item_size_height: item_size_height,
+    // item_weight: item_weight,
+    // item_size_vertical: item_size_vertical,
+    // item_size_width: item_size_width,
+    // item_size_height: item_size_height,
     item_deadline: item_deadline,
     item_img: item_img,
     item_seller: item_seller,
@@ -171,12 +178,17 @@ app.post("/addItems", async (req, res) => {
 });
 
 app.post("/addChat", async (req, res) => {
-  const { transaction_date, transaction_flag, item_id, user_id, message } =
-    req.body;
-
+  const { item_id, user_id, message, partner_id, send_date } = req.body;
+  // const now = new Date();
+  // console.log(
+  //   formatToTimeZone(now, FORMAT, { timeZone: TIME_ZONE_TOKYO }),
+  //   "!!!!!!!!!!!!!!!!"
+  // );
   const addItemObj = {
-    transaction_date: transaction_date,
-    transaction_flag: transaction_flag,
+    // 日本時刻は格納できない
+    send_date: send_date,
+    partner_id: partner_id,
+    read_flag: false,
     item_id: item_id,
     user_id: user_id,
     message: message,
