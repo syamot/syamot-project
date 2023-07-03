@@ -65,7 +65,11 @@ const ContactList = (props) => {
         <h2 className="transactionTitle">{selectImg.item_name}</h2>
       </div>
       <div className="transMainBrock">
-        <h1>ContactList</h1>
+        <h1>
+          {Object.keys(chatData).length === 0
+            ? "新着メッセージはありません"
+            : "【メッセージ一覧】"}
+        </h1>
         <ul className="contactList">
           {Object.entries(chatData).map(([user_id, arr]) => (
             <div
