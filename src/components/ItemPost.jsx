@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./style/post.css";
 
-let imagePathArr;
+//###########################################################################
+// import "react-dropzone-uploader/dist/styles.css";
+// import Dropzone from "react-dropzone-uploader";
+
+//###########################################################################
+
+let imagePathArr = [];
 const ItemPost = (props) => {
   const { setSelectFlag, URL } = props;
-  const [imgPathArr, setImgPathArr] = useState([]);
+  // const [imgPathArr, setImgPathArr] = useState([]);
   const [itemObj, setItemObj] = useState({
     item_name: "",
     item_category: "家電",
@@ -29,20 +35,25 @@ const ItemPost = (props) => {
     })();
   }, []);
 
-  const resetImg = () => {
-    setImgPathArr([]);
-  };
+  // 坂本さん処理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // const resetImg = () => {
+  //   setImgPathArr([]);
+  // };
 
-  const setImg = (e) => {
-    imagePathArr = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      setImgPathArr((cur) => [
-        ...cur,
-        window.URL.createObjectURL(e.target.files[i]),
-      ]);
-      imagePathArr.push(e.target.files[i]);
-    }
-  };
+  // const setImg = (e) => {
+  //   imagePathArr = [];
+  //   for (let i = 0; i < e.target.files.length; i++) {
+  //     setImgPathArr((cur) => [
+  //       ...cur,
+  //       window.URL.createObjectURL(e.target.files[i]),
+  //     ]);
+  //     imagePathArr.push(e.target.files[i]);
+  //   }
+  // };
+  // useEffect(() => {
+  //   console.log(imgPathArr);
+  // }, [imgPathArr]);
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
   const handleChange = (e, tag) => {
     if (tag === "家電" || tag === "家具" || tag === "工具") {
@@ -70,6 +81,7 @@ const ItemPost = (props) => {
     let postImageNum = 0;
     const postImagePath = [];
     const fetchPostImage = async () => {
+      // const file = images[postImageNum];
       const file = imagePathArr[postImageNum];
 
       if (file === undefined || postImageNum > 3) return;
@@ -88,19 +100,14 @@ const ItemPost = (props) => {
         .catch((e) => {
           console.error(e);
         });
+      console.log(responseFileName);
       postImagePath.push(responseFileName.fileUrl);
       postImageNum++;
     };
     await fetchPostImage();
     await fetchPostImage();
     await fetchPostImage();
-
-    // const setImageJSON = async () => {
-    //   console.log("postImagePath", postImagePath);
-    //   const postImagePathJSON = JSON.stringify(postImagePath);
-    //   setItemObj({ ...itemObj, item_img: postImagePathJSON });
-    // };
-
+    //=========================================================
     const changeStatus = async () => {
       const testObj = itemObj;
       testObj.item_img = JSON.stringify(postImagePath);
@@ -121,31 +128,87 @@ const ItemPost = (props) => {
     setSelectFlag("list");
   };
 
-  // const setImgaaaaa = async (e) => {
-  //   const file = e.target.files[0];
-  //   const formData = new FormData();
-  //   formData.append("file", file);
+  //###########################################################################
 
-  //   await fetch("http://localhost:8000/upload", {
-  //     method: "POST",
-  //     // headers: {
-  //     //   "Content-Type": "image/jpeg",
-  //     // },
-  //     body: formData,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
+  const [images, setImages] = useState([]);
+  useEffect(() => {
+    console.log("選んだファイル", images);
+    console.log("S3にあげるファイル", imagePathArr);
+  }, [images]);
+
+  // 初回アップロード
+  const handleImageUpload = (event) => {
+    imagePathArr = []; //配列初期化
+    for (let i = 0; i < event.target.files.length; i++) {
+      setImages((cur) => [
+        ...cur,
+        window.URL.createObjectURL(event.target.files[i]),
+      ]);
+      imagePathArr.push(event.target.files[i]);
+    }
+  };
+  // 写真削除処理
+  const handleImageRemove = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    imagePathArr.splice(index, 1);
+    setImages(newImages);
+  };
+  // 写真再アップ
+  const handleImageReupload = (index, event) => {
+    const newImages = [...images];
+    newImages[index] = window.URL.createObjectURL(event.target.files[0]);
+    setImages(newImages);
+    imagePathArr[index] = event.target.files[0];
+  };
+
+  const inputClick = (e) => {
+    e.target.nextElementSibling.click();
+  };
+
+  //###########################################################################
 
   return (
     <>
       <div className="post-box">
         <div className="post-box-piece">
           <h4>商品画像</h4>
-
-          <input
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => handleImageUpload(e)}
+            />
+            <div className="img_block">
+              {images.length !== 0 &&
+                images.map((image, index) => (
+                  <div key={index} className="img_block2">
+                    <img
+                      src={image}
+                      alt={`Preview ${index}`}
+                      style={{ width: "100px", height: "100px" }}
+                      className="img"
+                      onClick={(e) => inputClick(e)}
+                    />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => handleImageReupload(index, event)}
+                      className="img_input"
+                    />
+                    <button
+                      onClick={() => handleImageRemove(index)}
+                      className="img_remove"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+            </div>
+          </div>
+          {/* 坂本ver */}
+          {/* <input
             type="file"
             accept="image/*"
             onClick={() => resetImg()}
@@ -160,7 +223,7 @@ const ItemPost = (props) => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
         <h4>商品概要</h4>
         <div className="post-box-piece-side">
