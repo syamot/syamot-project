@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style/post.css";
+import { Loading } from "./Loading";
 
 //###########################################################################
 // import "react-dropzone-uploader/dist/styles.css";
@@ -22,7 +23,8 @@ const ItemPost = (props) => {
     item_seller: 1,
     // フラグはサーバー側で追加している
   });
-  // const [userData, setUserData] = useState([]);
+  // アップロード時のローディング画面
+  const [load, setLoad] = useState(false);
 
   // item_seller情報を書き換え
   useEffect(() => {
@@ -33,6 +35,8 @@ const ItemPost = (props) => {
       // setUserData(jsonData);
       setItemObj({ ...itemObj, item_seller: Number(jsonData[0].id) });
     })();
+    //s３への送信ファイルは空にする
+    imagePathArr = [];
   }, []);
 
   // 坂本さん処理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -78,36 +82,36 @@ const ItemPost = (props) => {
   };
 
   const handleClick = async () => {
-    let postImageNum = 0;
+    // load有効化
+    setLoad(true);
     const postImagePath = [];
-    const fetchPostImage = async () => {
-      // const file = images[postImageNum];
-      const file = imagePathArr[postImageNum];
-
-      if (file === undefined || postImageNum > 3) return;
+    const fetchPostImage = async (file) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const responseFileName = await fetch(URL + "/upload", {
-        method: "POST",
-        // headers: {
-        //   "Content-Type": "image/jpeg",
-        // },
-        body: formData,
-      })
-        .then((response) => response.json())
-
-        .catch((e) => {
-          console.error(e);
+      try {
+        const response = await fetch(URL + "/upload", {
+          method: "POST",
+          body: formData,
         });
-      console.log(responseFileName);
-      postImagePath.push(responseFileName.fileUrl);
-      postImageNum++;
+        const responseFileName = await response.json();
+        console.log("responseFileName.fileUrl===", responseFileName.fileUrl);
+        postImagePath.push(responseFileName.fileUrl);
+      } catch (e) {
+        console.error(e);
+      }
     };
-    await fetchPostImage();
-    await fetchPostImage();
-    await fetchPostImage();
-    //=========================================================
+
+    const imageUploadPromises = imagePathArr.map((file) =>
+      fetchPostImage(file)
+    );
+
+    try {
+      await Promise.all(imageUploadPromises);
+    } catch (error) {
+      console.log(error);
+    }
+    // =========================================================
     const changeStatus = async () => {
       const testObj = itemObj;
       testObj.item_img = JSON.stringify(postImagePath);
@@ -124,7 +128,6 @@ const ItemPost = (props) => {
       }
     };
     await changeStatus();
-    // await changeStatus();
     setSelectFlag("list");
   };
 
@@ -138,7 +141,15 @@ const ItemPost = (props) => {
 
   // 初回アップロード
   const handleImageUpload = (event) => {
-    imagePathArr = []; //配列初期化
+    if (event.target.files.length > 8) {
+      return window.alert(
+        "アップロード上限を超えています。\n写真は8枚までアップロード可能です"
+      );
+    } else if (imagePathArr.length > 7) {
+      return window.alert(
+        "アップロード上限を超えています。\n写真は8枚までアップロード可能です"
+      );
+    }
     for (let i = 0; i < event.target.files.length; i++) {
       setImages((cur) => [
         ...cur,
@@ -170,6 +181,7 @@ const ItemPost = (props) => {
 
   return (
     <>
+      {load ? <Loading /> : null}
       <div className="post-box">
         <div className="post-box-piece">
           <h4>商品画像</h4>

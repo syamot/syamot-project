@@ -325,7 +325,7 @@ const upload = multer({
  * POST /upload
  */
 app.post("/upload", upload.single("file"), (req, res) => {
-  console.log("Amazon-path=====", req.file.location);
+  // console.log("Amazon-path=====", req.file.location);
   const fileUrl = req.file.location;
   res.send({ fileUrl });
 });
