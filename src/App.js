@@ -30,6 +30,7 @@ function App() {
   const [oneUser, setOneUser] = useState("");
   const [exhibitList, setExhibitList] = useState("");
   const [purchaseList, setPurchaseList] = useState("");
+  const [upDataFlag, setUpDataFlag] = useState(false);
 
   useEffect(() => {
     console.log("selectImg#####################", selectImg);
@@ -81,8 +82,8 @@ function App() {
       setPurchaseList(userPurchaseList);
     };
     asyncPkg();
-    console.log(selectFlag);
-  }, [selectFlag]);
+    setUpDataFlag(false);
+  }, [selectFlag, upDataFlag]);
 
   useEffect(() => {
     const index = users.findIndex(
@@ -148,7 +149,11 @@ function App() {
     case "list":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setUpDataFlag={setUpDataFlag}
+          />
           <List
             setSelectFlag={setSelectFlag}
             items={items}

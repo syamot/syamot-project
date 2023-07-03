@@ -39,10 +39,10 @@ const SignIn = (props) => {
           <h1 className="loginHead">
             <span>シャモティ</span>
           </h1>
-          <input placeholder="Username" type="text" className="user" />
-          <input placeholder="Password" type="password" className="pass" />
+          <input placeholder="ID" type="text" className="user" />
+          <input placeholder="パスワード" type="password" className="pass" />
           <button className="btn loginBtn" onClick={(e) => login(e)}>
-            Log in
+            ログイン
           </button>
           <div className="hrLine">
             <hr className="hrStart" />
@@ -50,7 +50,7 @@ const SignIn = (props) => {
             <hr className="hrEnd" />
           </div>
           <h6 className="addAccount" onClick={() => setSelectFlag("signUp")}>
-            Add Account
+            アカウント新規作成
           </h6>
         </div>
       </div>
