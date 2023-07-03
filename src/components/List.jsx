@@ -2,11 +2,11 @@ import React from "react";
 import "./style/list.css";
 
 function List(props) {
-  const { setSelectFlag, items, setSelectImg } = props;
+  const { setSelectFlag, items, setSelectImg, setSelectBuyer } = props;
   const clickImg = (e) => {
     setSelectImg(items[e.target.id]);
   };
-
+  setSelectBuyer(0);
   return (
     <div className="mainBrock-list">
       <ul className="image-list">

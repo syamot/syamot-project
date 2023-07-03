@@ -30,6 +30,7 @@ function App() {
   const [selectImg, setSelectImg] = useState({});
   const [oneUser, setOneUser] = useState("");
   const [userData, setUserData] = useState({});
+  const [selectBuyer, setSelectBuyer] = useState(0);
 
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
@@ -127,6 +128,7 @@ function App() {
             setItems={setItems}
             setSelectImg={setSelectImg}
             getAllItems={getAllItems}
+            setSelectBuyer={setSelectBuyer}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -162,6 +164,7 @@ function App() {
             setItems={setItems}
             userData={userData}
             setUserData={setUserData}
+            setSelectBuyer={setSelectBuyer} //購入者情報選択関数
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -182,6 +185,7 @@ function App() {
             setItems={setItems}
             userData={userData}
             setUserData={setUserData}
+            selectBuyer={selectBuyer} //選択された購入者
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

@@ -47,12 +47,11 @@ const Card = (props) => {
               if (oneUser.id === sellerUser[0].id) {
                 console.log("contact");
                 setSelectFlag("contactList");
-
+                // setSelectFlag("transaction");
               } else {
                 console.log("transaction");
                 setSelectFlag("transaction");
               }
-
 
               // changeStatus();
             }}

@@ -16,9 +16,9 @@ const Transaction = (props) => {
     getAllItems,
     setItems,
     setSelectImg,
-
     userData,
     setUserData,
+    selectBuyer,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
@@ -30,19 +30,32 @@ const Transaction = (props) => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
       console.log("selectImg:", selectImg);
+      console.log("chatJson", chatJson);
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
-        .filter((e1) => e1.item_id === selectImg.id)
-        //ログイン者の
-        .filter(
-          (e2) => e2.user_id === userData.id || e2.item_seller === e2.partner_id
-        );
-      // .filter((e2) => e2.user_id === userData.id)
-
-      //チャットのUserID===ログイン者のID
-      //チャットの出品者ID===選択した投稿の出品者ID
-      //  && e2.user_id === e2.item_seller
-      //|| (e2.item_seller === userData.id && e2.user_id === e2.item_seller)
+        .filter((e1) => {
+          console.log("1========", e1.item_id, selectImg.id);
+          return e1.item_id === selectImg.id;
+        })
+        //チャットのBuyerID===ログイン者のID
+        //チャットの出品者ID===選択した投稿の出品者ID
+        .filter((e2) => {
+          console.log(
+            "2========",
+            (e2.buyer_id === userData.id &&
+              e2.seller_id === selectImg.item_seller) ||
+              (e2.buyer_id === Number(selectBuyer) &&
+                e2.seller_id === userData.id)
+          );
+          return (
+            // 購入者側
+            (e2.buyer_id === userData.id &&
+              e2.seller_id === selectImg.item_seller) ||
+            // 出品者側
+            (e2.buyer_id === Number(selectBuyer) &&
+              e2.seller_id === userData.id)
+          );
+        });
       console.log(filterChat);
       setChatData(filterChat);
     };
@@ -228,15 +241,15 @@ const Transaction = (props) => {
   };
 
   //   今の日付を確認する
-  function getCurrentTime() {
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = ("0" + (now.getMonth() + 1)).slice(-2);
-    let day = ("0" + now.getDate()).slice(-2);
-    let formattedTime = year + "-" + month + "-" + day;
-    return formattedTime;
-  }
-
+  // function getCurrentTime() {
+  //   let now = new Date();
+  //   let year = now.getFullYear();
+  //   let month = ("0" + (now.getMonth() + 1)).slice(-2);
+  //   let day = ("0" + now.getDate()).slice(-2);
+  //   let formattedTime = year + "-" + month + "-" + day;
+  //   return formattedTime;
+  // }
+  console.log({ selectBuyer });
   // チャット送信
   const createMessage = async () => {
     if (sendTxt !== "") {
@@ -248,17 +261,19 @@ const Transaction = (props) => {
         formatToTimeZone(now, "YYYY-MM-DD HH:mm:ss", { timeZone: timeZone })
       );
       console.log(now);
+      console.log(
+        "selectBuyer === 0 ? userData.id : selectBuyer",
+        selectBuyer === 0 ? userData.id : selectBuyer
+      );
       const obj = {
         //送信日時はサーバー側で取得済み
         // send_date: now.getTime(),
         send_date: now,
-        // send_date: formatToTimeZone(now, "YYYY-MM-DD HH:mm:ss", {
-        //   timeZone: timeZone,
-        // }),
         item_id: selectImg.id,
-        user_id: userData.id === selectImg.item_seller ? 1 : 2, //####################
         message: sendTxt,
-        partner_id: selectImg.item_seller, //#####################
+        user_id: userData.id, //####################送信者情報
+        buyer_id: selectBuyer === 0 ? userData.id : selectBuyer, //####################購入者情報
+        seller_id: selectImg.item_seller, //#####################出品者情報
       };
       try {
         // チャットTBに書き換え
@@ -295,12 +310,14 @@ const Transaction = (props) => {
         selectImg.item_transaction_flag === true
       )
     ) {
+      const now = new Date();
       const obj = {
-        //送信日時はサーバー側で取得済み
+        send_date: now,
         item_id: selectImg.id,
-        user_id: userData.id,
         message: message,
-        partner_id: selectImg.item_seller,
+        user_id: userData.id, //####################送信者情報
+        buyer_id: selectBuyer === 0 ? userData.id : selectBuyer, //####################購入者情報
+        seller_id: selectImg.item_seller, //#####################出品者情報
       };
       try {
         // チャットTBに書き換え

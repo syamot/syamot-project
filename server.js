@@ -178,7 +178,8 @@ app.post("/addItems", async (req, res) => {
 });
 
 app.post("/addChat", async (req, res) => {
-  const { item_id, user_id, message, partner_id, send_date } = req.body;
+  const { item_id, user_id, message, seller_id, buyer_id, send_date } =
+    req.body;
   // const now = new Date();
   // console.log(
   //   formatToTimeZone(now, FORMAT, { timeZone: TIME_ZONE_TOKYO }),
@@ -187,7 +188,8 @@ app.post("/addChat", async (req, res) => {
   const addItemObj = {
     // 日本時刻は格納できない
     send_date: send_date,
-    partner_id: partner_id,
+    buyer_id: buyer_id,
+    seller_id: seller_id,
     buyer_read_flag: false,
     seller_read_flag: false,
     item_id: item_id,

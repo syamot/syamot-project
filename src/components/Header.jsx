@@ -18,7 +18,8 @@ const Header = (props) => {
     selectFlag === "list" ||
     selectFlag === "card" ||
     selectFlag === "transaction" ||
-    selectFlag === "post"
+    selectFlag === "post" ||
+    selectFlag === "contactList"
   ) {
     return (
       <>
