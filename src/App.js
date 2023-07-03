@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     const userName = localStorage.getItem("user");
-    console.log(userName === "");
+
     if (userName === undefined || userName === null || userName === "") {
       setSelectFlag("signIn");
     } else {
