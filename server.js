@@ -188,7 +188,8 @@ app.post("/addChat", async (req, res) => {
     // 日本時刻は格納できない
     send_date: send_date,
     partner_id: partner_id,
-    read_flag: false,
+    buyer_read_flag: false,
+    seller_read_flag: false,
     item_id: item_id,
     user_id: user_id,
     message: message,

@@ -40,7 +40,7 @@ const Transaction = (props) => {
       setChatData(filterChat);
     };
     //0.5秒ごとにチャット内容更新
-    const interval = setInterval(fetchData, 500);
+    const interval = setInterval(fetchData, 1000);
 
     // コンポーネントのアンマウント時にクリーンアップ
     return () => {
@@ -233,6 +233,7 @@ const Transaction = (props) => {
   // チャット送信
   const createMessage = async () => {
     if (sendTxt !== "") {
+      setSendTxt("");
       const now = new Date();
       // // タイムゾーン定義
       const timeZone = "Asia/Tokyo";
@@ -274,7 +275,7 @@ const Transaction = (props) => {
       //   ...prevMessages,
       //   { text: sendTxt, user: localStorage.getItem("user") },
       // ]);
-      setSendTxt("");
+      // setSendTxt("");
     }
   };
 

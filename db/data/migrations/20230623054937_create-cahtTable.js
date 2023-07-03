@@ -8,7 +8,8 @@ exports.up = function (knex) {
     // table.bigint("send_date").notNullable();
     table.timestamp("send_date").notNullable().defaultTo(knex.fn.now());
     table.integer("partner_id").notNullable();
-    table.boolean("read_flag").notNullable();
+    table.boolean("buyer_read_flag").notNullable();
+    table.boolean("seller_read_flag").notNullable();
     table.integer("item_id").notNullable();
     table.integer("user_id").notNullable();
     table.foreign("item_id").references("items.id");
