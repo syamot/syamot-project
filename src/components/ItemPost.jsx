@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./style/post.css";
 
+// ・・・・・・・・・・・・・・・・
+import { useDropzone } from "react-dropzone";
+// ・・・・・・・・・・・・・・・・
+
 let imagePathArr;
 const ItemPost = (props) => {
   const { setSelectFlag, URL } = props;
@@ -121,26 +125,60 @@ const ItemPost = (props) => {
     setSelectFlag("list");
   };
 
-  // const setImgaaaaa = async (e) => {
-  //   const file = e.target.files[0];
-  //   const formData = new FormData();
-  //   formData.append("file", file);
+  //追加＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
-  //   await fetch("http://localhost:8000/upload", {
-  //     method: "POST",
-  //     // headers: {
-  //     //   "Content-Type": "image/jpeg",
-  //     // },
-  //     body: formData,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  const { getRootProps, getInputProps, open } = useDropzone({
+    accept: "image/*",
+    maxFiles: 8,
+    onDrop: (acceptedFiles) => {
+      setUploadedImages((prevImages) => [...prevImages, ...acceptedFiles]);
+    },
+  });
+
+  const deleteImage = (index) => {
+    setUploadedImages((prevImages) => {
+      const newImages = [...prevImages];
+      newImages.splice(index, 1);
+      return newImages;
+    });
+  };
+
+  //追加＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
   return (
     <>
+      {/* ここに追加したい */}
+      {/* 画像のアップロード部分 */}
+      <div>
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} />
+          <p>画像をドラッグ＆ドロップまたはクリックして選択してください。</p>
+          <button type="button" onClick={open}>
+            画像を選択
+          </button>
+        </div>
+
+        <div className="image-preview">
+          {uploadedImages.map((file, index) => (
+            <div key={index}>
+              <img
+                src={URL.createObjectURL(file)}
+                alt={`Uploaded Image ${index}`}
+              />
+              <button type="button" onClick={() => deleteImage(index)}>
+                削除
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* その他のコンポーネントの描画部分 */}
+
+      {/* ここに追加したい */}
+
       <div className="post-box">
         <div className="post-box-piece">
           <h4>商品画像</h4>
@@ -221,8 +259,11 @@ const ItemPost = (props) => {
             className="post-description-item"
           ></textarea>
         </div>
-        <button onClick={() => handleClick()}>出品</button>
+        <button type="submit" onClick={() => handleClick()}>
+          出品
+        </button>
       </div>
+      {/* </form> */}
     </>
   );
 };

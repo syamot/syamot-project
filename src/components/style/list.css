@@ -1,15 +1,30 @@
 .image-box img {
   width: auto;
+  /* height: 130px; */
+  /* max-width: 130px; */
+  margin: 0 auto;
+
+  /* 追加 */
   height: 130px;
-  max-width: 130px;
-  margin: 5px;
+  width: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25); /* カード背景の色＋不透明度 */
+  backdrop-filter: blur(10px); /* 背景のぼかし具合 */
+  border-radius: 16px; /* 角の丸み */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.454); /* 外側の影 */
+  border: 1px solid rgb(255, 255, 255); /* 縁のスタイル */
+  /* border-style: solid double groove ridge;
+  border-color: burlywood;
+  border-width: 10px; */
+  /* background-color: rgba(255, 255, 255, 1); */
 }
 
 .image-box {
   display: flex;
   justify-content: center;
-  border-style: solid double groove ridge;
-  border-color: burlywood;
+  /* border-style: solid double groove ridge;
+  border-color: burlywood; */
   background-color: rgba(255, 255, 255, 1);
 }
 
