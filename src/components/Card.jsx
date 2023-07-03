@@ -5,7 +5,7 @@ import Swipe from "./Swipe";
 
 //詳細情報ページ
 const Card = (props) => {
-  const { setSelectFlag, selectImg, users } = props;
+  const { setSelectFlag, selectImg, users, userData, oneUser } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
   const date = new Date(dateString);
@@ -19,7 +19,7 @@ const Card = (props) => {
         <div className="imageBrock">
           <AiFillHeart className="goodIcon" />
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
-          <Swipe etSelectFlag={setSelectFlag} selectImg={selectImg} />
+          <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
         <div className="cardItemBrock">
           <p className="cardItem">説明</p>
@@ -39,7 +39,21 @@ const Card = (props) => {
           <button
             className="buyBtn"
             onClick={() => {
-              setSelectFlag("transaction");
+              console.log("oneuser.id:", oneUser.id);
+              console.log("selectImg.item_seller", selectImg.item_seller);
+              console.log("sellerUser:", sellerUser);
+
+              // 購入者であれば連絡リストに遷移
+              if (oneUser.id === sellerUser[0].id) {
+                console.log("contact");
+                setSelectFlag("contactList");
+
+              } else {
+                console.log("transaction");
+                setSelectFlag("transaction");
+              }
+
+
               // changeStatus();
             }}
           >

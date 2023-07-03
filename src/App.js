@@ -15,6 +15,8 @@ import Notification from "./components/Notification";
 import ExhibitionList from "./components/ExhibitionList";
 import Favorite from "./components/Favorite";
 import PurchaseList from "./components/PurchaseList";
+//
+import ContactList from "./components/ContactList";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -28,7 +30,6 @@ function App() {
   const [selectImg, setSelectImg] = useState({});
   const [oneUser, setOneUser] = useState("");
   const [userData, setUserData] = useState({});
-
 
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
@@ -138,11 +139,35 @@ function App() {
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
             users={users}
+            oneUser={oneUser}
+            userData={userData}
             URL={URL}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
+    //
+    case "contactList":
+      console.log("contactList");
+      return (
+        <>
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <ContactList
+            setSelectFlag={setSelectFlag}
+            selectImg={selectImg}
+            setSelectImg={setSelectImg}
+            users={users}
+            URL={URL}
+            getAllItems={getAllItems}
+            setItems={setItems}
+            userData={userData}
+            setUserData={setUserData}
+          />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+
+    //
     case "transaction":
       return (
         <>

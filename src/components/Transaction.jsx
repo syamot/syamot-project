@@ -16,6 +16,7 @@ const Transaction = (props) => {
     getAllItems,
     setItems,
     setSelectImg,
+
     userData,
     setUserData,
   } = props;
@@ -28,15 +29,21 @@ const Transaction = (props) => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
+      console.log("selectImg:", selectImg);
       const filterChat = chatJson
+        //選択した写真のアイテムのチャット
         .filter((e1) => e1.item_id === selectImg.id)
-        .filter((e2) => {
-          return (
-            e2.user_id === userData.id ||
-            e2.item_seller === userData.id ||
-            e2.user_id === e2.item_seller
-          );
-        });
+        //ログイン者の
+        .filter(
+          (e2) => e2.user_id === userData.id || e2.item_seller === e2.partner_id
+        );
+      // .filter((e2) => e2.user_id === userData.id)
+
+      //チャットのUserID===ログイン者のID
+      //チャットの出品者ID===選択した投稿の出品者ID
+      //  && e2.user_id === e2.item_seller
+      //|| (e2.item_seller === userData.id && e2.user_id === e2.item_seller)
+      console.log(filterChat);
       setChatData(filterChat);
     };
     //0.5秒ごとにチャット内容更新
@@ -249,9 +256,9 @@ const Transaction = (props) => {
         //   timeZone: timeZone,
         // }),
         item_id: selectImg.id,
-        user_id: userData.id,
+        user_id: userData.id === selectImg.item_seller ? 1 : 2, //####################
         message: sendTxt,
-        partner_id: selectImg.item_seller,
+        partner_id: selectImg.item_seller, //#####################
       };
       try {
         // チャットTBに書き換え
