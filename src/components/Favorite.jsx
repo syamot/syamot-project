@@ -22,11 +22,7 @@ const Favorite = (props) => {
         <ul className="image-list">
           {oneUser.favorite.length !== 0 &&
             oneUser.favorite.map((idNum) => {
-              console.log("idNum", idNum);
-              console.log("items", items);
               const item = items.filter((elem) => elem.id === idNum)[0];
-
-              console.log("item", item);
 
               return (
                 <li key={idNum} className="image-item">

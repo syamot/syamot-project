@@ -37,7 +37,6 @@ p {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: solid;
   border-bottom: solid 0.1px;
 }
 

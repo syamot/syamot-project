@@ -73,7 +73,8 @@ const Header = (props) => {
     selectFlag === "notification" ||
     selectFlag === "exhibitionList" ||
     selectFlag === "favorite" ||
-    selectFlag === "purchaseList"
+    selectFlag === "purchaseList" ||
+    selectFlag === "tradingHistory"
   ) {
     return (
       <>

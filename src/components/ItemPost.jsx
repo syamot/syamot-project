@@ -120,25 +120,6 @@ const ItemPost = (props) => {
     // await changeStatus();
     setSelectFlag("list");
   };
-
-  // const setImgaaaaa = async (e) => {
-  //   const file = e.target.files[0];
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   await fetch("http://localhost:8000/upload", {
-  //     method: "POST",
-  //     // headers: {
-  //     //   "Content-Type": "image/jpeg",
-  //     // },
-  //     body: formData,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
-
   return (
     <>
       <div className="post-box">
