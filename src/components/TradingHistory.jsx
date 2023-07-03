@@ -1,7 +1,7 @@
 import React from "react";
-import "./style/purchaseList.css";
+import "./style/tradingHistory.css";
 
-const PurchaseList = (props) => {
+function TradingHistory(props) {
   const { items, setSelectFlag, setSelectImg, purchaseList } = props;
   const clickImg = (e) => {
     let item;
@@ -17,7 +17,7 @@ const PurchaseList = (props) => {
   return (
     <div className="purchase-list-box">
       <div className="exhibition-piece">
-        <h2>購入履歴</h2>
+        <h2>取引履歴</h2>
       </div>
       <div>
         <ul className="image-list">
@@ -41,6 +41,6 @@ const PurchaseList = (props) => {
       </div>
     </div>
   );
-};
+}
 
-export default PurchaseList;
+export default TradingHistory;

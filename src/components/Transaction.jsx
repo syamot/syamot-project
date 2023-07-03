@@ -16,8 +16,8 @@ const Transaction = (props) => {
     getAllItems,
     setItems,
     setSelectImg,
-    userData,
-    setUserData,
+    setOneUser,
+    oneUser,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
@@ -32,8 +32,8 @@ const Transaction = (props) => {
         .filter((e1) => e1.item_id === selectImg.id)
         .filter((e2) => {
           return (
-            e2.user_id === userData.id ||
-            e2.item_seller === userData.id ||
+            e2.user_id === oneUser.id ||
+            e2.item_seller === oneUser.id ||
             e2.user_id === e2.item_seller
           );
         });
@@ -46,7 +46,7 @@ const Transaction = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [URL, chatData, selectImg.id, selectImg.item_seller, userData.id]);
+  }, [URL, chatData, selectImg.id, selectImg.item_seller, oneUser.id]);
   console.log(chatData);
 
   //setSelectImgの内容をchatDataをもとに更新
@@ -187,6 +187,18 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
+
+        await fetch(URL + "/buyer", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            buyer_id: oneUser.id,
+            item_id: selectImg.id,
+          }),
+        });
+
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: "受取完了", user: "approve" },
@@ -242,17 +254,15 @@ const Transaction = (props) => {
       );
       console.log(now);
       const obj = {
-        //送信日時はサーバー側で取得済み
-        // send_date: now.getTime(),
         send_date: now,
-        // send_date: formatToTimeZone(now, "YYYY-MM-DD HH:mm:ss", {
-        //   timeZone: timeZone,
-        // }),
         item_id: selectImg.id,
-        user_id: userData.id,
+        user_id: oneUser.id,
         message: sendTxt,
         partner_id: selectImg.item_seller,
+        seller_read_flag: true,
+        buyer_read_flag: true,
       };
+      console.log("sdasdasdsadasdsadas", obj);
       try {
         // チャットTBに書き換え
         await fetch(URL + "/addChat", {
@@ -291,7 +301,7 @@ const Transaction = (props) => {
       const obj = {
         //送信日時はサーバー側で取得済み
         item_id: selectImg.id,
-        user_id: userData.id,
+        user_id: oneUser.id,
         message: message,
         partner_id: selectImg.item_seller,
       };
@@ -397,8 +407,8 @@ const Transaction = (props) => {
         <BiMailSend className="sendBtn" onClick={createMessage} />
       </div>
       <div className="footerBrock">
-        {userData.length !== 0 &&
-          (userData.id === selectImg.item_seller ? (
+        {oneUser.length !== 0 &&
+          (oneUser.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
               <button
                 className="approvalBtn"

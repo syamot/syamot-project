@@ -80,46 +80,46 @@ const SignUp = (props) => {
       <div className="loginMainBrock">
         <div className="loginBrock2">
           <h1 className="createHead ">
-            <span>CREATE</span> ACCOUNT
+            <span>アカウント新規作成</span>
           </h1>
           <input
-            placeholder="employeeCode"
+            placeholder="従業員コード"
             type="text"
             className="employeeCode"
             onChange={(e) => changeCode(e)}
           />
           <input
-            placeholder="Username"
+            placeholder="ID"
             type="text"
             className="user"
             onChange={(e) => changeName(e)}
           />
           <input
-            placeholder="Password"
+            placeholder="パスワード"
             type="password"
             className="pass"
             onChange={(e) => changePass(e)}
           />
           <input
-            placeholder="TMC-e-mail"
+            placeholder="TOYOTAメールアドレス"
             type="email"
             className="tmc-email"
             onChange={(e) => changeTMCmail(e)}
           />
           <input
-            placeholder="Private-e-mail"
+            placeholder="私用メールアドレス"
             type="email"
             className="private-email"
             onChange={(e) => changePrivatemail(e)}
           />
           <input
-            placeholder="Location"
+            placeholder="住所（市まで）"
             type="text"
             className="location"
             onChange={(e) => changeLocation(e)}
           />
           <input
-            placeholder="Area"
+            placeholder="居住エリア"
             type="text"
             className="area"
             onChange={(e) => changeArea(e)}
@@ -128,10 +128,10 @@ const SignUp = (props) => {
             className="btn createAccountBtn"
             onClick={() => createAddUser()}
           >
-            CREATE ACCOUNT
+            新規作成
           </button>
           <h6 className="btn" onClick={() => setSelectFlag("signIn")}>
-            Return Sign in
+            ログイン画面に戻る
           </h6>
         </div>
       </div>

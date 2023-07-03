@@ -15,6 +15,7 @@ import Notification from "./components/Notification";
 import ExhibitionList from "./components/ExhibitionList";
 import Favorite from "./components/Favorite";
 import PurchaseList from "./components/PurchaseList";
+import TradingHistory from "./components/TradingHistory";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -26,9 +27,26 @@ function App() {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
-  const [oneUser, setOneUser] = useState("");
   const [userData, setUserData] = useState({});
+
   const [sorted, setSorted] = useState("");
+
+  const [oneUser, setOneUser] = useState("");
+  const [exhibitList, setExhibitList] = useState("");
+  const [purchaseList, setPurchaseList] = useState("");
+  const [upDataFlag, setUpDataFlag] = useState(false);
+  const [tradingHistory, setTradingHistory] = useState("");
+
+  useEffect(() => {
+    const userName = localStorage.getItem("user");
+
+    if (userName === undefined || userName === null || userName === "") {
+      setSelectFlag("signIn");
+    } else {
+      setSelectFlag("list");
+    }
+  }, []);
+
 
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
@@ -43,6 +61,8 @@ function App() {
   };
 
   useEffect(() => {
+    console.log("dsafsfdsfdsdsfds", oneUser);
+    console.log(selectFlag);
     let userData;
     let itemData;
     const asyncPkg = async () => {
@@ -52,11 +72,33 @@ function App() {
       itemData.forEach((elem) => {
         elem.item_img = JSON.parse(elem.item_img);
       });
+      userData.forEach((elem) => {
+        elem.favorite = JSON.parse(elem.favorite);
+      });
+
+      // console.log("aaaaaaaaaaaa", userData);
       setUsers(userData);
       setItems(itemData);
+
+      let openUserId;
+      userData.forEach((elem) => {
+        if (elem.user_name === localStorage.getItem("user")) {
+          openUserId = elem.id;
+        }
+      });
+      const userItemData = itemData.filter(
+        (elem) => elem.item_seller === openUserId
+      );
+      setExhibitList(userItemData);
+
+      const userPurchaseList = itemData.filter(
+        (elem) => elem.buyer_id === openUserId
+      );
+      setPurchaseList(userPurchaseList);
     };
     asyncPkg();
-  }, [selectFlag]);
+    setUpDataFlag(false);
+  }, [selectFlag, upDataFlag]);
 
   useEffect(() => {
     const index = users.findIndex(
@@ -119,7 +161,11 @@ function App() {
     case "list":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setUpDataFlag={setUpDataFlag}
+          />
           <List
             setSelectFlag={setSelectFlag}
             items={items}
@@ -143,6 +189,9 @@ function App() {
             selectImg={selectImg}
             users={users}
             URL={URL}
+            setSelectImg={setSelectImg}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -159,8 +208,8 @@ function App() {
             URL={URL}
             getAllItems={getAllItems}
             setItems={setItems}
-            userData={userData}
-            setUserData={setUserData}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -186,11 +235,16 @@ function App() {
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
-    case "notification":
+    case "tradingHistory":
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <Notification />
+          <TradingHistory
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+            purchaseList={purchaseList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -198,7 +252,13 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <ExhibitionList />
+          <ExhibitionList
+            setSelectFlag={setSelectFlag}
+            items={items}
+            setSelectImg={setSelectImg}
+            exhibitList={exhibitList}
+            setExhibitList={setExhibitList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -206,7 +266,12 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <Favorite />
+          <Favorite
+            oneUser={oneUser}
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -214,7 +279,12 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <PurchaseList />
+          <PurchaseList
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+            purchaseList={purchaseList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );

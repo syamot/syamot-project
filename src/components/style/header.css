@@ -15,7 +15,8 @@ header {
 }
 
 .userIcon,
-.backIcon {
+.backIcon,
+.up-data-icon {
   width: 6vh;
   height: 6vh;
 }
@@ -25,7 +26,8 @@ header {
   left: -7%;
   margin-left: 3vh;
 }
-.backIcon {
+.backIcon,
+.up-data-icon {
   position: relative;
   left: 7%;
   margin-right: 3vh;
