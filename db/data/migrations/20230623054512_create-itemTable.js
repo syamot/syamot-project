@@ -7,14 +7,9 @@ exports.up = function (knex) {
     table.increments("id").primary().notNullable();
     table.string("item_name", 100).notNullable();
     table.string("item_category", 100).notNullable();
-    table.text("item_explanation").notNullable();
+    table.text("item_explanation"); //備考欄
     table.string("item_status", 100).notNullable();
-    table.string("item_condition", 100).notNullable();
     table.integer("item_num").notNullable();
-    table.float("item_weight").notNullable();
-    table.integer("item_size_vertical").notNullable();
-    table.integer("item_size_width").notNullable();
-    table.integer("item_size_height").notNullable();
     table.date("item_deadline").notNullable();
     table.text("item_img").notNullable();
     table.integer("item_seller").notNullable();

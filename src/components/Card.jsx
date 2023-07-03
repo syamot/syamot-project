@@ -4,6 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
 import Swipe from "./Swipe";
 
+//詳細情報ページ
 const Card = (props) => {
   const { setSelectFlag, selectImg, users, oneUser, setOneUser, URL } = props;
   // 日付までを取得
@@ -75,13 +76,9 @@ const Card = (props) => {
           <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
           <p className="cardItem">ステータス: {selectImg.item_condition}</p>
           <p className="cardItem">個数: {selectImg.item_num}</p>
-          <p className="cardItem">重さ: {selectImg.item_weight}</p>
-          <p className="cardItem">長さ: {selectImg.item_size_vertical}</p>
-          <p className="cardItem">幅: {selectImg.item_size_width}</p>
-          <p className="cardItem">高さ: {selectImg.item_size_height}</p>
           <p className="cardItem">期限: {formattedDate}</p>
           <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
-          {/* チャット表示ここに記載 */}
+          <p className="cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
         </div>
         <div className="buyBrock">
           <button

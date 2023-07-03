@@ -6,7 +6,6 @@ import List from "./components/List";
 import Card from "./components/Card";
 import Transaction from "./components/Transaction";
 import ItemPost from "./components/ItemPost";
-import Swipe from "./components/Swipe";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SignUp2 } from "./components/SignUp2";
@@ -34,7 +33,7 @@ function App() {
 
   useEffect(() => {
     const userName = localStorage.getItem("user");
-    console.log(userName === "");
+
     if (userName === undefined || userName === null || userName === "") {
       setSelectFlag("signIn");
     } else {
@@ -42,10 +41,8 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("selectImg#####################", selectImg);
-    console.log("selectFlag #####################", selectFlag);
-  }, [selectImg, selectFlag]);
+  const [userData, setUserData] = useState({});
+
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
@@ -107,12 +104,6 @@ function App() {
   const [addUser, setAdduser] = useState({});
   const [message, setMessage] = useState(""); // 「お問い合わせ内容」の部分
 
-  useEffect(() => {
-    console.log(addUser);
-  }, [addUser]);
-  useEffect(() => {
-    console.log(message);
-  }, [message]);
   switch (selectFlag) {
     case "signIn":
       return (
@@ -124,6 +115,9 @@ function App() {
             setItems={setItems}
             setSelectImg={setSelectImg}
             getAllItems={getAllItems}
+            userData={userData}
+            setUserData={setUserData}
+            URL={URL}
           />
         </>
       );
@@ -203,6 +197,8 @@ function App() {
             URL={URL}
             getAllItems={getAllItems}
             setItems={setItems}
+            userData={userData}
+            setUserData={setUserData}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

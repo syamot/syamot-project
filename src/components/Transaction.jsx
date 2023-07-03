@@ -1,47 +1,97 @@
 import React, { useEffect, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BiMailSend } from "react-icons/bi";
-
 import "./style/transaction.css";
+// import io from "socket.io-client";
 
+// ＃＃＃＃＃＃＃＃＃＃＃＃
+import { formatToTimeZone } from "date-fns-timezone"; // 追加
+// ＃＃＃＃＃
+
+// チャットぺージ
 const Transaction = (props) => {
-  const { selectImg, URL, getAllItems, setItems, setSelectImg } = props;
+  const {
+    selectImg,
+    URL,
+    getAllItems,
+    setItems,
+    setSelectImg,
+    userData,
+    setUserData,
+  } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
-  const [userData, setUserData] = useState([]);
   const [chatData, setChatData] = useState([]);
+  // const socket = io("http://localhost:8000");
 
   useEffect(() => {
-    const userName = localStorage.getItem("user");
-    (async () => {
-      console.log(URL + "/user/" + userName);
-      const data = await fetch(URL + "/user/" + userName);
-      const jsonData = await data.json();
-      setUserData(jsonData);
-      // チャット情報を取得
+    const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      setChatData(chatJson);
-    })();
-  }, []);
+      const filterChat = chatJson
+        .filter((e1) => e1.item_id === selectImg.id)
+        .filter((e2) => {
+          return (
+            e2.user_id === userData.id ||
+            e2.item_seller === userData.id ||
+            e2.user_id === e2.item_seller
+          );
+        });
+      setChatData(filterChat);
+    };
+    //0.5秒ごとにチャット内容更新
+    const interval = setInterval(fetchData, 1000);
 
+    // コンポーネントのアンマウント時にクリーンアップ
+    return () => {
+      clearInterval(interval);
+    };
+  }, [URL, chatData, selectImg.id, selectImg.item_seller, userData.id]);
+  console.log(chatData);
+
+  //setSelectImgの内容をchatDataをもとに更新
   useEffect(() => {
-    // console.log(chatData);
-  }, [chatData]);
-  useEffect(() => {
-    // console.log("userData:  ", userData);
-  }, [userData]);
+    if (chatData.length > 0) {
+      setSelectImg((prevSelectImg) => ({
+        ...prevSelectImg,
+        item_approval_flag: chatData[0].item_approval_flag,
+        item_transaction_flag: chatData[0].item_transaction_flag,
+      }));
+    }
+  }, [chatData, setSelectImg]);
+
+  //チャット記入欄のデータを取得
   const changeTxt = (e) => {
     setSendTxt(e.target.value);
   };
+
+  //既存メッセージの表示（板倉）
+  // [{text: 'a', user: 'admin'}]//
+  useEffect(() => {
+    const existMessage = [];
+    chatData.map((chatObj) => {
+      existMessage.push({ text: chatObj.message, user: chatObj.user_name });
+      setMessages(existMessage);
+    });
+  }, [chatData]);
+
+  // const handleSendMessage = () => {
+  //   //サーバーへ送信
+  //   socket.emit("send_message", { message: message });//messageはtext
+  // };
+
+  //   //サーバーから受信
+  //   socket.on("received_message", (data) => {
+  //     console.log("サーバーから受信:",data);
+  //     setList([...list, data]);
+  //   });
+
+  //
 
   // 取引承認処理
   const approval = async () => {
     // 承認フラグ判定
     if (selectImg.item_approval_flag !== true) {
-      console.log("============取引承認処理=============");
-      console.log("承認状況：", selectImg.item_approval_flag);
-      console.log("取引状況：", selectImg.item_transaction_flag);
       try {
         //DBのitems_TBの要素に対して「item_approval_flag: true」に変更
         await fetch(URL + "/putApprovalFlag", {
@@ -51,14 +101,14 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
-        // チャットメッセージを追加
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: "承認完了", user: "approve" },
-        ]);
+        // // チャットメッセージを追加??????????????????????????????????????????????????消す？
+        // setMessages((prevMessages) => [
+        //   ...prevMessages,
+        //   { text: "承認完了", user: "approve" },
+        // ]);
 
         // チャットTBを書き換え
-        createMessageStatus(false, "承認完了");
+        createMessageStatus("承認完了");
         // Item_TBを全部取得
         let itemData;
         const asyncPkg = async () => {
@@ -67,7 +117,6 @@ const Transaction = (props) => {
             elem.item_img = JSON.parse(elem.item_img);
           });
           setItems(itemData);
-          // console.log(itemData);
         };
         asyncPkg();
 
@@ -87,9 +136,6 @@ const Transaction = (props) => {
   const approvalCancel = async () => {
     // 承認フラグ判定
     if (selectImg.item_approval_flag === true) {
-      console.log("============取引キャンセル処理=============");
-      console.log("承認状況：", selectImg.item_approval_flag);
-      console.log("取引状況：", selectImg.item_transaction_flag);
       try {
         //DBのitems_TBの要素に対して「item_approval_flag: False」に変更
         await fetch(URL + "/putApprovalFlagCancel", {
@@ -99,14 +145,14 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
-        // チャットメッセージを追加
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: "承認キャンセル", user: "approve" },
-        ]);
+        // // チャットメッセージを追加
+        // setMessages((prevMessages) => [
+        //   ...prevMessages,
+        //   { text: "承認キャンセル", user: "approve" },
+        // ]);
 
         // チャットTBを書き換え
-        createMessageStatus(false, "承認キャンセル");
+        createMessageStatus("承認キャンセル");
         // Item_TBを全部取得
         let itemData;
         const asyncPkg = async () => {
@@ -115,7 +161,6 @@ const Transaction = (props) => {
             elem.item_img = JSON.parse(elem.item_img);
           });
           setItems(itemData);
-          // console.log(itemData);
         };
         asyncPkg();
 
@@ -131,11 +176,9 @@ const Transaction = (props) => {
     }
   };
 
-  // 取引完了処理
+  // 受取完了処理
   const complete = async () => {
     if (selectImg.item_transaction_flag !== true) {
-      console.log("承認状況：", selectImg.item_approval_flag);
-      console.log("受取状況：", selectImg.item_transaction_flag);
       try {
         await fetch(URL + "/putTransactionFlag", {
           method: "PUT",
@@ -158,11 +201,11 @@ const Transaction = (props) => {
 
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: "取引完了", user: "approve" },
+          { text: "受取完了", user: "approve" },
         ]);
 
         // チャットTBを書き換え
-        createMessageStatus(true, "取引完了");
+        createMessageStatus("受取完了");
         let itemData;
         const asyncPkg = async () => {
           itemData = await getAllItems();
@@ -170,19 +213,12 @@ const Transaction = (props) => {
             elem.item_img = JSON.parse(elem.item_img);
           });
           setItems(itemData);
-          // console.log(itemData);
         };
         asyncPkg();
-        // console.log("＃＃＃＃＃＃＃確認＃＃＃＃＃＃＃＃＃＃＃＃");
-        // console.log(
-        //   selectImg.item_approval_flag,
-        //   selectImg.item_transaction_flag
-        // );
         setSelectImg({
           ...selectImg,
           item_transaction_flag: true,
         });
-        // console.log("取引完了処理スタート");
         await fetch(URL + "/putCompleteStatus", {
           method: "PUT",
           headers: {
@@ -196,23 +232,6 @@ const Transaction = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (selectImg.item_approval_flag)
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: "承認完了", user: "approve" },
-      ]);
-    if (selectImg.item_transaction_flag)
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: "受取完了", user: "approve" },
-      ]);
-  }, []);
-
-  useEffect(() => {
-    // console.log(sendTxt);
-  }, [sendTxt]);
-
   //   今の日付を確認する
   function getCurrentTime() {
     let now = new Date();
@@ -225,21 +244,26 @@ const Transaction = (props) => {
 
   // チャット送信
   const createMessage = async () => {
-    let transaction_flag = false;
     if (sendTxt !== "") {
-      // 処理が完了してたらフラグをtrueに設定
-      if (
-        selectImg.item_approval_flag === true &&
-        selectImg.item_transaction_flag === true
-      ) {
-        transaction_flag = true;
-      }
+      setSendTxt("");
+      const now = new Date();
+      // // タイムゾーン定義
+      const timeZone = "Asia/Tokyo";
+      console.log(
+        formatToTimeZone(now, "YYYY-MM-DD HH:mm:ss", { timeZone: timeZone })
+      );
+      console.log(now);
       const obj = {
-        transaction_date: getCurrentTime(),
-        transaction_flag: transaction_flag,
+        //送信日時はサーバー側で取得済み
+        // send_date: now.getTime(),
+        send_date: now,
+        // send_date: formatToTimeZone(now, "YYYY-MM-DD HH:mm:ss", {
+        //   timeZone: timeZone,
+        // }),
         item_id: selectImg.id,
-        user_id: userData[0].id,
+        user_id: userData.id,
         message: sendTxt,
+        partner_id: selectImg.item_seller,
       };
       try {
         // チャットTBに書き換え
@@ -250,44 +274,38 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(obj),
         });
-        console.log("チャットが送信されました");
+
+        // socket.emit("chatMessage", {
+        //   text: sendTxt,
+        //   user: localStorage.getItem("user"),
+        // });
       } catch (error) {
         console.log(error);
       }
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: sendTxt, user: localStorage.getItem("user") },
-      ]);
-      setSendTxt("");
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   { text: sendTxt, user: localStorage.getItem("user") },
+      // ]);
+      // setSendTxt("");
     }
   };
 
   // ボタン操作によるチャットステータス送信
-  const createMessageStatus = async (transaction_flag, message) => {
-    // let transaction_flag = false;
-    // 取引完了していたら処理しない
+  const createMessageStatus = async (message) => {
+    // 受取完了していたら処理しない
     if (
       !(
         selectImg.item_approval_flag === true &&
         selectImg.item_transaction_flag === true
       )
     ) {
-      // 処理が完了してたらフラグをtrueに設定
-      // let message = "承認完了";
-      // if (
-      //   selectImg.item_approval_flag === true &&
-      //   selectImg.item_transaction_flag === false
-      // ) {
-      //   message = "受取完了";
-      //   transaction_flag = true;
-      // }
       const obj = {
-        transaction_date: getCurrentTime(),
-        transaction_flag: transaction_flag,
+        //送信日時はサーバー側で取得済み
         item_id: selectImg.id,
-        user_id: userData[0].id,
+        user_id: userData.id,
         message: message,
+        partner_id: selectImg.item_seller,
       };
       try {
         // チャットTBに書き換え
@@ -298,16 +316,15 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(obj),
         });
-        console.log("ボタンステータス変更チャットが送信されました");
       } catch (error) {
         console.log(error);
       }
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: sendTxt, user: localStorage.getItem("user") },
-      ]);
-      setSendTxt("");
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   { text: sendTxt, user: localStorage.getItem("user") },
+      // ]);
+      // setSendTxt("");
     }
   };
 
@@ -348,8 +365,6 @@ const Transaction = (props) => {
     }
   };
 
-  // console.log("userData.user_name ", userData[0].user_name);
-
   return (
     <>
       <div className="titleBrock">
@@ -358,15 +373,20 @@ const Transaction = (props) => {
       </div>
       <div className="transMainBrock">
         {messages.map((message, index) => {
-          if (message.user === localStorage.getItem("user")) {
+          if (
+            message.user === "approve" || //これ効いていない
+            message.text === "承認完了" ||
+            message.text === "承認キャンセル" ||
+            message.text === "受取完了"
+          ) {
             return (
-              <div key={index} className="messageBlock">
+              <div key={index} className="messageBlock2">
                 <p className="messageContent">{message.text}</p>
               </div>
             );
-          } else if (message.user === "approve") {
+          } else if (message.user === localStorage.getItem("user")) {
             return (
-              <div key={index} className="messageBlock2">
+              <div key={index} className="messageBlock">
                 <p className="messageContent">{message.text}</p>
               </div>
             );
@@ -390,7 +410,7 @@ const Transaction = (props) => {
       </div>
       <div className="footerBrock">
         {userData.length !== 0 &&
-          (userData[0].id === selectImg.item_seller ? (
+          (userData.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
               <button
                 className="approvalBtn"
@@ -403,7 +423,10 @@ const Transaction = (props) => {
               <>
                 <button
                   className="approvalBtn"
-                  disabled={!selectImg.item_approval_flag}
+                  disabled={
+                    selectImg.item_approval_flag &&
+                    selectImg.item_transaction_flag
+                  }
                   onClick={() => approvalCancel()}
                 >
                   取引キャンセル

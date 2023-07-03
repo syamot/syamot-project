@@ -59,7 +59,6 @@ const SignUp = (props) => {
     // パスワードのハッシュ化
     const hashedPassword = sha512(userPass);
     const registration_date = getCurrentTime();
-    console.log(hashedPassword);
     setAdduser({
       password: hashedPassword,
       user_name: userName,

@@ -12,9 +12,6 @@ const Profile = (props) => {
       setOneUser({ ...oneUser, [tag]: e.target.value });
     }
   };
-  useEffect(() => {
-    console.log(oneUser);
-  }, [oneUser]);
 
   const postUpDataUser = async () => {
     await fetch(URL + "/users", {
