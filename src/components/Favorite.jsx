@@ -16,7 +16,7 @@ const Favorite = (props) => {
   return (
     <div className="purchase-list-box">
       <div className="exhibition-piece">
-        <h2>購入履歴</h2>
+        <h2>お気に入り</h2>
       </div>
       <div>
         <ul className="image-list">
