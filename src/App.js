@@ -32,8 +32,19 @@ function App() {
   const [upDataFlag, setUpDataFlag] = useState(false);
 
   useEffect(() => {
+    const userName = localStorage.getItem("user");
+    console.log(userName === "");
+    if (userName === undefined || userName === null || userName === "") {
+      setSelectFlag("signIn");
+    } else {
+      setSelectFlag("list");
+    }
+  }, []);
+
+  useEffect(() => {
     console.log("selectImg#####################", selectImg);
-  }, [selectImg]);
+    console.log("selectFlag #####################", selectFlag);
+  }, [selectImg, selectFlag]);
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();

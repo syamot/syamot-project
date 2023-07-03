@@ -5,8 +5,13 @@ import { FaUserCircle } from "react-icons/fa";
 //まいぺ➖じ
 const MyPage = (props) => {
   const { setSelectFlag } = props;
-
   const userName = localStorage.getItem("user");
+
+  const logOut = () => {
+    console.log("リロードされました。");
+    localStorage.setItem("user", "");
+    document.location.reload();
+  };
   return (
     <>
       <div className="my-page-contents-area">
@@ -49,7 +54,7 @@ const MyPage = (props) => {
         >
           購入履歴
         </p>
-        <p>ログアウト</p>
+        <p onClick={() => logOut()}>ログアウト</p>
       </div>
     </>
   );
