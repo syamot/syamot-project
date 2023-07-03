@@ -28,7 +28,7 @@ function App() {
   const [selectImg, setSelectImg] = useState({});
   const [oneUser, setOneUser] = useState("");
   const [userData, setUserData] = useState({});
-
+  const [sorted, setSorted] = useState("");
 
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
@@ -126,6 +126,10 @@ function App() {
             setItems={setItems}
             setSelectImg={setSelectImg}
             getAllItems={getAllItems}
+            sorted={sorted}
+            setSorted={setSorted}
+            users={users}
+            setUsers={setUsers}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
