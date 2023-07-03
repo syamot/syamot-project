@@ -52,12 +52,12 @@ app.use((req, res, next) => {
 
 //User内容編集画面
 app.put("/users", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("user").update(obj).where("id", obj.id);
     const result = await knex.select("*").from("user");
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
@@ -66,7 +66,7 @@ app.put("/users", async (req, res) => {
 });
 
 app.put("/buyer", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("items")
@@ -81,7 +81,7 @@ app.put("/buyer", async (req, res) => {
   }
 });
 app.put("/favoriteItems", async (req, res) => {
-  console.log("sfsdfafewnajkfbwaeijfw", req.body);
+  // console.log("sfsdfafewnajkfbwaeijfw", req.body);
   const obj = req.body;
   try {
     await knex("user")

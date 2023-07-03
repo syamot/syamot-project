@@ -8,7 +8,6 @@ const MyPage = (props) => {
   const userName = localStorage.getItem("user");
 
   const logOut = () => {
-    console.log("リロードされました。");
     localStorage.setItem("user", "");
     document.location.reload();
   };
@@ -19,20 +18,6 @@ const MyPage = (props) => {
           <FaUserCircle className="image-user-icon" />
           <h1>{userName}</h1>
         </div>
-        <p
-          onClick={() => {
-            setSelectFlag("profile");
-          }}
-        >
-          プロフィール編集
-        </p>
-        <p
-          onClick={() => {
-            setSelectFlag("notification");
-          }}
-        >
-          暫定のもの何入れる？使わない？
-        </p>
         <p
           onClick={() => {
             setSelectFlag("exhibitionList");
@@ -49,10 +34,24 @@ const MyPage = (props) => {
         </p>
         <p
           onClick={() => {
+            setSelectFlag("tradingHistory");
+          }}
+        >
+          取引履歴
+        </p>
+        <p
+          onClick={() => {
             setSelectFlag("purchaseList");
           }}
         >
           購入履歴
+        </p>
+        <p
+          onClick={() => {
+            setSelectFlag("profile");
+          }}
+        >
+          プロフィール編集
         </p>
         <p onClick={() => logOut()}>ログアウト</p>
       </div>

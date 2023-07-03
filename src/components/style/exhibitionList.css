@@ -1,5 +1,4 @@
-h2 {
-  margin-top: 10px;
+h2.exhibition-title {
   margin: 0px;
 }
 
@@ -11,61 +10,44 @@ h2 {
   width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 81vh;
+  max-height: 83vh;
   display: flex;
-  height: 81vh;
+  height: 83vh;
   overflow-y: scroll;
   align-items: stretch;
 }
+
 .exhibition-piece {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-bottom: solid 0.1px;
 }
 
-.image-box img {
+.exhibition-image-box img {
   width: auto;
-  height: 130px;
+  height: 90px;
   max-width: 130px;
   margin: 5px;
 }
 
-.image-box {
+.exhibition-image-box {
   display: flex;
-  justify-content: center;
-  border-style: solid double groove ridge;
-  border-color: burlywood;
-  background-color: rgba(255, 255, 255, 1);
+  flex-direction: row;
+  align-items: center;
+  border-bottom: solid 0.1px;
 }
 
-li {
-  list-style: none;
+li.exhibition-image-item {
+  /* list-style: none;
   margin: 10px;
   object-fit: cover;
   width: 150px;
-  height: 130px;
-  background-color: #ccc;
+  height: 130px; */
 }
 
-ul {
+ul.exhibition-image-list {
+  margin-top: 8px;
   padding-left: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  position: absolute;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  margin-top: 1px;
-}
-
-.mainBrock-list {
-  position: fixed;
-  top: 10.5vh;
-  width: 100%;
-  max-height: 81vh;
-  display: flex;
-  height: 81vh;
-  overflow-y: scroll;
 }

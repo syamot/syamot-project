@@ -15,6 +15,7 @@ import Notification from "./components/Notification";
 import ExhibitionList from "./components/ExhibitionList";
 import Favorite from "./components/Favorite";
 import PurchaseList from "./components/PurchaseList";
+import TradingHistory from "./components/TradingHistory";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -26,10 +27,12 @@ function App() {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
+  const [userData, setUserData] = useState({});
   const [oneUser, setOneUser] = useState("");
   const [exhibitList, setExhibitList] = useState("");
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
+  const [tradingHistory, setTradingHistory] = useState("");
 
   useEffect(() => {
     const userName = localStorage.getItem("user");
@@ -41,10 +44,6 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("selectImg#####################", selectImg);
-    console.log("selectFlag #####################", selectFlag);
-  }, [selectImg, selectFlag]);
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
@@ -58,6 +57,8 @@ function App() {
   };
 
   useEffect(() => {
+    console.log("dsafsfdsfdsdsfds", oneUser);
+    console.log(selectFlag);
     let userData;
     let itemData;
     const asyncPkg = async () => {
@@ -71,7 +72,7 @@ function App() {
         elem.favorite = JSON.parse(elem.favorite);
       });
 
-      console.log("aaaaaaaaaaaa", userData);
+      // console.log("aaaaaaaaaaaa", userData);
       setUsers(userData);
       setItems(itemData);
 
@@ -199,8 +200,8 @@ function App() {
             URL={URL}
             getAllItems={getAllItems}
             setItems={setItems}
-            userData={userData}
-            setUserData={setUserData}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -226,11 +227,16 @@ function App() {
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
-    case "notification":
+    case "tradingHistory":
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <Notification />
+          <TradingHistory
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+            purchaseList={purchaseList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
