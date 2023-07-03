@@ -4,13 +4,12 @@ require("dotenv").config({
 });
 
 console.log(process.env.DB_USER);
-// console.log(process.env.DB_PASSWORD);
 
 module.exports = {
   development: {
     client: "pg",
     connection: {
-      user: process.env.DB_USER || "RYUSEI",
+      user: process.env.DB_USER || "user",
       database: process.env.DB_NAME || "syamot",
       password: process.env.DB_PASSWORD,
     },

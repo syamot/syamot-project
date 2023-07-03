@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 import "./style/profile.css";
 
 const Profile = (props) => {
@@ -12,9 +12,6 @@ const Profile = (props) => {
       setOneUser({ ...oneUser, [tag]: e.target.value });
     }
   };
-  useEffect(() => {
-    console.log(oneUser);
-  }, [oneUser]);
 
   const postUpDataUser = async () => {
     await fetch(URL + "/users", {
