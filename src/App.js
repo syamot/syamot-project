@@ -33,6 +33,7 @@ function App() {
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
   const [tradingHistory, setTradingHistory] = useState("");
+  const [flagHistory, setFlagHistory] = useState(["list"]);
 
   useEffect(() => {
     const userName = localStorage.getItem("user");
@@ -95,6 +96,11 @@ function App() {
     asyncPkg();
     setUpDataFlag(false);
   }, [selectFlag, upDataFlag]);
+
+  useEffect(() => {
+    setFlagHistory((prevHistory) => [...prevHistory, selectFlag]);
+    console.log("sssssssssss", selectFlag);
+  }, [selectFlag]);
 
   useEffect(() => {
     const index = users.findIndex(
