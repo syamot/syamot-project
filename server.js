@@ -52,18 +52,50 @@ app.use((req, res, next) => {
 
 //User内容編集画面
 app.put("/users", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("user").update(obj).where("id", obj.id);
     const result = await knex.select("*").from("user");
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
     res.status(500);
   }
 });
+
+app.put("/buyer", async (req, res) => {
+  // console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        buyer_id: obj.buyer_id,
+      })
+      .where("id", obj.item_id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+app.put("/favoriteItems", async (req, res) => {
+  // console.log("sfsdfafewnajkfbwaeijfw", req.body);
+  const obj = req.body;
+  try {
+    await knex("user")
+      .update({
+        favorite: JSON.stringify(obj.favorite),
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+
 //ここまで
 
 app.get("/userAllData", async (req, res) => {
