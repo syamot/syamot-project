@@ -23,7 +23,7 @@ h2.exhibition-title {
   align-items: center;
   border-bottom: solid 0.1px;
 }
-
+/* img */
 .exhibition-image-box img {
   width: auto;
   height: 90px;
@@ -36,6 +36,9 @@ h2.exhibition-title {
   flex-direction: row;
   align-items: center;
   border-bottom: solid 0.1px;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
 }
 
 li.exhibition-image-item {
@@ -44,10 +47,61 @@ li.exhibition-image-item {
   object-fit: cover;
   width: 150px;
   height: 130px; */
+  list-style-type: none;
 }
 
 ul.exhibition-image-list {
   margin-top: 8px;
   padding-left: 0;
   width: 100%;
+}
+
+.nextIcon {
+  position: fixed;
+  right: 1vh;
+  height: 5vh;
+  width: 5vh;
+}
+/* 編集のアイコン */
+.editIcon {
+  width: 5vh;
+  height: 5vh;
+  position: absolute;
+  /* top: 61vh; */
+  background-color: rgb(255 255 255 / 50%);
+  color: rgb(0 0 0 / 55%);
+}
+.EditIconBlock {
+  position: relative;
+  /* border-style: solid; */
+  width: 100%;
+  height: 100%;
+  top: -3vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+/* imgのブロック */
+.imgBlock {
+  display: flex;
+  justify-content: center;
+  border-style: solid double groove ridge;
+  border-color: #808080;
+  background-color: rgba(255, 255, 255, 1);
+  width: 130px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: fixed;
+  left: 1vh;
+}
+/* textのブロック */
+.exhibition-info {
+  position: relative;
+  left: 7vh;
 }

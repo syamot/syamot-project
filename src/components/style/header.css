@@ -16,20 +16,22 @@ header {
 
 .userIcon,
 .backIcon,
-.up-data-icon {
+.up-data-icon,
+.bellIcon {
   width: 6vh;
   height: 6vh;
 }
 
-.userIcon {
+.userIcon,
+.bellIcon {
   position: relative;
-  left: -7%;
+  left: 0%;
   margin-left: 3vh;
 }
 .backIcon,
 .up-data-icon {
   position: relative;
-  left: 7%;
+  left: 0%;
   margin-right: 3vh;
 }
 

@@ -18,6 +18,7 @@ function List(props) {
   //全点リスト表示
   useEffect(() => {
     setSortedItems(items); // 初期表示ではソートを適用しない
+    console.log(items);
   }, [items]);
 
   const clickImg = (e) => {
@@ -69,7 +70,7 @@ function List(props) {
   useEffect(() => {
     let sortedArray = [];
     const resultImgs = items;
-
+    console.log("resultImgs", resultImgs);
     // console.log(value); // 選択された値を表示する
     // *＊期限並び替え作業
     if (deadline === "") {
@@ -138,7 +139,9 @@ function List(props) {
     console.log(filteredArray);
 
     setSorted(filteredArray);
+
   }, [deadline, filteredItem, filteredArea, inputText, items]);
+
 
   return (
     <>
