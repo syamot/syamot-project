@@ -44,8 +44,8 @@ function App() {
   const [beforeFlag, setBeforeFlag] = useState("");
   const [editItem, setEditItem] = useState({})
   useEffect(() => {
-    console.log("editItem===========", editItem)
-  }, [editItem])
+    console.log("selectImg===========", selectImg)
+  }, [selectImg])
   const [tradingHistory, setTradingHistory] = useState("");
 
   const [flagHistory, setFlagHistory] = useState(["list"]);
