@@ -9,8 +9,8 @@
   display: flex;
   justify-content: center;
   border: 2px solid;
-  border-color: #808080;
-  background-color: rgba(255, 255, 255, 1);
+  border-color: #a0e4cb;
+  background-color: #ffffff;
 }
 
 li.image-item {
@@ -36,7 +36,6 @@ ul.image-list {
 }
 
 .mainBrock-list {
-  /* margin-top: 4vh; */
   position: fixed;
   top: 10.5vh;
   width: 100%;
@@ -44,12 +43,13 @@ ul.image-list {
   display: flex;
   height: 81vh;
   overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #cff5e7;
 }
 
 .serach_boxes {
   display: flex;
   margin-left: 1vh;
-  /* font-size: 5vw !important; */
 }
 
 .serch-box {
