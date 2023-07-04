@@ -59,7 +59,6 @@ function App() {
     }
   }, []);
 
-
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
     const userData = await resData.json();
