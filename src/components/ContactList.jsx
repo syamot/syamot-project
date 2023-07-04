@@ -9,9 +9,8 @@ const ContactList = (props) => {
     getAllItems,
     setItems,
     setSelectImg,
-    userData,
-    setUserData,
     setSelectBuyer,
+    oneUser,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
@@ -24,7 +23,7 @@ const ContactList = (props) => {
       const chatJson = await chat.json();
       const filterChat = chatJson
         .filter((e1) => e1.item_id === selectImg.id)
-        .filter((e2) => e2.user_id !== userData.id);
+        .filter((e2) => e2.user_id !== oneUser.id);
       //chatDataを最新順に並び替え
       const dateAscChatData = filterChat.sort(function (a, b) {
         if (a.send_date > b.send_date) return -1;

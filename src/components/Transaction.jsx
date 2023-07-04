@@ -18,8 +18,6 @@ const Transaction = (props) => {
     setSelectImg,
     setOneUser,
     oneUser,
-    userData,
-    setUserData,
     selectBuyer,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
@@ -33,6 +31,8 @@ const Transaction = (props) => {
       const chatJson = await chat.json();
       console.log("selectImg:", selectImg);
       console.log("chatJson", chatJson);
+      console.log(chatJson, "👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹");
+
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
         .filter((e1) => {
@@ -42,20 +42,29 @@ const Transaction = (props) => {
         //チャットのBuyerID===ログイン者のID
         //チャットの出品者ID===選択した投稿の出品者ID
         .filter((e2) => {
+          console.log(e2, "👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹");
+          console.log(e2.id);
+          console.log("################################");
+          console.log("oneUser", oneUser);
           console.log(
-            "2========",
-            (e2.buyer_id === userData.id &&
-              e2.seller_id === selectImg.item_seller) ||
-              (e2.buyer_id === Number(selectBuyer) &&
-                e2.seller_id === userData.id)
+            e2.buyer_id,
+            oneUser.id,
+            e2.seller_id,
+            selectImg.item_seller
           );
+
+          console.log(
+            e2.buyer_id,
+            Number(selectBuyer),
+            e2.seller_id === oneUser.id
+          );
+
           return (
             // 購入者側
-            (e2.buyer_id === userData.id &&
+            (e2.buyer_id === oneUser.id &&
               e2.seller_id === selectImg.item_seller) ||
             // 出品者側
-            (e2.buyer_id === Number(selectBuyer) &&
-              e2.seller_id === userData.id)
+            (e2.buyer_id === Number(selectBuyer) && e2.seller_id === oneUser.id)
           );
         });
       console.log(filterChat);
@@ -216,7 +225,7 @@ const Transaction = (props) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            buyer_id: oneUser.id,
+            soldBuyer_id: oneUser.id,
             item_id: selectImg.id,
           }),
         });
@@ -253,44 +262,22 @@ const Transaction = (props) => {
       }
     }
   };
-
-  //   今の日付を確認する
-  // function getCurrentTime() {
-  //   let now = new Date();
-  //   let year = now.getFullYear();
-  //   let month = ("0" + (now.getMonth() + 1)).slice(-2);
-  //   let day = ("0" + now.getDate()).slice(-2);
-  //   let formattedTime = year + "-" + month + "-" + day;
-  //   return formattedTime;
-  // }
-  console.log({ selectBuyer });
   // チャット送信
   const createMessage = async () => {
     if (sendTxt !== "") {
       setSendTxt("");
       const now = new Date();
-      // // タイムゾーン定義
-      const timeZone = "Asia/Tokyo";
-      console.log(
-        formatToTimeZone(now, "YYYY-MM-DD HH:mm:ss", { timeZone: timeZone })
-      );
-      console.log(now);
-      console.log(
-        "selectBuyer === 0 ? userData.id : selectBuyer",
-        selectBuyer === 0 ? userData.id : selectBuyer
-      );
+
       const obj = {
         send_date: now,
         item_id: selectImg.id,
         user_id: oneUser.id,
         message: sendTxt,
-        // user_id: userData.id, //####################送信者情報
-        buyer_id: selectBuyer === 0 ? userData.id : selectBuyer, //####################購入者情報
+        buyer_id: selectBuyer === 0 ? oneUser.id : selectBuyer, //####################購入者情報
         seller_id: selectImg.item_seller, //#####################出品者情報
-        // seller_read_flag: true,
-        // buyer_read_flag: true,
+        seller_read_flag: false,
+        buyer_read_flag: false,
       };
-      console.log("sdasdasdsadasdsadas", obj);
       try {
         // チャットTBに書き換え
         await fetch(URL + "/addChat", {
@@ -332,8 +319,8 @@ const Transaction = (props) => {
         item_id: selectImg.id,
         user_id: oneUser.id,
         message: message,
-        // user_id: userData.id, //####################送信者情報
-        buyer_id: selectBuyer === 0 ? userData.id : selectBuyer, //####################購入者情報
+        // user_id: oneUser.id, //####################送信者情報
+        buyer_id: selectBuyer === 0 ? oneUser.id : selectBuyer, //####################購入者情報
         seller_id: selectImg.item_seller, //#####################出品者情報
       };
       try {

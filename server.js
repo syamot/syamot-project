@@ -210,23 +210,26 @@ app.post("/addItems", async (req, res) => {
 });
 
 app.post("/addChat", async (req, res) => {
-  const { item_id, user_id, message, seller_id, buyer_id, send_date } =
-    req.body;
-  // const now = new Date();
-  // console.log(
-  //   formatToTimeZone(now, FORMAT, { timeZone: TIME_ZONE_TOKYO }),
-  //   "!!!!!!!!!!!!!!!!"
-  // );
+  const {
+    item_id,
+    user_id,
+    message,
+    seller_id,
+    buyer_id,
+    send_date,
+    seller_read_flag,
+    buyer_read_flag,
+  } = req.body;
   const addItemObj = {
     // 日本時刻は格納できない
     send_date: send_date,
     buyer_id: buyer_id,
     seller_id: seller_id,
-    buyer_read_flag: false,
-    seller_read_flag: false,
     item_id: item_id,
     user_id: user_id,
     message: message,
+    seller_read_flag: seller_read_flag,
+    buyer_read_flag: buyer_read_flag,
   };
   await knex("chat").insert(addItemObj);
   res.send("チャット送信完了");
@@ -455,11 +458,11 @@ app.get("/display", (req, res) => {
 });
 
 // DELETE /items/:id
-app.delete('/items/:id', async (req, res) => {
+app.delete("/items/:id", async (req, res) => {
   const itemId = req.params.id;
   try {
     // deleteItem関数
-    await knex('items').where('id', itemId).del();
+    await knex("items").where("id", itemId).del();
     // const data = await knex.select("*").from("items")
     res.status(200).send("delete完了"); // 成功のステータスコード
   } catch (error) {

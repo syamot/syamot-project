@@ -241,10 +241,9 @@ function App() {
             setSelectImg={setSelectImg}
             users={users}
             URL={URL}
+            oneUser={oneUser}
             getAllItems={getAllItems}
             setItems={setItems}
-            userData={userData}
-            setUserData={setUserData}
             setSelectBuyer={setSelectBuyer} //購入者情報選択関数
           />
           <Footer setSelectFlag={setSelectFlag} />
@@ -271,8 +270,6 @@ function App() {
             oneUser={oneUser}
             setOneUser={setOneUser}
             selectBuyer={selectBuyer} //選択された購入者
-            userData={userData}
-            setUserData={setUserData}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
