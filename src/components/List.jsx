@@ -139,9 +139,7 @@ function List(props) {
     console.log(filteredArray);
 
     setSorted(filteredArray);
-
   }, [deadline, filteredItem, filteredArea, inputText, items]);
-
 
   return (
     <>
