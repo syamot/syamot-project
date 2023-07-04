@@ -6,12 +6,6 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-
-// //日付取得
-// const formatToTimeZone = require("date-fns-timezone");
-// const FORMAT = "YYYY-MM-DD_HH:mm:ss";
-// const TIME_ZONE_TOKYO = "Asia/Tokyo";
-
 require("dotenv").config({
   // path: "./.env",
 });
@@ -23,6 +17,68 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+
+// paypay=========================================================
+
+const settings = require('./settings');
+
+const paypay = require('./paypay/paypay');
+app.use('/paypay', paypay);
+
+app.use(express.Router());
+app.use(express.static(__dirname + '/public'));
+app.get('/paypay', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'paypay.html'));
+});
+
+const PAYPAY = require('@paypayopa/paypayopa-sdk-node');
+PAYPAY.Configure({
+  clientId: settings.apikey,
+  clientSecret: settings.apisecret,
+  merchantId: settings.merchantid,
+  productionMode: settings.productionMode
+});
+app.get('/payInfo/:payId/:itemId', async (req, res) => {
+  const response = await PAYPAY.GetCodePaymentDetails([req.params.payId]);
+  const body = response.BODY;
+  // console.log(req.params.itemId);
+  // console.log(req.params.payId);
+  try {
+    await knex("items")
+      .update({
+        pay_id: req.params.payId,
+      })
+      .where("id", req.params.itemId);
+    // res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+  // console.log(body.resultInfo.code);
+  // console.log(body.data.status);
+  res.json(body.data.status)
+})
+app.put("/putPayment", async (req, res) => {
+  // console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        payment: true,
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+// ====================================================================
+// //日付取得
+// const formatToTimeZone = require("date-fns-timezone");
+// const FORMAT = "YYYY-MM-DD_HH:mm:ss";
+// const TIME_ZONE_TOKYO = "Asia/Tokyo";
+
 
 //チャット
 // const http = require("http");
@@ -246,6 +302,29 @@ app.put("/putItemStatus", async (req, res) => {
     res.status(500);
   }
 });
+// item編集時の更新
+app.put("/editItems", async (req, res) => {
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        item_name: obj.item_name,
+        item_category: obj.item_category,
+        item_explanation: obj.item_explanation,
+        item_status: obj.item_status,
+        item_num: obj.item_num,
+        item_deadline: obj.item_deadline,
+        item_img: JSON.stringify(obj.item_img),
+        item_seller: obj.item_seller,
+      })
+      .where("id", obj.id);
+    const result = await knex.select("*").from("items");
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
 // ステータスキャンセル更新
 app.put("/putItemStatusCancel", async (req, res) => {
   const obj = req.body;
@@ -427,6 +506,20 @@ app.get("/display", (req, res) => {
     res.setHeader("Content-Type", data.ContentType);
     res.send(data.Body);
   });
+});
+
+// DELETE /items/:id
+app.delete('/items/:id', async (req, res) => {
+  const itemId = req.params.id;
+  try {
+    // deleteItem関数
+    await knex('items').where('id', itemId).del();
+    // const data = await knex.select("*").from("items")
+    res.status(200).send("delete完了"); // 成功のステータスコード
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500); // 内部サーバーエラーのステータスコード
+  }
 });
 
 // console.log(`バケット：${process.env.AWS_S3_BUCKET}`);

@@ -32,9 +32,9 @@
   justify-content: center;
   align-content: center;
   flex-wrap: nowrap;
-  height: 60%;
+  height: 70%;
   position: fixed;
-  width: 70%;
+  width: 80%;
   border-style: solid;
 }
 .loginHead {
@@ -48,7 +48,14 @@
 .area,
 .location {
   margin: 1vh;
+  width: 35vh;
 }
+
+.area {
+  margin: 1vh 0;
+  width: 36vh;
+}
+
 .loginBtn {
   margin: 1vh;
 }
@@ -86,4 +93,17 @@
 }
 .createAccountBtn {
   margin-top: 3vh;
+}
+
+.sign-up-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.tmc-email {
+  width: 22vh;
+}
+.sign-up-side p {
+  font-size: 10px;
+  margin: 0px;
 }

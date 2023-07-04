@@ -38,6 +38,34 @@ const Transaction = (props) => {
           );
         });
       setChatData(filterChat);
+      if (
+        chatData &&
+        chatData.length > 0 &&
+        chatData[0].pay_id !== "" &&
+        chatData[0].payment !== true
+      ) {
+        try {
+          const response = await fetch(
+            `${URL}/payInfo/${chatData[0].pay_id}/${chatData[0].item_id}`
+          );
+          const data = await response.json();
+          console.log(data);
+          await fetch(URL + "/putPayment", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(selectImg),
+          });
+          setSelectImg({
+            ...selectImg,
+            payment: true,
+          });
+          window.alert("paypayでの支払いが完了しました");
+        } catch (error) {
+          console.error(error);
+        }
+      }
     };
     //0.5秒ごとにチャット内容更新
     const interval = setInterval(fetchData, 1000);
@@ -47,7 +75,10 @@ const Transaction = (props) => {
       clearInterval(interval);
     };
   }, [URL, chatData, selectImg.id, selectImg.item_seller, oneUser.id]);
-  console.log(chatData);
+
+  useEffect(() => {
+    console.log("chatData=====", chatData);
+  }, [chatData]);
 
   //setSelectImgの内容をchatDataをもとに更新
   useEffect(() => {
@@ -362,12 +393,23 @@ const Transaction = (props) => {
       }
     }
   };
-
+  const payment = () => {
+    // ページ遷移の処理
+    // window.location.href = '/paypay'; // 遷移先のURLを指定
+    window.open(URL + "/paypay?itemId=" + selectImg.id, "PayPayWindow");
+  };
   return (
     <>
       <div className="titleBrock">
         <BsFillChatDotsFill className="chatIcon" />
         <h2 className="transactionTitle">{selectImg.item_name}</h2>
+        <button
+          className="payment"
+          onClick={() => payment()}
+          disabled={selectImg.payment}
+        >
+          支払い
+        </button>
       </div>
       <div className="transMainBrock">
         {messages.map((message, index) => {
@@ -435,7 +477,9 @@ const Transaction = (props) => {
             <button
               className="completeBtn"
               disabled={
-                !selectImg.item_approval_flag || selectImg.item_transaction_flag
+                !selectImg.item_approval_flag ||
+                selectImg.item_transaction_flag ||
+                !selectImg.payment
               }
               onClick={() => complete()}
             >

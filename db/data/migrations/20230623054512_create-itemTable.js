@@ -17,6 +17,9 @@ exports.up = function (knex) {
     table.boolean("item_transaction_flag").notNullable();
     table.boolean("item_approval_flag").notNullable();
     table.integer("buyer_id");
+    table.boolean("payment");
+    table.string("pay_id");
+
   });
 };
 

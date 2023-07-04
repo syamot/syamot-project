@@ -16,23 +16,64 @@ header {
 
 .userIcon,
 .backIcon,
-.up-data-icon {
+.up-data-icon,
+.bellIcon {
   width: 6vh;
   height: 6vh;
 }
 
-.userIcon {
-  position: relative;
-  left: -7%;
-  margin-left: 3vh;
+.userIcon,
+.bellIcon {
+  /* position: relative;
+  left: 0%;
+  margin-left: 3vh; */
 }
 .backIcon,
 .up-data-icon {
-  position: relative;
-  left: 7%;
-  margin-right: 3vh;
+  /* position: relative;
+  left: 0%;
+  margin-right: 3vh; */
 }
 
 .header1 {
   font-size: 4vh;
+}
+
+.circleIcon-box {
+  position: absolute;
+  right: 15px;
+  bottom: 9px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.circleIcon-number {
+  margin: 0;
+  position: fixed;
+  color: white;
+  font-size: 15px;
+}
+.circleIcon {
+  color: red;
+  width: 4vh;
+  height: 4vh;
+}
+.userIcon-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.bellIcon-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }

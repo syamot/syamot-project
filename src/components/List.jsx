@@ -15,16 +15,12 @@ function List(props) {
   // console.log(users);
   const [sortedItems, setSortedItems] = useState([]);
 
-  // const [inputWord, setInputWord] = useState([]);
-
   //全点リスト表示
   useEffect(() => {
     setSortedItems(items); // 初期表示ではソートを適用しない
+    console.log(items);
   }, [items]);
 
-  // const clickImg = (e) => {
-  //   setSelectImg(items[e.target.id]);
-  // };
   const clickImg = (e) => {
     let item;
     let numTargetId = Number(e.target.id);
@@ -36,31 +32,7 @@ function List(props) {
     setSelectImg(item);
   };
 
-  //*＊キーワード検索
-  let inputWord = "";
-  const handleInputText = (e) => {
-    console.log(e.target.value);
-  };
-  const handleSearch = (e) => {
-    console.log("検索ボタン押された", e.target.value);
-  };
-
-  //*＊エリア選択
-  // const area = [
-  //   "第3大林和風寮",
-  //   "第2大林和風寮",
-  //   "大林和風寮",
-  //   "平山寮",
-  //   "聖心寮",
-  //   "田中寮",
-  //   "丸山寮",
-  // ];
-
   //*＊期限並び替え選択起爆
-  // let imgs = items;
-  // useEffect(() => {
-  //   setSortedImg(imgs); // 初期表示ではソートを適用しない
-  // }, [imgs]);
   const [deadline, setdeadline] = useState("");
   const handleSort = (e) => {
     // 選択された値を取得する
@@ -73,7 +45,7 @@ function List(props) {
   const handleFilter = (e) => {
     const value = e.target.value;
     setFilteredItem(value);
-    console.log(value); // 選択された値を表示する
+    // console.log(value); // 選択された値を表示する
   };
 
   //*＊エリアーフィルター起爆
@@ -82,19 +54,16 @@ function List(props) {
   const handleFilterArea = (e) => {
     const value = e.target.value;
     setFilteredArea(value);
-    console.log(value); // 選択された値を表示する
-    // let filteredUserArray = [];
-    // let tempUsers = users;
-    // console.log(tempUsers);
-    // filteredUserArray = tempUsers.filter((user) => user.area === value);
-    // console.log(filteredUserArray);
-    // const idArray = filteredUserArray.map((user) => user.id);
-    // console.log("idArray:", idArray);
-    // console.log("items", items);
-    // let resultArray = items.filter((item) =>
-    //   idArray.includes(item.item_seller)
-    // );
-    // console.log("resultArray", resultArray);
+    // console.log(value); // 選択された値を表示する
+  };
+
+  //*＊フリーキーワード起爆
+  const [inputText, setInputText] = useState(""); // 入力テキストの状態を管理
+  const handleInputText = (event) => {
+    const searchText = event.target.value;
+    // console.log(searchText);
+    setInputText(searchText);
+    // console.log(inputText);
   };
 
   //*＊全ての検索・ソート実作業＆表示準備*＊
@@ -102,11 +71,12 @@ function List(props) {
     let sortedArray = [];
     const resultImgs = items;
 
+    console.log("resultImgs", resultImgs);
     // console.log(value); // 選択された値を表示する
+
     // *＊期限並び替え作業
     if (deadline === "") {
       sortedArray = resultImgs;
-      // return console.log("無効です");
     } else if (deadline === "far") {
       sortedArray = resultImgs
         .slice()
@@ -116,11 +86,10 @@ function List(props) {
         .slice()
         .sort((a, b) => new Date(b.item_deadline) - new Date(a.item_deadline));
     }
-    console.log("期限並び替え作業", sortedArray);
+    // console.log("期限並び替え作業", sortedArray);
 
-    //sortedArrayをどんどん変化させていく
     //*＊カテゴリーフィルター作業
-    console.log("カテゴリーフィルター前", sortedArray);
+    // console.log("カテゴリーフィルター前", sortedArray);
     let filteredArray = sortedArray;
     // console.log("resultImgs", resultImgs);
     if (filteredItem === "") {
@@ -138,12 +107,11 @@ function List(props) {
         (item) => item.item_category === "工具"
       );
     }
-    console.log("カテゴリーフィルター後", filteredArray);
+    // console.log("カテゴリーフィルター後", filteredArray);
 
     //*＊エリアのフィルター作業
     if (filteredArea === "") {
       sortedArray = resultImgs;
-      // return console.log("無効です");
     } else if (filteredArea !== "") {
       // console.log(users);
       let filteredUserArray = [];
@@ -154,29 +122,39 @@ function List(props) {
       ); //指定されたエリアでユーザー検出
       // console.log("ユーザー情報は", filteredUserArray);
       const idArray = filteredUserArray.map((user) => user.id); //エリアのユーザーID取得
-      console.log("ユーザーID", idArray);
-      console.log("エリアフィルター前", sortedArray);
+      // console.log("ユーザーID", idArray);
+      // console.log("エリアフィルター前", sortedArray);
       filteredArray = filteredArray.filter((item) =>
         idArray.includes(item.item_seller)
       ); //ユーザーの出品アイテム取得
     }
-    console.log("エリアフィルター後", filteredArray);
+    // console.log("エリアフィルター後", filteredArray);
+
+    //**フリーワード検索
+    // console.log(filteredArray);
+    filteredArray = filteredArray.filter((item) =>
+      item.item_name.includes(inputText)
+    );
+
+    // console.log(filteredArray);
 
     setSorted(filteredArray);
-  }, [deadline, filteredItem, filteredArea]);
+  }, [deadline, filteredItem, filteredArea, inputText, items]);
 
   return (
     <>
       <div className="mainBrock-list">
-        {/* キーワード検索ボタン */}
-        <div className="serch-box">
-          {/* <input
-            type="text"
-            placeholder="検索ワード"
-            value={inputWord}
-            onChange={handleInputText}
-          />
-          <button onClick={handleSearch}>検索</button> */}
+        {/* フリーキーワード検索ボタン */}
+        <div className="serach_boxes">
+          <div className="serch-box">
+            <input
+              type="text"
+              value={inputText}
+              onChange={handleInputText}
+              placeholder=" 🔍  商品ワード検索"
+            />
+            {/* <button onClick={(e) => handleInputText(e)}>検索</button> */}
+          </div>
           {/* エリアソート */}
           <div className="area_sort">
             <select onChange={(e) => handleFilterArea(e)}>
@@ -230,29 +208,27 @@ function List(props) {
               <option value="第2東富士寮">第2東富士寮</option>
             </select>
           </div>
-        </div>
 
-        {/* カテゴリー検索 */}
-        <div className="item_filter">
-          <select onChange={(e) => handleFilter(e)}>
-            <option value="">商品ｶﾃｺﾞﾘｰ</option>
-            <option value="elec">家電</option>
-            <option value="funt">家具</option>
-            <option value="tool">工具</option>
-          </select>
+          {/* カテゴリー検索 */}
+          <div className="item_filter">
+            <select onChange={(e) => handleFilter(e)}>
+              <option value="">商品ｶﾃｺﾞﾘｰ</option>
+              <option value="elec">家電</option>
+              <option value="funt">家具</option>
+              <option value="tool">工具</option>
+            </select>
+          </div>
+          {/* 写真のソート */}
+          <div className="item_sort">
+            <select onChange={(e) => handleSort(e)}>
+              <option value="">表示順番</option>
+              <option value="near">出品期限近い物順</option>
+              <option value="far">出品期限遠い物順</option>
+            </select>
+          </div>
         </div>
-
-        {/* 写真のソート */}
-        <div className="item_sort">
-          <select onChange={(e) => handleSort(e)}>
-            <option value="">表示順番</option>
-            <option value="near">出品期限近い物順</option>
-            <option value="far">出品期限遠い物順</option>
-          </select>
-        </div>
-
         <ul className="image-list">
-          {sorted.length !== 0 &&
+          {sorted.length !== 0 ? (
             sorted.map((item, index) => (
               <li key={item.id} className="image-item">
                 <div className="image-box">
@@ -267,7 +243,10 @@ function List(props) {
                   />
                 </div>
               </li>
-            ))}
+            ))
+          ) : (
+            <li className="error-message">検索結果がありません。</li>
+          )}
         </ul>
       </div>
     </>
@@ -275,17 +254,3 @@ function List(props) {
 }
 
 export default List;
-
-// useEffect(() => {
-//   let itemData;
-//   const asyncPkg = async () => {
-//     //Itemをバックからとる
-//     itemData = await getAllItems();
-//     itemData.forEach((elem) => {
-//       elem.item_img = JSON.parse(elem.item_img);
-//     });
-//     setItems(itemData);
-//   };
-//   asyncPkg();
-// });
-// console.log(props.items);

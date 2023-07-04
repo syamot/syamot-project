@@ -1,18 +1,21 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
 import { BsBell } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
+import { IoIosArrowBack } from "react-icons/io";
+import { BiSolidCircle } from "react-icons/bi";
 
 import "./style/header.css";
 
 const Header = (props) => {
-  const { setSelectFlag, selectFlag, setUpDataFlag } = props;
+  const { setSelectFlag, selectFlag, setUpDataFlag, setBeforeFlag } = props;
   const pageHandler = () => {
     setSelectFlag("list");
+    setBeforeFlag("");
   };
   const changeMyPage = () => {
     setSelectFlag("myPage");
+    setBeforeFlag("");
   };
   const upData = () => {
     setUpDataFlag(true);
@@ -22,20 +25,25 @@ const Header = (props) => {
     return (
       <>
         <header>
-          <FaUserCircle
-            className="userIcon"
-            onClick={() => {
-              changeMyPage();
-            }}
-          />
-
-          <h1 className="header1">シャモティー</h1>
           <GrUpdate
             className="up-data-icon"
             onClick={() => {
               upData();
             }}
           />
+          <h1 className="header1">シャモティ</h1>
+          <div className="userIcon-box">
+            <FaUserCircle
+              className="userIcon"
+              onClick={() => {
+                changeMyPage();
+              }}
+            />
+            <div className="circleIcon-box">
+              <BiSolidCircle className="circleIcon" />
+              <p className="circleIcon-number">1</p>
+            </div>
+          </div>
         </header>
       </>
     );
@@ -47,24 +55,25 @@ const Header = (props) => {
     return (
       <>
         <header>
-          <FaUserCircle
-            className="userIcon"
+          <IoIosArrowBack
+            className="backIcon"
             onClick={() => {
-              changeMyPage();
+              pageHandler();
             }}
           />
-
-          <h1 className="header1">シャモティー</h1>
-          {selectFlag !== "list" ? (
-            <MdClose
-              className="backIcon"
+          <h1 className="header1">シャモティ</h1>
+          <div className="userIcon-box">
+            <FaUserCircle
+              className="userIcon"
               onClick={() => {
-                pageHandler();
+                changeMyPage();
               }}
             />
-          ) : (
-            <div className="backIcon" />
-          )}
+            <div className="circleIcon-box">
+              <BiSolidCircle className="circleIcon" />
+              <p className="circleIcon-number">1</p>
+            </div>
+          </div>
         </header>
       </>
     );
@@ -79,20 +88,26 @@ const Header = (props) => {
     return (
       <>
         <header>
-          <BsBell
-            className="userIcon"
-            onClick={() => {
-              setSelectFlag("notification");
-            }}
-          />
-
-          <h1 className="header1">シャモティー</h1>
-          <MdClose
+          <IoIosArrowBack
             className="backIcon"
             onClick={() => {
               setSelectFlag("myPage");
             }}
           />
+
+          <h1 className="header1">シャモティ</h1>
+          <div className="bellIcon-box">
+            <BsBell
+              className="bellIcon"
+              onClick={() => {
+                setSelectFlag("tradingHistory");
+              }}
+            />
+            <div className="circleIcon-box">
+              <BiSolidCircle className="circleIcon" />
+              <p className="circleIcon-number">1</p>
+            </div>
+          </div>
         </header>
       </>
     );
@@ -100,20 +115,26 @@ const Header = (props) => {
     return (
       <>
         <header>
-          <BsBell
-            className="userIcon"
-            onClick={() => {
-              setSelectFlag("notification");
-            }}
-          />
-
-          <h1 className="header1">シャモティー</h1>
-          <MdClose
+          <IoIosArrowBack
             className="backIcon"
             onClick={() => {
               setSelectFlag("list");
             }}
           />
+
+          <h1 className="header1">シャモティ</h1>
+          <div className="bellIcon-box">
+            <BsBell
+              className="bellIcon"
+              onClick={() => {
+                setSelectFlag("tradingHistory");
+              }}
+            />
+            <div className="circleIcon-box">
+              <BiSolidCircle className="circleIcon" />
+              <p className="circleIcon-number">1</p>
+            </div>
+          </div>
         </header>
       </>
     );
