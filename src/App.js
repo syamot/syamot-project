@@ -58,8 +58,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("dsafsfdsfdsdsfds", oneUser);
-    console.log(selectFlag);
     let userData;
     let itemData;
     const asyncPkg = async () => {
@@ -73,7 +71,6 @@ function App() {
         elem.favorite = JSON.parse(elem.favorite);
       });
 
-      // console.log("aaaaaaaaaaaa", userData);
       setUsers(userData);
       setItems(itemData);
 
@@ -99,7 +96,6 @@ function App() {
 
   useEffect(() => {
     setFlagHistory((prevHistory) => [...prevHistory, selectFlag]);
-    console.log("sssssssssss", selectFlag);
   }, [selectFlag]);
 
   useEffect(() => {
