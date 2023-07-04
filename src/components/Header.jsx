@@ -7,12 +7,14 @@ import { IoIosArrowBack } from "react-icons/io";
 import "./style/header.css";
 
 const Header = (props) => {
-  const { setSelectFlag, selectFlag, setUpDataFlag } = props;
+  const { setSelectFlag, selectFlag, setUpDataFlag, setBeforeFlag } = props;
   const pageHandler = () => {
     setSelectFlag("list");
+    setBeforeFlag("");
   };
   const changeMyPage = () => {
     setSelectFlag("myPage");
+    setBeforeFlag("");
   };
   const upData = () => {
     setUpDataFlag(true);
@@ -28,10 +30,11 @@ const Header = (props) => {
               upData();
             }}
           />
-          <h1 className="header1">シャモティー</h1>
+          <h1 className="header1">シャモティ</h1>
 
           <FaUserCircle
             className="userIcon"
+
             onClick={() => {
               changeMyPage();
             }}
@@ -60,6 +63,7 @@ const Header = (props) => {
               changeMyPage();
             }}
           />
+
         </header>
       </>
     );
@@ -80,9 +84,11 @@ const Header = (props) => {
               setSelectFlag("myPage");
             }}
           />
+
           <h1 className="header1">シャモティー</h1>
           <BsBell
             className="bellIcon"
+
             onClick={() => {
               setSelectFlag("tradingHistory");
             }}
@@ -101,9 +107,11 @@ const Header = (props) => {
             }}
           />
 
-          <h1 className="header1">シャモティー</h1>
+
+          <h1 className="header1">シャモティ</h1>
           <BsBell
             className="userIcon"
+
             onClick={() => {
               setSelectFlag("tradingHistory");
             }}
