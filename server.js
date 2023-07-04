@@ -49,14 +49,14 @@ app.get('/payInfo/:payId/:itemId', async (req, res) => {
         pay_id: req.params.payId,
       })
       .where("id", req.params.itemId);
+    // console.log(body.resultInfo.code);
+    // console.log(body.data.status);
     // res.status(200).json();
+    res.json(body.data.status)
   } catch (e) {
     console.error("Error", e);
     res.status(500);
   }
-  // console.log(body.resultInfo.code);
-  // console.log(body.data.status);
-  res.json(body.data.status)
 })
 app.put("/putPayment", async (req, res) => {
   // console.log(req.body);
@@ -65,6 +65,21 @@ app.put("/putPayment", async (req, res) => {
     await knex("items")
       .update({
         payment: true,
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+app.put("/putPaymentDel", async (req, res) => {
+  // console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        pay_id: "",
       })
       .where("id", obj.id);
     res.status(200).json();

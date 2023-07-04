@@ -7,6 +7,7 @@ import "./style/transaction.css";
 // ＃＃＃＃＃＃＃＃＃＃＃＃
 import { formatToTimeZone } from "date-fns-timezone"; // 追加
 // ＃＃＃＃＃
+let paymentFlg = false;
 
 // チャットぺージ
 const Transaction = (props) => {
@@ -22,6 +23,7 @@ const Transaction = (props) => {
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
   const [chatData, setChatData] = useState([]);
+  const [payFetchCnt, setPayFetchCnt] = useState(0);
   // const socket = io("http://localhost:8000");
 
   useEffect(() => {
@@ -42,28 +44,59 @@ const Transaction = (props) => {
         chatData &&
         chatData.length > 0 &&
         chatData[0].pay_id !== "" &&
-        chatData[0].payment !== true
+        chatData[0].pay_id !== null &&
+        !chatData[0].payment
       ) {
-        try {
-          const response = await fetch(
-            `${URL}/payInfo/${chatData[0].pay_id}/${chatData[0].item_id}`
-          );
-          const data = await response.json();
-          console.log(data);
-          await fetch(URL + "/putPayment", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(selectImg),
-          });
-          setSelectImg({
-            ...selectImg,
-            payment: true,
-          });
-          window.alert("paypayでの支払いが完了しました");
-        } catch (error) {
-          console.error(error);
+        console.log("pay_id操作処理に入ったよ！");
+        console.log("支払い処理経過時間", payFetchCnt, "秒");
+        setPayFetchCnt((prevCnt) => prevCnt + 1);
+        // 10秒経過したら止める
+        if (payFetchCnt === 180) {
+          setPayFetchCnt(0);
+          try {
+            await fetch(URL + "/putPaymentDel", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(selectImg),
+            });
+            createMessageStatus("支払い処理が中断されました");
+          } catch (error) {
+            console.error(error);
+          }
+          //それ以外はステータス完了までAPIを叩く
+        } else {
+          try {
+            const response = await fetch(
+              `${URL}/payInfo/${chatData[0].pay_id}/${chatData[0].item_id}`
+            );
+            const data = await response.json();
+            console.log("支払いステータス＝====", data);
+            if (paymentFlg) return;
+            console.log("paymentFlg===========", paymentFlg);
+            if (data === "COMPLETED") {
+              paymentFlg = true;
+              console.log("paymentFlg中中中中中=====", paymentFlg);
+              await fetch(URL + "/putPayment", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(selectImg),
+              });
+
+              setSelectImg({
+                ...selectImg,
+                payment: true,
+              });
+              createMessageStatus("支払い完了");
+              window.alert("paypayでの支払いが完了しました");
+              // paymentFlg = false;
+            }
+          } catch (error) {
+            console.error(error);
+          }
         }
       }
     };
@@ -396,6 +429,7 @@ const Transaction = (props) => {
   const payment = () => {
     // ページ遷移の処理
     // window.location.href = '/paypay'; // 遷移先のURLを指定
+    createMessageStatus("支払い処理中");
     window.open(URL + "/paypay?itemId=" + selectImg.id, "PayPayWindow");
   };
   return (
@@ -417,7 +451,10 @@ const Transaction = (props) => {
             message.user === "approve" || //これ効いていない
             message.text === "承認完了" ||
             message.text === "承認キャンセル" ||
-            message.text === "受取完了"
+            message.text === "受取完了" ||
+            message.text === "支払い処理中" ||
+            message.text === "支払い処理が中断されました" ||
+            message.text === "支払い完了"
           ) {
             return (
               <div key={index} className="messageBlock2">
