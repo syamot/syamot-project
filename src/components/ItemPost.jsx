@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./style/post.css";
+import { Loading } from "./Loading";
 
-let imagePathArr;
+//###########################################################################
+// import "react-dropzone-uploader/dist/styles.css";
+// import Dropzone from "react-dropzone-uploader";
+
+//###########################################################################
+
+let imagePathArr = [];
 const ItemPost = (props) => {
   const { setSelectFlag, URL } = props;
-  const [imgPathArr, setImgPathArr] = useState([]);
+  // const [imgPathArr, setImgPathArr] = useState([]);
   const [itemObj, setItemObj] = useState({
     item_name: "",
     item_category: "家電",
@@ -16,7 +23,8 @@ const ItemPost = (props) => {
     item_seller: 1,
     // フラグはサーバー側で追加している
   });
-  // const [userData, setUserData] = useState([]);
+  // アップロード時のローディング画面
+  const [load, setLoad] = useState(false);
 
   // item_seller情報を書き換え
   useEffect(() => {
@@ -27,22 +35,29 @@ const ItemPost = (props) => {
       // setUserData(jsonData);
       setItemObj({ ...itemObj, item_seller: Number(jsonData[0].id) });
     })();
+    //s３への送信ファイルは空にする
+    imagePathArr = [];
   }, []);
 
-  const resetImg = () => {
-    setImgPathArr([]);
-  };
+  // 坂本さん処理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // const resetImg = () => {
+  //   setImgPathArr([]);
+  // };
 
-  const setImg = (e) => {
-    imagePathArr = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      setImgPathArr((cur) => [
-        ...cur,
-        window.URL.createObjectURL(e.target.files[i]),
-      ]);
-      imagePathArr.push(e.target.files[i]);
-    }
-  };
+  // const setImg = (e) => {
+  //   imagePathArr = [];
+  //   for (let i = 0; i < e.target.files.length; i++) {
+  //     setImgPathArr((cur) => [
+  //       ...cur,
+  //       window.URL.createObjectURL(e.target.files[i]),
+  //     ]);
+  //     imagePathArr.push(e.target.files[i]);
+  //   }
+  // };
+  // useEffect(() => {
+  //   console.log(imgPathArr);
+  // }, [imgPathArr]);
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
   const handleChange = (e, tag) => {
     if (tag === "家電" || tag === "家具" || tag === "工具") {
@@ -67,40 +82,36 @@ const ItemPost = (props) => {
   };
 
   const handleClick = async () => {
-    let postImageNum = 0;
+    // load有効化
+    setLoad(true);
     const postImagePath = [];
-    const fetchPostImage = async () => {
-      const file = imagePathArr[postImageNum];
-
-      if (file === undefined || postImageNum > 3) return;
+    const fetchPostImage = async (file) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const responseFileName = await fetch(URL + "/upload", {
-        method: "POST",
-        // headers: {
-        //   "Content-Type": "image/jpeg",
-        // },
-        body: formData,
-      })
-        .then((response) => response.json())
-
-        .catch((e) => {
-          console.error(e);
+      try {
+        const response = await fetch(URL + "/upload", {
+          method: "POST",
+          body: formData,
         });
-      postImagePath.push(responseFileName.fileUrl);
-      postImageNum++;
+        const responseFileName = await response.json();
+        console.log("responseFileName.fileUrl===", responseFileName.fileUrl);
+        postImagePath.push(responseFileName.fileUrl);
+      } catch (e) {
+        console.error(e);
+      }
     };
-    await fetchPostImage();
-    await fetchPostImage();
-    await fetchPostImage();
 
-    // const setImageJSON = async () => {
-    //   console.log("postImagePath", postImagePath);
-    //   const postImagePathJSON = JSON.stringify(postImagePath);
-    //   setItemObj({ ...itemObj, item_img: postImagePathJSON });
-    // };
+    const imageUploadPromises = imagePathArr.map((file) =>
+      fetchPostImage(file)
+    );
 
+    try {
+      await Promise.all(imageUploadPromises);
+    } catch (error) {
+      console.log(error);
+    }
+    // =========================================================
     const changeStatus = async () => {
       const testObj = itemObj;
       testObj.item_img = JSON.stringify(postImagePath);
@@ -117,16 +128,100 @@ const ItemPost = (props) => {
       }
     };
     await changeStatus();
-    // await changeStatus();
     setSelectFlag("list");
   };
+
+  //###########################################################################
+
+  const [images, setImages] = useState([]);
+  useEffect(() => {
+    console.log("選んだファイル", images);
+    console.log("S3にあげるファイル", imagePathArr);
+  }, [images]);
+
+  // 初回アップロード
+  const handleImageUpload = (event) => {
+    if (event.target.files.length > 8) {
+      return window.alert(
+        "アップロード上限を超えています。\n写真は8枚までアップロード可能です"
+      );
+    } else if (imagePathArr.length > 7) {
+      return window.alert(
+        "アップロード上限を超えています。\n写真は8枚までアップロード可能です"
+      );
+    }
+    for (let i = 0; i < event.target.files.length; i++) {
+      setImages((cur) => [
+        ...cur,
+        window.URL.createObjectURL(event.target.files[i]),
+      ]);
+      imagePathArr.push(event.target.files[i]);
+    }
+  };
+  // 写真削除処理
+  const handleImageRemove = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    imagePathArr.splice(index, 1);
+    setImages(newImages);
+  };
+  // 写真再アップ
+  const handleImageReupload = (index, event) => {
+    const newImages = [...images];
+    newImages[index] = window.URL.createObjectURL(event.target.files[0]);
+    setImages(newImages);
+    imagePathArr[index] = event.target.files[0];
+  };
+
+  const inputClick = (e) => {
+    e.target.nextElementSibling.click();
+  };
+
+  //###########################################################################
+
+
   return (
     <>
+      {load ? <Loading /> : null}
       <div className="post-box">
         <div className="post-box-piece">
           <h4>商品画像</h4>
-
-          <input
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => handleImageUpload(e)}
+            />
+            <div className="img_block">
+              {images.length !== 0 &&
+                images.map((image, index) => (
+                  <div key={index} className="img_block2">
+                    <img
+                      src={image}
+                      alt={`Preview ${index}`}
+                      style={{ width: "100px", height: "100px" }}
+                      className="img"
+                      onClick={(e) => inputClick(e)}
+                    />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => handleImageReupload(index, event)}
+                      className="img_input"
+                    />
+                    <button
+                      onClick={() => handleImageRemove(index)}
+                      className="img_remove"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+            </div>
+          </div>
+          {/* 坂本ver */}
+          {/* <input
             type="file"
             accept="image/*"
             onClick={() => resetImg()}
@@ -141,7 +236,7 @@ const ItemPost = (props) => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
         <h4>商品概要</h4>
         <div className="post-box-piece-side">
