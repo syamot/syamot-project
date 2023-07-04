@@ -8,7 +8,7 @@
 .image-box {
   display: flex;
   justify-content: center;
-  border-style: solid double groove ridge;
+  border: 2px solid;
   border-color: #808080;
   background-color: rgba(255, 255, 255, 1);
 }
@@ -46,27 +46,44 @@ ul.image-list {
   overflow-y: scroll;
 }
 
+.serach_boxes {
+  display: flex;
+  margin-left: 1vh;
+  /* font-size: 5vw !important; */
+}
+
 .serch-box {
   margin-left: 3vh;
-  margin-top: 0.3vh;
+  margin-top: 0vh;
   width: 50px;
+  border: 2px;
 }
 
 .area_sort {
-  margin-left: -8vh;
-  margin-top: 4vh;
+  margin-left: -7vh;
+  margin-top: 4.2vh;
   width: 80px;
-  /* font-size: 1.5rem; */
+  border: 2px;
 }
 
 .item_filter {
-  margin-left: 7vh;
-  margin-top: 4vh;
+  margin-left: 5.5vh;
+  margin-top: 4.2vh;
   width: 5%;
+  border: 2px;
 }
 
 .item_sort {
-  margin-left: 11vh;
-  margin-top: 4vh;
+  margin-left: 10.5vh;
+  margin-top: 4.2vh;
   width: 120px;
+  border: 2px;
+}
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 7vw;
 }
