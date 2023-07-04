@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PayPay API サンプル</title>
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-2.2.4.min.js"
+    ></script>
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="//cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css
+    rel="stylesheet"/>
+    <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="shortcut icon" href="/icon.png" type="image/png" />
+    <link rel="icon" href="/icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="PayPay API サンプル" />
+
+    <style type="text/css">
+      html,
+      body {
+        text-align: center;
+        background-color: #fafafa;
+        font-size: 20px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function createQRCode() {
+        var _amount = 500;
+        var orderDescription = "取引手数料";
+
+        var amount = _amount ? parseInt(_amount) : 0;
+        orderDescription = orderDescription ? orderDescription : "";
+        if (amount) {
+          $.ajax({
+            type: "post",
+            url: "/paypay/qrcode",
+            data: { amount: amount, orderDescription: orderDescription },
+            success: function (result) {
+              console.log(result);
+              if (
+                result &&
+                result.status &&
+                result.status == 201 &&
+                result.body &&
+                result.body.data
+              ) {
+                let merchantPaymentId = result.body.data.merchantPaymentId;
+                console.log(merchantPaymentId);
+                let currentURL = window.location.href;
+                currentURL = currentURL.split("?")[1];
+                currentURL = currentURL.split("=")[1];
+                console.log(currentURL);
+                fetch(
+                  "http://localhost:8000/payInfo/" +
+                    merchantPaymentId +
+                    "/" +
+                    currentURL
+                );
+                let codeId = result.body.data.codeId;
+                let url = result.body.data.url;
+
+                if (url) {
+                  window.open(url, "PayPayWindow");
+                  // window.location.href = url;
+                }
+              }
+            },
+            error: function (e0, e1, e2) {
+              console.log(e0, e1, e2);
+            },
+          });
+        } else {
+          alert("amount needed.");
+        }
+      }
+
+      // ページが読み込まれた時にcreateQRCode()関数を実行する
+      window.onload = function () {
+        createQRCode();
+      };
+    </script>
+  </body>
+</html>
