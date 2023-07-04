@@ -71,7 +71,7 @@ app.put("/buyer", async (req, res) => {
   try {
     await knex("items")
       .update({
-        buyer_id: obj.buyer_id,
+        soldBuyer_id: obj.soldBuyer_id,
       })
       .where("id", obj.item_id);
     res.status(200).json();
@@ -238,6 +238,9 @@ app.post("/addChat", async (req, res) => {
 // ステータス更新
 app.put("/putItemStatus", async (req, res) => {
   const obj = req.body;
+  console.log(obj);
+  console.log(obj.id);
+
   try {
     await knex("items")
       .update({
@@ -251,6 +254,26 @@ app.put("/putItemStatus", async (req, res) => {
     res.status(500);
   }
 });
+
+// 既読ステータス更新########################
+app.put("/putChatStatus", async (req, res) => {
+  console.log("read_arr");
+  const { read_arr, flagText } = req.body;
+  console.log(read_arr);
+  try {
+    await knex("chat")
+      .update({
+        [flagText]: true,
+      })
+      .whereIn("id", read_arr); //[1, 11, 15]
+    const result = await knex.select("*").from("chat");
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+
 // item編集時の更新
 app.put("/editItems", async (req, res) => {
   const obj = req.body;
@@ -277,14 +300,16 @@ app.put("/editItems", async (req, res) => {
 // ステータスキャンセル更新
 app.put("/putItemStatusCancel", async (req, res) => {
   const obj = req.body;
+  console.log(obj);
+  console.log(obj.id);
   try {
     await knex("items")
       .update({
         item_status: "在庫あり",
       })
       .where("id", obj.id);
-    const result = await knex.select("*").from("items");
-    res.status(200).json(result);
+    // const result = await knex.select("*").from("items");
+    // res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
     res.status(500);
@@ -293,6 +318,8 @@ app.put("/putItemStatusCancel", async (req, res) => {
 // 完了ステータス更新
 app.put("/putCompleteStatus", async (req, res) => {
   const obj = req.body;
+  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
+  // console.log(obj.id);
   try {
     await knex("items")
       .update({

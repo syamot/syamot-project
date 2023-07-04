@@ -18,11 +18,20 @@ const Transaction = (props) => {
     setSelectImg,
     setOneUser,
     oneUser,
+    users,
     selectBuyer,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
   const [chatData, setChatData] = useState([]);
+  const partnerId =
+    selectImg.item_seller === oneUser.id ? selectBuyer : selectImg.item_seller;
+  console.log("🥵🥵🥵🥵🥵🥵🥵🥵🥵", partnerId);
+  console.log("🥵🥵🥵🥵🥵🥵🥵🥵🥵", users);
+  const partnerUser = users.filter((el) => el.id === Number(partnerId))[0]
+    .user_name;
+  console.log("🥵🥵🥵🥵🥵🥵🥵🥵🥵", partnerUser);
+
   // const socket = io("http://localhost:8000");
 
   useEffect(() => {
@@ -77,26 +86,13 @@ const Transaction = (props) => {
 
   //既存メッセージの表示（板倉）
   // [{text: 'a', user: 'admin'}]//
-  useEffect(() => {
-    const existMessage = [];
-    chatData.map((chatObj) => {
-      existMessage.push({ text: chatObj.message, user: chatObj.user_name });
-      setMessages(existMessage);
-    });
-  }, [chatData]);
-
-  // const handleSendMessage = () => {
-  //   //サーバーへ送信
-  //   socket.emit("send_message", { message: message });//messageはtext
-  // };
-
-  //   //サーバーから受信
-  //   socket.on("received_message", (data) => {
-  //     console.log("サーバーから受信:",data);
-  //     setList([...list, data]);
+  // useEffect(() => {
+  //   const existMessage = [];
+  //   chatData.map((chatObj) => {
+  //     existMessage.push({ text: chatObj.message, user: chatObj.user_name });
+  //     setMessages(existMessage);
   //   });
-
-  //
+  // }, [chatData]);
 
   // 取引承認処理
   const approval = async () => {
@@ -111,11 +107,6 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
-        // // チャットメッセージを追加??????????????????????????????????????????????????消す？
-        // setMessages((prevMessages) => [
-        //   ...prevMessages,
-        //   { text: "承認完了", user: "approve" },
-        // ]);
 
         // チャットTBを書き換え
         createMessageStatus("承認完了");
@@ -155,11 +146,6 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
-        // // チャットメッセージを追加
-        // setMessages((prevMessages) => [
-        //   ...prevMessages,
-        //   { text: "承認キャンセル", user: "approve" },
-        // ]);
 
         // チャットTBを書き換え
         createMessageStatus("承認キャンセル");
@@ -190,6 +176,8 @@ const Transaction = (props) => {
   const complete = async () => {
     if (selectImg.item_transaction_flag !== true) {
       try {
+        // チャットTBを書き換え
+        createMessageStatus("受取完了");
         await fetch(URL + "/putTransactionFlag", {
           method: "PUT",
           headers: {
@@ -209,13 +197,6 @@ const Transaction = (props) => {
           }),
         });
 
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: "受取完了", user: "approve" },
-        ]);
-
-        // チャットTBを書き換え
-        createMessageStatus("受取完了");
         let itemData;
         const asyncPkg = async () => {
           itemData = await getAllItems();
@@ -266,20 +247,9 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(obj),
         });
-
-        // socket.emit("chatMessage", {
-        //   text: sendTxt,
-        //   user: localStorage.getItem("user"),
-        // });
       } catch (error) {
         console.log(error);
       }
-
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   { text: sendTxt, user: localStorage.getItem("user") },
-      // ]);
-      // setSendTxt("");
     }
   };
 
@@ -295,12 +265,13 @@ const Transaction = (props) => {
       const now = new Date();
       const obj = {
         send_date: now,
-        item_id: selectImg.id,
-        user_id: oneUser.id,
-        message: message,
-        // user_id: oneUser.id, //####################送信者情報
         buyer_id: selectBuyer === 0 ? oneUser.id : selectBuyer, //####################購入者情報
         seller_id: selectImg.item_seller, //#####################出品者情報
+        buyer_read_flag: false,
+        seller_read_flag: false,
+        item_id: selectImg.id,
+        user_id: oneUser.id, //####################送信者情報
+        message: message,
       };
       try {
         // チャットTBに書き換え
@@ -314,12 +285,6 @@ const Transaction = (props) => {
       } catch (error) {
         console.log(error);
       }
-
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   { text: sendTxt, user: localStorage.getItem("user") },
-      // ]);
-      // setSendTxt("");
     }
   };
 
@@ -330,6 +295,7 @@ const Transaction = (props) => {
       selectImg.item_status !== "取引中"
     ) {
       try {
+        console.log(selectImg);
         await fetch(URL + "/putItemStatus", {
           method: "PUT",
           headers: {
@@ -342,9 +308,12 @@ const Transaction = (props) => {
       }
     }
   };
+  console.log("selectImg");
+  console.log(selectImg);
 
   //取引中をキャンセルして、在庫ありに変更
   const changeStatusCancel = async () => {
+    console.log(selectImg);
     if (selectImg.item_status === "取引中") {
       try {
         await fetch(URL + "/putItemStatusCancel", {
@@ -364,31 +333,39 @@ const Transaction = (props) => {
     <>
       <div className="titleBrock">
         <BsFillChatDotsFill className="chatIcon" />
-        <h2 className="transactionTitle">{selectImg.item_name}</h2>
+        <h2 className="transactionTitle">{`${selectImg.item_name} 🤝 ${partnerUser}`}</h2>
       </div>
+      <h2 className>{partnerUser}</h2>
       <div className="transMainBrock">
-        {messages.map((message, index) => {
+        {/* {messages.map((message, index) => {
           if (
             message.user === "approve" || //これ効いていない
             message.text === "承認完了" ||
             message.text === "承認キャンセル" ||
             message.text === "受取完了"
+          ) { */}
+        {chatData.map((chat, index) => {
+          console.log(chat);
+          if (
+            chat.message === "承認完了" ||
+            chat.message === "承認キャンセル" ||
+            chat.message === "受取完了"
           ) {
             return (
               <div key={index} className="messageBlock2">
-                <p className="messageContent">{message.text}</p>
+                <p className="messageContent">{chat.message}</p>
               </div>
             );
-          } else if (message.user === localStorage.getItem("user")) {
+          } else if (chat.user_id === oneUser.id) {
             return (
               <div key={index} className="messageBlock">
-                <p className="messageContent">{message.text}</p>
+                <p className="messageContent">{chat.message}</p>
               </div>
             );
           } else {
             return (
               <div key={index} className="messageBlock3">
-                <p className="messageContent">{message.text}</p>
+                <p className="messageContent">{chat.message}</p>
               </div>
             );
           }

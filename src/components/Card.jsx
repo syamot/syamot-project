@@ -82,7 +82,6 @@ const Card = (props) => {
           ></textarea>
           <p className="cardItem">取引状況: {selectImg.item_status}</p>
           <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
-          <p className="cardItem">ステータス: {selectImg.item_condition}</p>
           <p className="cardItem">個数: {selectImg.item_num}</p>
           <p className="cardItem">期限: {formattedDate}</p>
           <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
