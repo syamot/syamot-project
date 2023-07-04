@@ -24,6 +24,11 @@ const URL =
 
 function App() {
   const [selectFlag, setSelectFlag] = useState("signIn");
+
+  useEffect(() => {
+    console.log("表示コンポーネント", selectFlag);
+  }, [selectFlag])
+
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
@@ -33,9 +38,17 @@ function App() {
 
   const [oneUser, setOneUser] = useState("");
   const [exhibitList, setExhibitList] = useState("");
+  const [deadLineList, setDeadLineList] = useState([]);
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
+  const [beforeFlag, setBeforeFlag] = useState("");
+  const [editItem, setEditItem] = useState({})
+  useEffect(() => {
+    console.log("editItem===========", editItem)
+  }, [editItem])
   const [tradingHistory, setTradingHistory] = useState("");
+
+  const [flagHistory, setFlagHistory] = useState(["list"]);
 
   useEffect(() => {
     const userName = localStorage.getItem("user");
@@ -60,8 +73,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("dsafsfdsfdsdsfds", oneUser);
-    console.log(selectFlag);
+
     let userData;
     let itemData;
     const asyncPkg = async () => {
@@ -75,7 +87,6 @@ function App() {
         elem.favorite = JSON.parse(elem.favorite);
       });
 
-      // console.log("aaaaaaaaaaaa", userData);
       setUsers(userData);
       setItems(itemData);
 
@@ -90,6 +101,11 @@ function App() {
       );
       setExhibitList(userItemData);
 
+      // 期限切れデータリスト作成
+      const AddDeadLineList = userItemData.filter((elem) => new Date(elem.item_deadline) < new Date())
+      setDeadLineList(AddDeadLineList)
+      console.log("AddDeadLineList============", AddDeadLineList)
+
       const userPurchaseList = itemData.filter(
         (elem) => elem.buyer_id === openUserId
       );
@@ -98,6 +114,10 @@ function App() {
     asyncPkg();
     setUpDataFlag(false);
   }, [selectFlag, upDataFlag]);
+
+  useEffect(() => {
+    setFlagHistory((prevHistory) => [...prevHistory, selectFlag]);
+  }, [selectFlag]);
 
   useEffect(() => {
     const index = users.findIndex(
@@ -164,6 +184,7 @@ function App() {
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
             setUpDataFlag={setUpDataFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           <List
             setSelectFlag={setSelectFlag}
@@ -182,7 +203,7 @@ function App() {
     case "card":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
           <Card
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -198,7 +219,7 @@ function App() {
     case "transaction":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
           <Transaction
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -252,11 +273,15 @@ function App() {
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <ExhibitionList
+            selectFlag={selectFlag}
             setSelectFlag={setSelectFlag}
             items={items}
             setSelectImg={setSelectImg}
             exhibitList={exhibitList}
             setExhibitList={setExhibitList}
+            setBeforeFlag={setBeforeFlag}
+            setEditItem={setEditItem}
+            deadLineList={deadLineList}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -290,11 +315,16 @@ function App() {
     case "post":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
           <ItemPost
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
             URL={URL}
+            setBeforeFlag={setBeforeFlag}
+            beforeFlag={beforeFlag}
+            editItem={editItem}
+            setItems={setItems}
+
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

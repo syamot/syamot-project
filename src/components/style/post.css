@@ -73,10 +73,11 @@ p {
   flex-wrap: nowrap;
   align-items: center;
   overflow: scroll;
+  margin-top: 2vh;
 }
 .img_block2 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: flex-start;
@@ -88,9 +89,14 @@ p {
 }
 .img_remove {
   position: relative;
-  left: -150px;
-  top: 38px;
   display: flex;
 }
-
+.btnBlock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
 /* ============================================== */
