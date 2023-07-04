@@ -24,6 +24,11 @@ const URL =
 
 function App() {
   const [selectFlag, setSelectFlag] = useState("signIn");
+
+  useEffect(() => {
+    console.log("表示コンポーネント", selectFlag);
+  }, [selectFlag])
+
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
@@ -35,8 +40,12 @@ function App() {
   const [exhibitList, setExhibitList] = useState("");
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
+  const [beforeFlag, setBeforeFlag] = useState("");
+  const [editItem, setEditItem] = useState({})
+  useEffect(() => {
+    console.log("editItem===========", editItem)
+  }, [editItem])
   const [tradingHistory, setTradingHistory] = useState("");
-
   useEffect(() => {
     const userName = localStorage.getItem("user");
 
@@ -61,7 +70,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("dsafsfdsfdsdsfds", oneUser);
+    console.log("oneUser", oneUser);
     console.log(selectFlag);
     let userData;
     let itemData;
@@ -165,6 +174,7 @@ function App() {
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
             setUpDataFlag={setUpDataFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           <List
             setSelectFlag={setSelectFlag}
@@ -183,7 +193,7 @@ function App() {
     case "card":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
           <Card
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -199,7 +209,7 @@ function App() {
     case "transaction":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
           <Transaction
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -253,11 +263,14 @@ function App() {
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
           <ExhibitionList
+            selectFlag={selectFlag}
             setSelectFlag={setSelectFlag}
             items={items}
             setSelectImg={setSelectImg}
             exhibitList={exhibitList}
             setExhibitList={setExhibitList}
+            setBeforeFlag={setBeforeFlag}
+            setEditItem={setEditItem}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -291,11 +304,16 @@ function App() {
     case "post":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
           <ItemPost
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
             URL={URL}
+            setBeforeFlag={setBeforeFlag}
+            beforeFlag={beforeFlag}
+            editItem={editItem}
+            setItems={setItems}
+
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
