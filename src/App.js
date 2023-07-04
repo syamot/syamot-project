@@ -102,7 +102,8 @@ function App() {
       setExhibitList(userItemData);
 
       // 期限切れデータリスト作成
-      const AddDeadLineList = userItemData.filter((elem) => new Date(elem.item_deadline) > new Date())
+      const AddDeadLineList = userItemData.filter((elem) => new Date(elem.item_deadline) < new Date())
+      setDeadLineList(AddDeadLineList)
       console.log("AddDeadLineList============", AddDeadLineList)
 
       const userPurchaseList = itemData.filter(
@@ -280,6 +281,7 @@ function App() {
             setExhibitList={setExhibitList}
             setBeforeFlag={setBeforeFlag}
             setEditItem={setEditItem}
+            deadLineList={deadLineList}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

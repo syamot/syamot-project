@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style/exhibitionList.css";
 import { GrNext } from "react-icons/gr";
 import { BiEdit } from "react-icons/bi";
+import { AiFillWarning } from "react-icons/ai";
+// import { ImWarning } from "react-icons/im";
 const ExhibitionList = (props) => {
   const {
     items,
@@ -10,6 +12,7 @@ const ExhibitionList = (props) => {
     setSelectImg,
     exhibitList,
     setExhibitList,
+    deadLineList,
     setBeforeFlag,
     setEditItem,
   } = props;
@@ -41,6 +44,11 @@ const ExhibitionList = (props) => {
     setSelectFlag("post");
   };
 
+  // useEffect(()=>{
+  //   if(deadLineList.length!==0){
+
+  //   }
+  // },[])
   return (
     <div className="exhibition-list-box">
       <div className="exhibition-piece">
@@ -50,7 +58,14 @@ const ExhibitionList = (props) => {
         <ul className="exhibition-image-list">
           {exhibitList.length !== 0 &&
             exhibitList.map((item, index) => (
-              <li key={item.id} className="exhibition-image-item">
+              <li
+                key={item.id}
+                className={
+                  deadLineList.some((obj) => obj.id === item.id)
+                    ? "exhibition-image-item active"
+                    : "exhibition-image-item"
+                }
+              >
                 <div className="exhibition-image-box">
                   <div className="imgBlock">
                     <img src={item.item_img[0]} alt={item.item_name}></img>
@@ -63,6 +78,12 @@ const ExhibitionList = (props) => {
                     </div>
                   </div>
                   <div className="exhibition-info">
+                    {deadLineList.some((obj) => obj.id === item.id) && (
+                      <div className="warningBlock">
+                        <AiFillWarning className="warningIcon" />
+                        <span className="warningText">期限切れ商品です！</span>
+                      </div>
+                    )}
                     <p>商品名:{item.item_name}</p>
                     <p>期限:{item.item_deadline.split("T")[0]}</p>
                     <p>商品の状態:{item.item_status}</p>
