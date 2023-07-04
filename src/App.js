@@ -46,6 +46,9 @@ function App() {
     console.log("editItem===========", editItem)
   }, [editItem])
   const [tradingHistory, setTradingHistory] = useState("");
+
+  const [flagHistory, setFlagHistory] = useState(["list"]);
+
   useEffect(() => {
     const userName = localStorage.getItem("user");
 
@@ -70,8 +73,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("oneUser", oneUser);
-    console.log(selectFlag);
+
     let userData;
     let itemData;
     const asyncPkg = async () => {
@@ -85,7 +87,6 @@ function App() {
         elem.favorite = JSON.parse(elem.favorite);
       });
 
-      // console.log("aaaaaaaaaaaa", userData);
       setUsers(userData);
       setItems(itemData);
 
@@ -108,6 +109,10 @@ function App() {
     asyncPkg();
     setUpDataFlag(false);
   }, [selectFlag, upDataFlag]);
+
+  useEffect(() => {
+    setFlagHistory((prevHistory) => [...prevHistory, selectFlag]);
+  }, [selectFlag]);
 
   useEffect(() => {
     const index = users.findIndex(

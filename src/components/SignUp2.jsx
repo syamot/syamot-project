@@ -21,6 +21,7 @@ export const SignUp2 = (props) => {
       //   to_name: name,
       //   company: company,
       //   title: title,
+      to_email: addUser.tmc_e_mail,
       from_email: mail,
       message: message,
     };
@@ -58,10 +59,10 @@ export const SignUp2 = (props) => {
       <div className="loginMainBrock">
         <div className="loginBrock2">
           <h1 className="createHead ">
-            <span>CREATE</span> ACCOUNT2
+            <span>二段階認証</span>
           </h1>
           <input
-            placeholder="authentication code"
+            placeholder="認証コード（4桁）"
             type="text"
             className="employeeCode"
             onChange={(e) => createUser(e)}
@@ -70,10 +71,10 @@ export const SignUp2 = (props) => {
             className="btn createAccountBtn"
             onClick={(e) => createUser(e)}
           >
-            CREATE ACCOUNT
+            新規作成
           </button>
           <h6 className="btn" onClick={() => setSelectFlag("signIn")}>
-            Return Sign in
+            ログイン画面に戻る
           </h6>
         </div>
       </div>
