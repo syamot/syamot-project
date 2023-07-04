@@ -15,16 +15,11 @@ function List(props) {
   // console.log(users);
   const [sortedItems, setSortedItems] = useState([]);
 
-  // const [inputWord, setInputWord] = useState([]);
-
   //全点リスト表示
   useEffect(() => {
     setSortedItems(items); // 初期表示ではソートを適用しない
   }, [items]);
 
-  // const clickImg = (e) => {
-  //   setSelectImg(items[e.target.id]);
-  // };
   const clickImg = (e) => {
     let item;
     let numTargetId = Number(e.target.id);
@@ -36,31 +31,7 @@ function List(props) {
     setSelectImg(item);
   };
 
-  //*＊キーワード検索
-  let inputWord = "";
-  const handleInputText = (e) => {
-    console.log(e.target.value);
-  };
-  const handleSearch = (e) => {
-    console.log("検索ボタン押された", e.target.value);
-  };
-
-  //*＊エリア選択
-  // const area = [
-  //   "第3大林和風寮",
-  //   "第2大林和風寮",
-  //   "大林和風寮",
-  //   "平山寮",
-  //   "聖心寮",
-  //   "田中寮",
-  //   "丸山寮",
-  // ];
-
   //*＊期限並び替え選択起爆
-  // let imgs = items;
-  // useEffect(() => {
-  //   setSortedImg(imgs); // 初期表示ではソートを適用しない
-  // }, [imgs]);
   const [deadline, setdeadline] = useState("");
   const handleSort = (e) => {
     // 選択された値を取得する
@@ -83,18 +54,15 @@ function List(props) {
     const value = e.target.value;
     setFilteredArea(value);
     console.log(value); // 選択された値を表示する
-    // let filteredUserArray = [];
-    // let tempUsers = users;
-    // console.log(tempUsers);
-    // filteredUserArray = tempUsers.filter((user) => user.area === value);
-    // console.log(filteredUserArray);
-    // const idArray = filteredUserArray.map((user) => user.id);
-    // console.log("idArray:", idArray);
-    // console.log("items", items);
-    // let resultArray = items.filter((item) =>
-    //   idArray.includes(item.item_seller)
-    // );
-    // console.log("resultArray", resultArray);
+  };
+
+  //*＊フリーキーワード起爆
+  const [inputText, setInputText] = useState(""); // 入力テキストの状態を管理
+  const handleInputText = (event) => {
+    const searchText = event.target.value;
+    console.log(searchText);
+    setInputText(searchText);
+    console.log(inputText);
   };
 
   //*＊全ての検索・ソート実作業＆表示準備*＊
@@ -116,7 +84,7 @@ function List(props) {
         .slice()
         .sort((a, b) => new Date(b.item_deadline) - new Date(a.item_deadline));
     }
-    console.log("期限並び替え作業", sortedArray);
+    // console.log("期限並び替え作業", sortedArray);
 
     //sortedArrayをどんどん変化させていく
     //*＊カテゴリーフィルター作業
@@ -138,7 +106,7 @@ function List(props) {
         (item) => item.item_category === "工具"
       );
     }
-    console.log("カテゴリーフィルター後", filteredArray);
+    // console.log("カテゴリーフィルター後", filteredArray);
 
     //*＊エリアのフィルター作業
     if (filteredArea === "") {
@@ -162,74 +130,81 @@ function List(props) {
     }
     console.log("エリアフィルター後", filteredArray);
 
+    //**フリーワード検索
+    console.log(filteredArray);
+    filteredArray = filteredArray.filter((item) =>
+      item.item_name.includes(inputText)
+    );
+    console.log(filteredArray);
+
     setSorted(filteredArray);
-  }, [deadline, filteredItem, filteredArea]);
+  }, [deadline, filteredItem, filteredArea, inputText, items]);
 
   return (
     <>
       <div className="mainBrock-list">
-        {/* キーワード検索ボタン */}
+        {/* フリーキーワード検索ボタン */}
         <div className="serch-box">
-          {/* <input
+          <input
             type="text"
-            placeholder="検索ワード"
-            value={inputWord}
+            value={inputText}
             onChange={handleInputText}
+            placeholder="🔍商品ワード検索"
           />
-          <button onClick={handleSearch}>検索</button> */}
-          {/* エリアソート */}
-          <div className="area_sort">
-            <select onChange={(e) => handleFilterArea(e)}>
-              <option value="">会社寮一覧</option>
-              {/* 大林エリア*/}
-              <option value="大林寮">大林和風寮</option>
-              <option value="大林清風寮">大林清風寮</option>
-              <option value="第2大林和風寮">第2大林和風寮</option>
-              <option value="第3大林和風寮">第3大林和風寮</option>
-              <option value="第4大林和風寮">第4大林和風寮</option>
-              <option value="ｱﾋﾞﾘｵ大林">ｱﾋﾞﾘｵ大林</option>
-              <option value="大林国際ｾﾝﾀｰ">大林国際ｾﾝﾀｰ</option>
-              <option value="永覚ﾚｼﾞﾃﾞﾝｽ">永覚ﾚｼﾞﾃﾞﾝｽ</option>
-              {/* 平山エリア*/}
-              <option value="平山豊和寮">平山豊和寮</option>
-              <option value="第2平山豊和寮">第2平山豊和寮</option>
-              <option value="第3平山豊和寮">第3平山豊和寮</option>
-              <option value="第4平山豊和寮">第4平山豊和寮</option>
-              <option value="平山ﾚｼﾞﾃﾞﾝｽ">平山ﾚｼﾞﾃﾞﾝｽ</option>
-              <option value="ﾚｼﾞﾃﾞﾝｽ平山">ﾚｼﾞﾃﾞﾝｽ平山</option>
-              {/* 聖心エリア*/}
-              <option value="ｱﾋﾞﾘｵ聖心寮">ｱﾋﾞﾘｵ聖心寮</option>
-              <option value="ﾚｼﾞﾃﾞﾝｽ聖心寮">ﾚｼﾞﾃﾞﾝｽ聖心寮</option>
-              <option value="第2聖心清風寮">第2聖心清風寮</option>
-              <option value="田中清風寮">田中清風寮</option>
-              {/* 小川エリア*/}
-              <option value="小川清風寮">小川清風寮</option>
-              {/* 高岡エリア*/}
-              <option value="高岡清風寮">高岡清風寮</option>
-              <option value="高岡和風寮">高岡和風寮</option>
-              <option value="第2高岡和風寮">第2高岡和風寮</option>
-              <option value="第3高岡和風寮">第3高岡和風寮</option>
-              <option value="ﾚｼﾞﾃﾞﾝｽ高岡寮">ﾚｼﾞﾃﾞﾝｽ高岡寮</option>
-              {/* 日進エリア*/}
-              <option value="レーヴ日進">レーヴ日進</option>
-              {/* 三好ヶ丘エリア*/}
-              <option value="レーヴ三好ヶ丘">レーヴ日進</option>
-              {/* 衣浦エリア*/}
-              <option value="ｱﾋﾞﾘｵ衣浦寮">ｱﾋﾞﾘｵ衣浦寮</option>
-              <option value="ｱﾋﾞﾘｵ第5衣浦寮">ｱﾋﾞﾘｵ第5衣浦寮</option>
-              {/* 田原エリア*/}
-              <option value="第1田原寮">第1田原寮</option>
-              <option value="第3田原寮">第3田原寮</option>
-              <option value="第5田原寮">第5田原寮</option>
-              <option value="第6田原寮">第6田原寮</option>
-              <option value="第1滝頭寮">第1滝頭寮</option>
-              <option value="第2滝頭寮">第2滝頭寮</option>
-              <option value="第3滝頭寮">第3滝頭寮</option>
-              <option value="吉胡寮">吉胡寮</option>
-              {/* 東富士エリア*/}
-              <option value="第2東富士寮">第2東富士寮</option>
-            </select>
-          </div>
+          {/* <button onClick={(e) => handleInputText(e)}>検索</button> */}
+        </div>
+        {/* エリアソート */}
+        <div className="area_sort">
+          <select onChange={(e) => handleFilterArea(e)}>
+            <option value="">会社寮一覧</option>
+            {/* 大林エリア*/}
+            <option value="大林寮">大林和風寮</option>
+            <option value="大林清風寮">大林清風寮</option>
+            <option value="第2大林和風寮">第2大林和風寮</option>
+            <option value="第3大林和風寮">第3大林和風寮</option>
+            <option value="第4大林和風寮">第4大林和風寮</option>
+            <option value="ｱﾋﾞﾘｵ大林">ｱﾋﾞﾘｵ大林</option>
+            <option value="大林国際ｾﾝﾀｰ">大林国際ｾﾝﾀｰ</option>
+            <option value="永覚ﾚｼﾞﾃﾞﾝｽ">永覚ﾚｼﾞﾃﾞﾝｽ</option>
+            {/* 平山エリア*/}
+            <option value="平山豊和寮">平山豊和寮</option>
+            <option value="第2平山豊和寮">第2平山豊和寮</option>
+            <option value="第3平山豊和寮">第3平山豊和寮</option>
+            <option value="第4平山豊和寮">第4平山豊和寮</option>
+            <option value="平山ﾚｼﾞﾃﾞﾝｽ">平山ﾚｼﾞﾃﾞﾝｽ</option>
+            <option value="ﾚｼﾞﾃﾞﾝｽ平山">ﾚｼﾞﾃﾞﾝｽ平山</option>
+            {/* 聖心エリア*/}
+            <option value="ｱﾋﾞﾘｵ聖心寮">ｱﾋﾞﾘｵ聖心寮</option>
+            <option value="ﾚｼﾞﾃﾞﾝｽ聖心寮">ﾚｼﾞﾃﾞﾝｽ聖心寮</option>
+            <option value="第2聖心清風寮">第2聖心清風寮</option>
+            <option value="田中清風寮">田中清風寮</option>
+            {/* 小川エリア*/}
+            <option value="小川清風寮">小川清風寮</option>
+            {/* 高岡エリア*/}
+            <option value="高岡清風寮">高岡清風寮</option>
+            <option value="高岡和風寮">高岡和風寮</option>
+            <option value="第2高岡和風寮">第2高岡和風寮</option>
+            <option value="第3高岡和風寮">第3高岡和風寮</option>
+            <option value="ﾚｼﾞﾃﾞﾝｽ高岡寮">ﾚｼﾞﾃﾞﾝｽ高岡寮</option>
+            {/* 日進エリア*/}
+            <option value="レーヴ日進">レーヴ日進</option>
+            {/* 三好ヶ丘エリア*/}
+            <option value="レーヴ三好ヶ丘">レーヴ日進</option>
+            {/* 衣浦エリア*/}
+            <option value="ｱﾋﾞﾘｵ衣浦寮">ｱﾋﾞﾘｵ衣浦寮</option>
+            <option value="ｱﾋﾞﾘｵ第5衣浦寮">ｱﾋﾞﾘｵ第5衣浦寮</option>
+            {/* 田原エリア*/}
+            <option value="第1田原寮">第1田原寮</option>
+            <option value="第3田原寮">第3田原寮</option>
+            <option value="第5田原寮">第5田原寮</option>
+            <option value="第6田原寮">第6田原寮</option>
+            <option value="第1滝頭寮">第1滝頭寮</option>
+            <option value="第2滝頭寮">第2滝頭寮</option>
+            <option value="第3滝頭寮">第3滝頭寮</option>
+            <option value="吉胡寮">吉胡寮</option>
+            {/* 東富士エリア*/}
+            <option value="第2東富士寮">第2東富士寮</option>
+          </select>
         </div>
 
         {/* カテゴリー検索 */}
@@ -241,7 +216,6 @@ function List(props) {
             <option value="tool">工具</option>
           </select>
         </div>
-
         {/* 写真のソート */}
         <div className="item_sort">
           <select onChange={(e) => handleSort(e)}>
@@ -250,7 +224,6 @@ function List(props) {
             <option value="far">出品期限遠い物順</option>
           </select>
         </div>
-
         <ul className="image-list">
           {sorted.length !== 0 &&
             sorted.map((item, index) => (
