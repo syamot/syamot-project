@@ -70,11 +70,9 @@ function List(props) {
     let sortedArray = [];
     const resultImgs = items;
 
-    // console.log(value); // 選択された値を表示する
     // *＊期限並び替え作業
     if (deadline === "") {
       sortedArray = resultImgs;
-      // return console.log("無効です");
     } else if (deadline === "far") {
       sortedArray = resultImgs
         .slice()
@@ -86,7 +84,6 @@ function List(props) {
     }
     // console.log("期限並び替え作業", sortedArray);
 
-    //sortedArrayをどんどん変化させていく
     //*＊カテゴリーフィルター作業
     console.log("カテゴリーフィルター前", sortedArray);
     let filteredArray = sortedArray;
@@ -111,7 +108,6 @@ function List(props) {
     //*＊エリアのフィルター作業
     if (filteredArea === "") {
       sortedArray = resultImgs;
-      // return console.log("無効です");
     } else if (filteredArea !== "") {
       // console.log(users);
       let filteredUserArray = [];
@@ -149,7 +145,7 @@ function List(props) {
             type="text"
             value={inputText}
             onChange={handleInputText}
-            placeholder="🔍商品ワード検索"
+            placeholder=" 🔍  商品ワード検索"
           />
           {/* <button onClick={(e) => handleInputText(e)}>検索</button> */}
         </div>
@@ -248,17 +244,3 @@ function List(props) {
 }
 
 export default List;
-
-// useEffect(() => {
-//   let itemData;
-//   const asyncPkg = async () => {
-//     //Itemをバックからとる
-//     itemData = await getAllItems();
-//     itemData.forEach((elem) => {
-//       elem.item_img = JSON.parse(elem.item_img);
-//     });
-//     setItems(itemData);
-//   };
-//   asyncPkg();
-// });
-// console.log(props.items);

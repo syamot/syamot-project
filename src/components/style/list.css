@@ -47,27 +47,26 @@ ul.image-list {
 }
 
 .serch-box {
-  width: 48vh;
   margin-left: 3vh;
-  margin-top: 0vh;
-  width: 80px;
+  margin-top: 0.3vh;
+  width: 50px;
 }
 
 .area_sort {
-  margin-right: 1vh;
+  margin-left: -8vh;
   margin-top: 4vh;
   width: 80px;
   /* font-size: 1.5rem; */
 }
 
 .item_filter {
-  margin-left: 6vh;
+  margin-left: 7vh;
   margin-top: 4vh;
   width: 5%;
 }
 
 .item_sort {
-  margin-left: -14vh;
+  margin-left: 11vh;
   margin-top: 4vh;
   width: 120px;
 }
