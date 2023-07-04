@@ -238,6 +238,7 @@ app.post("/addChat", async (req, res) => {
 // ステータス更新
 app.put("/putItemStatus", async (req, res) => {
   const obj = req.body;
+  console.log("ステータス更新");
   console.log(obj);
   console.log(obj.id);
 
@@ -300,6 +301,8 @@ app.put("/editItems", async (req, res) => {
 // ステータスキャンセル更新
 app.put("/putItemStatusCancel", async (req, res) => {
   const obj = req.body;
+
+  console.log("ステータスキャンセル更新");
   console.log(obj);
   console.log(obj.id);
   try {
@@ -308,8 +311,8 @@ app.put("/putItemStatusCancel", async (req, res) => {
         item_status: "在庫あり",
       })
       .where("id", obj.id);
-    // const result = await knex.select("*").from("items");
-    // res.status(200).json(result);
+    const result = await knex.select("*").from("items");
+    res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
     res.status(500);
