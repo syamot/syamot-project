@@ -405,7 +405,7 @@ const ItemPost = (props) => {
           ></textarea>
         </div>
         {beforeFlag === "exhibitionList" ? (
-          <div>
+          <div className="btnBlock">
             <button onClick={() => handleClick()}>更新</button>
             <button onClick={() => itemDelete()}>削除</button>
           </div>

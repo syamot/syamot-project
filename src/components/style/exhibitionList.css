@@ -57,8 +57,8 @@ ul.exhibition-image-list {
 }
 
 .nextIcon {
-  position: fixed;
-  right: 1vh;
+  position: relative;
+  right: -2vh;
   height: 5vh;
   width: 5vh;
 }
@@ -97,11 +97,11 @@ ul.exhibition-image-list {
   align-content: center;
   align-items: center;
   overflow: hidden;
-  position: fixed;
+  position: relative;
   left: 1vh;
 }
 /* textのブロック */
 .exhibition-info {
   position: relative;
-  left: 7vh;
+  left: 2vh;
 }

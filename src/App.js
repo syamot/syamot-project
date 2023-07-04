@@ -38,6 +38,7 @@ function App() {
 
   const [oneUser, setOneUser] = useState("");
   const [exhibitList, setExhibitList] = useState("");
+  const [deadLineList, setDeadLineList] = useState([]);
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
   const [beforeFlag, setBeforeFlag] = useState("");
@@ -99,6 +100,10 @@ function App() {
         (elem) => elem.item_seller === openUserId
       );
       setExhibitList(userItemData);
+
+      // 期限切れデータリスト作成
+      const AddDeadLineList = userItemData.filter((elem) => new Date(elem.item_deadline) > new Date())
+      console.log("AddDeadLineList============", AddDeadLineList)
 
       const userPurchaseList = itemData.filter(
         (elem) => elem.buyer_id === openUserId
