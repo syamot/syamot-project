@@ -5,7 +5,7 @@ import "./style/transaction.css";
 // import io from "socket.io-client";
 
 // ＃＃＃＃＃＃＃＃＃＃＃＃
-import { formatToTimeZone } from "date-fns-timezone"; // 追加
+// import { formatToTimeZone } from "date-fns-timezone"; // 追加
 // ＃＃＃＃＃
 
 // チャットぺージ
@@ -29,36 +29,15 @@ const Transaction = (props) => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      console.log("selectImg:", selectImg);
-      console.log("chatJson", chatJson);
-      console.log(chatJson, "👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹");
 
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
         .filter((e1) => {
-          console.log("1========", e1.item_id, selectImg.id);
           return e1.item_id === selectImg.id;
         })
         //チャットのBuyerID===ログイン者のID
         //チャットの出品者ID===選択した投稿の出品者ID
         .filter((e2) => {
-          console.log(e2, "👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹");
-          console.log(e2.id);
-          console.log("################################");
-          console.log("oneUser", oneUser);
-          console.log(
-            e2.buyer_id,
-            oneUser.id,
-            e2.seller_id,
-            selectImg.item_seller
-          );
-
-          console.log(
-            e2.buyer_id,
-            Number(selectBuyer),
-            e2.seller_id === oneUser.id
-          );
-
           return (
             // 購入者側
             (e2.buyer_id === oneUser.id &&
