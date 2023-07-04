@@ -265,7 +265,7 @@ app.put("/putChatStatus", async (req, res) => {
       .update({
         [flagText]: true,
       })
-      .whereIn("id", read_arr); //[1, 11, 15]
+      .whereIn("chat_id", read_arr); //[1, 11, 15]
     const result = await knex.select("*").from("chat");
     res.status(200).json(result);
   } catch (e) {

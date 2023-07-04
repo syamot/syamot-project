@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable("chat", (table) => {
-    table.increments("id").primary().notNullable();
+    table.increments("chat_id").primary().notNullable();
     // table.bigint("send_date").notNullable();
     table.timestamp("send_date").notNullable().defaultTo(knex.fn.now());
     table.integer("buyer_id").notNullable();

@@ -21,6 +21,10 @@ const ContactList = (props) => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
+      console.log("##############################");
+      console.log(selectImg);
+      console.log(oneUser);
+
       const filterChat = chatJson
         .filter((e1) => e1.item_id === selectImg.id)
         .filter((e2) => e2.user_id !== oneUser.id);

@@ -26,11 +26,8 @@ const Transaction = (props) => {
   const [chatData, setChatData] = useState([]);
   const partnerId =
     selectImg.item_seller === oneUser.id ? selectBuyer : selectImg.item_seller;
-  console.log("🥵🥵🥵🥵🥵🥵🥵🥵🥵", partnerId);
-  console.log("🥵🥵🥵🥵🥵🥵🥵🥵🥵", users);
   const partnerUser = users.filter((el) => el.id === Number(partnerId))[0]
     .user_name;
-  console.log("🥵🥵🥵🥵🥵🥵🥵🥵🥵", partnerUser);
 
   // const socket = io("http://localhost:8000");
 
@@ -38,6 +35,7 @@ const Transaction = (props) => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
+      // console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
 
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
@@ -46,7 +44,20 @@ const Transaction = (props) => {
         })
         //チャットのBuyerID===ログイン者のID
         //チャットの出品者ID===選択した投稿の出品者ID
+
         .filter((e2) => {
+          // console.log(
+          //   e2.buyer_id,
+          //   oneUser.id,
+          //   e2.seller_id,
+          //   selectImg.item_seller
+          // );
+          // console.log(
+          //   e2.buyer_id,
+          //   Number(selectBuyer),
+          //   e2.seller_id,
+          //   oneUser.id
+          // );
           return (
             // 購入者側
             (e2.buyer_id === oneUser.id &&
@@ -55,8 +66,14 @@ const Transaction = (props) => {
             (e2.buyer_id === Number(selectBuyer) && e2.seller_id === oneUser.id)
           );
         });
-      console.log(filterChat);
-      setChatData(filterChat);
+      // console.log(filterChat);
+      //chatDataを最新順に並び替え
+      const dateAscChatData = filterChat.sort(function (a, b) {
+        if (a.send_date > b.send_date) return 1;
+        if (b.send_date > a.send_date) return -1;
+        return 0;
+      });
+      setChatData(dateAscChatData);
     };
     //0.5秒ごとにチャット内容更新
     const interval = setInterval(fetchData, 1000);
@@ -66,7 +83,7 @@ const Transaction = (props) => {
       clearInterval(interval);
     };
   }, [URL, chatData, selectImg.id, selectImg.item_seller, oneUser.id]);
-  console.log(chatData);
+  // console.log("###################", chatData);
 
   //setSelectImgの内容をchatDataをもとに更新
   useEffect(() => {
@@ -76,6 +93,26 @@ const Transaction = (props) => {
         item_approval_flag: chatData[0].item_approval_flag,
         item_transaction_flag: chatData[0].item_transaction_flag,
       }));
+
+      const readFetch = async () => {
+        const selectFlag =
+          selectImg.item_seller === oneUser.id //出品者判定
+            ? "seller_read_flag"
+            : "buyer_read_flag";
+        // console.log("2222222222222", chatData);
+        const readArr = chatData.map((e) => e.chat_id);
+        // console.log("👾👾👾👾👾👾👾", readArr);
+        const Data = { read_arr: readArr, flagText: selectFlag };
+        const read = await fetch(URL + "/putChatStatus", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+          body: JSON.stringify(Data),
+        });
+        // console.log("#########################", read);
+      };
+      readFetch();
     }
   }, [chatData, setSelectImg]);
 
@@ -308,12 +345,12 @@ const Transaction = (props) => {
       }
     }
   };
-  console.log("selectImg");
-  console.log(selectImg);
+  // console.log("selectImg");
+  // console.log(selectImg);
 
   //取引中をキャンセルして、在庫ありに変更
   const changeStatusCancel = async () => {
-    console.log(selectImg);
+    // console.log(selectImg);
     if (selectImg.item_status === "取引中") {
       try {
         await fetch(URL + "/putItemStatusCancel", {
@@ -345,7 +382,7 @@ const Transaction = (props) => {
             message.text === "受取完了"
           ) { */}
         {chatData.map((chat, index) => {
-          console.log(chat);
+          // console.log(chat);
           if (
             chat.message === "承認完了" ||
             chat.message === "承認キャンセル" ||
