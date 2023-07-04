@@ -7,12 +7,14 @@ import { GrUpdate } from "react-icons/gr";
 import "./style/header.css";
 
 const Header = (props) => {
-  const { setSelectFlag, selectFlag, setUpDataFlag } = props;
+  const { setSelectFlag, selectFlag, setUpDataFlag, setBeforeFlag } = props;
   const pageHandler = () => {
     setSelectFlag("list");
+    setBeforeFlag("");
   };
   const changeMyPage = () => {
     setSelectFlag("myPage");
+    setBeforeFlag("");
   };
   const upData = () => {
     setUpDataFlag(true);
@@ -29,7 +31,7 @@ const Header = (props) => {
             }}
           />
 
-          <h1 className="header1">シャモティー</h1>
+          <h1 className="header1">シャモティ</h1>
           <GrUpdate
             className="up-data-icon"
             onClick={() => {
@@ -54,7 +56,7 @@ const Header = (props) => {
             }}
           />
 
-          <h1 className="header1">シャモティー</h1>
+          <h1 className="header1">シャモティ</h1>
           {selectFlag !== "list" ? (
             <MdClose
               className="backIcon"
@@ -86,7 +88,7 @@ const Header = (props) => {
             }}
           />
 
-          <h1 className="header1">シャモティー</h1>
+          <h1 className="header1">シャモティ</h1>
           <MdClose
             className="backIcon"
             onClick={() => {
@@ -107,7 +109,7 @@ const Header = (props) => {
             }}
           />
 
-          <h1 className="header1">シャモティー</h1>
+          <h1 className="header1">シャモティ</h1>
           <MdClose
             className="backIcon"
             onClick={() => {
