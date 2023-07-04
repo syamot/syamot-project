@@ -1,21 +1,48 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
 import { BsBell } from "react-icons/bs";
+import { GrUpdate } from "react-icons/gr";
+import { IoIosArrowBack } from "react-icons/io";
 
 import "./style/header.css";
 
 const Header = (props) => {
-  const { setSelectFlag, selectFlag } = props;
+  const { setSelectFlag, selectFlag, setUpDataFlag, setBeforeFlag } = props;
   const pageHandler = () => {
     setSelectFlag("list");
+    setBeforeFlag("");
   };
   const changeMyPage = () => {
     setSelectFlag("myPage");
+    setBeforeFlag("");
+  };
+  const upData = () => {
+    setUpDataFlag(true);
   };
 
-  if (
-    selectFlag === "list" ||
+  if (selectFlag === "list") {
+    return (
+      <>
+        <header>
+          <GrUpdate
+            className="up-data-icon"
+            onClick={() => {
+              upData();
+            }}
+          />
+          <h1 className="header1">シャモティ</h1>
+
+          <FaUserCircle
+            className="userIcon"
+
+            onClick={() => {
+              changeMyPage();
+            }}
+          />
+        </header>
+      </>
+    );
+  } else if (
     selectFlag === "card" ||
     selectFlag === "transaction" ||
     selectFlag === "post" ||
@@ -24,6 +51,13 @@ const Header = (props) => {
     return (
       <>
         <header>
+          <IoIosArrowBack
+            className="backIcon"
+            onClick={() => {
+              pageHandler();
+            }}
+          />
+          <h1 className="header1">シャモティー</h1>
           <FaUserCircle
             className="userIcon"
             onClick={() => {
@@ -31,17 +65,6 @@ const Header = (props) => {
             }}
           />
 
-          <h1 className="header1">シャモティー</h1>
-          {selectFlag !== "list" ? (
-            <MdClose
-              className="backIcon"
-              onClick={() => {
-                pageHandler();
-              }}
-            />
-          ) : (
-            <div className="backIcon" />
-          )}
         </header>
       </>
     );
@@ -50,23 +73,25 @@ const Header = (props) => {
     selectFlag === "notification" ||
     selectFlag === "exhibitionList" ||
     selectFlag === "favorite" ||
-    selectFlag === "purchaseList"
+    selectFlag === "purchaseList" ||
+    selectFlag === "tradingHistory"
   ) {
     return (
       <>
         <header>
-          <BsBell
-            className="userIcon"
+          <IoIosArrowBack
+            className="backIcon"
             onClick={() => {
-              setSelectFlag("notification");
+              setSelectFlag("myPage");
             }}
           />
 
           <h1 className="header1">シャモティー</h1>
-          <MdClose
-            className="backIcon"
+          <BsBell
+            className="bellIcon"
+
             onClick={() => {
-              setSelectFlag("myPage");
+              setSelectFlag("tradingHistory");
             }}
           />
         </header>
@@ -76,18 +101,20 @@ const Header = (props) => {
     return (
       <>
         <header>
-          <BsBell
-            className="userIcon"
-            onClick={() => {
-              setSelectFlag("notification");
-            }}
-          />
-
-          <h1 className="header1">シャモティー</h1>
-          <MdClose
+          <IoIosArrowBack
             className="backIcon"
             onClick={() => {
               setSelectFlag("list");
+            }}
+          />
+
+
+          <h1 className="header1">シャモティ</h1>
+          <BsBell
+            className="userIcon"
+
+            onClick={() => {
+              setSelectFlag("tradingHistory");
             }}
           />
         </header>

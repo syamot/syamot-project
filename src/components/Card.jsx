@@ -1,23 +1,76 @@
 import React from "react";
 import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
 import Swipe from "./Swipe";
 
 //詳細情報ページ
 const Card = (props) => {
-  const { setSelectFlag, selectImg, users, userData, oneUser } = props;
+  const {
+    setSelectFlag,
+    selectImg,
+    users,
+    oneUser,
+    setOneUser,
+    URL,
+    userData,
+  } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
   const date = new Date(dateString);
   const formattedDate = date.toISOString().split("T")[0];
   const sellerUser = users.filter((el) => el.id === selectImg.item_seller);
-  console.log(sellerUser[0]);
+
+  const changeHeart = () => {
+    const objOneUser = oneUser;
+    if (oneUser.favorite.includes(selectImg.id)) {
+      setOneUser((prevState) => ({
+        ...prevState,
+        favorite: prevState.favorite.filter((item) => item !== selectImg.id),
+      }));
+      objOneUser.favorite = objOneUser.favorite.filter((elem) => {
+        return elem !== selectImg.id;
+      });
+    } else {
+      setOneUser((prevState) => ({
+        ...prevState,
+        favorite: [...prevState.favorite, selectImg.id],
+      }));
+      objOneUser.favorite.push(selectImg.id);
+    }
+    const postUpDataItem = async () => {
+      await fetch(URL + "/favoriteItems", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(objOneUser),
+      });
+    };
+    postUpDataItem();
+  };
+
   return (
     <>
       <div className="mainBrock">
         <h2 className="cardTitle">{selectImg.item_name}</h2>
         <div className="imageBrock">
-          <AiFillHeart className="goodIcon" />
+          {oneUser.favorite.includes(selectImg.id) ? (
+            <AiFillHeart
+              className="goodIcon"
+              onClick={() => {
+                changeHeart();
+              }}
+            />
+          ) : (
+            <AiOutlineHeart
+              className="goodIcon"
+              onClick={() => {
+                changeHeart();
+              }}
+            />
+          )}
+
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
           <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>

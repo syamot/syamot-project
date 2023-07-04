@@ -16,6 +16,8 @@ const Transaction = (props) => {
     getAllItems,
     setItems,
     setSelectImg,
+    setOneUser,
+    oneUser,
     userData,
     setUserData,
     selectBuyer,
@@ -66,7 +68,7 @@ const Transaction = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [URL, chatData, selectImg.id, selectImg.item_seller, userData.id]);
+  }, [URL, chatData, selectImg.id, selectImg.item_seller, oneUser.id]);
   console.log(chatData);
 
   //setSelectImgの内容をchatDataをもとに更新
@@ -207,6 +209,18 @@ const Transaction = (props) => {
           },
           body: JSON.stringify(selectImg),
         });
+
+        await fetch(URL + "/buyer", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            buyer_id: oneUser.id,
+            item_id: selectImg.id,
+          }),
+        });
+
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: "受取完了", user: "approve" },
@@ -266,15 +280,17 @@ const Transaction = (props) => {
         selectBuyer === 0 ? userData.id : selectBuyer
       );
       const obj = {
-        //送信日時はサーバー側で取得済み
-        // send_date: now.getTime(),
         send_date: now,
         item_id: selectImg.id,
+        user_id: oneUser.id,
         message: sendTxt,
-        user_id: userData.id, //####################送信者情報
+        // user_id: userData.id, //####################送信者情報
         buyer_id: selectBuyer === 0 ? userData.id : selectBuyer, //####################購入者情報
         seller_id: selectImg.item_seller, //#####################出品者情報
+        // seller_read_flag: true,
+        // buyer_read_flag: true,
       };
+      console.log("sdasdasdsadasdsadas", obj);
       try {
         // チャットTBに書き換え
         await fetch(URL + "/addChat", {
@@ -314,8 +330,9 @@ const Transaction = (props) => {
       const obj = {
         send_date: now,
         item_id: selectImg.id,
+        user_id: oneUser.id,
         message: message,
-        user_id: userData.id, //####################送信者情報
+        // user_id: userData.id, //####################送信者情報
         buyer_id: selectBuyer === 0 ? userData.id : selectBuyer, //####################購入者情報
         seller_id: selectImg.item_seller, //#####################出品者情報
       };
@@ -421,8 +438,8 @@ const Transaction = (props) => {
         <BiMailSend className="sendBtn" onClick={createMessage} />
       </div>
       <div className="footerBrock">
-        {userData.length !== 0 &&
-          (userData.id === selectImg.item_seller ? (
+        {oneUser.length !== 0 &&
+          (oneUser.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
               <button
                 className="approvalBtn"

@@ -6,6 +6,11 @@ import { FaUserCircle } from "react-icons/fa";
 const MyPage = (props) => {
   const { setSelectFlag } = props;
   const userName = localStorage.getItem("user");
+
+  const logOut = () => {
+    localStorage.setItem("user", "");
+    document.location.reload();
+  };
   return (
     <>
       <div className="my-page-contents-area">
@@ -13,20 +18,6 @@ const MyPage = (props) => {
           <FaUserCircle className="image-user-icon" />
           <h1>{userName}</h1>
         </div>
-        <p
-          onClick={() => {
-            setSelectFlag("profile");
-          }}
-        >
-          プロフィール編集
-        </p>
-        <p
-          onClick={() => {
-            setSelectFlag("notification");
-          }}
-        >
-          通知内容
-        </p>
         <p
           onClick={() => {
             setSelectFlag("exhibitionList");
@@ -43,11 +34,26 @@ const MyPage = (props) => {
         </p>
         <p
           onClick={() => {
+            setSelectFlag("tradingHistory");
+          }}
+        >
+          取引履歴
+        </p>
+        <p
+          onClick={() => {
             setSelectFlag("purchaseList");
           }}
         >
-          購入リスト
+          購入履歴
         </p>
+        <p
+          onClick={() => {
+            setSelectFlag("profile");
+          }}
+        >
+          プロフィール編集
+        </p>
+        <p onClick={() => logOut()}>ログアウト</p>
       </div>
     </>
   );

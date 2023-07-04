@@ -52,18 +52,50 @@ app.use((req, res, next) => {
 
 //User内容編集画面
 app.put("/users", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const obj = req.body;
   try {
     await knex("user").update(obj).where("id", obj.id);
     const result = await knex.select("*").from("user");
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (e) {
     console.error("Error", e);
     res.status(500);
   }
 });
+
+app.put("/buyer", async (req, res) => {
+  // console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        buyer_id: obj.buyer_id,
+      })
+      .where("id", obj.item_id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+app.put("/favoriteItems", async (req, res) => {
+  // console.log("sfsdfafewnajkfbwaeijfw", req.body);
+  const obj = req.body;
+  try {
+    await knex("user")
+      .update({
+        favorite: JSON.stringify(obj.favorite),
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+
 //ここまで
 
 app.get("/userAllData", async (req, res) => {
@@ -216,6 +248,29 @@ app.put("/putItemStatus", async (req, res) => {
     res.status(500);
   }
 });
+// item編集時の更新
+app.put("/editItems", async (req, res) => {
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        item_name: obj.item_name,
+        item_category: obj.item_category,
+        item_explanation: obj.item_explanation,
+        item_status: obj.item_status,
+        item_num: obj.item_num,
+        item_deadline: obj.item_deadline,
+        item_img: JSON.stringify(obj.item_img),
+        item_seller: obj.item_seller,
+      })
+      .where("id", obj.id);
+    const result = await knex.select("*").from("items");
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
 // ステータスキャンセル更新
 app.put("/putItemStatusCancel", async (req, res) => {
   const obj = req.body;
@@ -327,6 +382,7 @@ const upload = multer({
  * POST /upload
  */
 app.post("/upload", upload.single("file"), (req, res) => {
+  // console.log("Amazon-path=====", req.file.location);
   const fileUrl = req.file.location;
   res.send({ fileUrl });
 });
@@ -396,6 +452,20 @@ app.get("/display", (req, res) => {
     res.setHeader("Content-Type", data.ContentType);
     res.send(data.Body);
   });
+});
+
+// DELETE /items/:id
+app.delete('/items/:id', async (req, res) => {
+  const itemId = req.params.id;
+  try {
+    // deleteItem関数
+    await knex('items').where('id', itemId).del();
+    // const data = await knex.select("*").from("items")
+    res.status(200).send("delete完了"); // 成功のステータスコード
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500); // 内部サーバーエラーのステータスコード
+  }
 });
 
 // console.log(`バケット：${process.env.AWS_S3_BUCKET}`);

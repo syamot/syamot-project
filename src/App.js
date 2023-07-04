@@ -15,6 +15,7 @@ import Notification from "./components/Notification";
 import ExhibitionList from "./components/ExhibitionList";
 import Favorite from "./components/Favorite";
 import PurchaseList from "./components/PurchaseList";
+import TradingHistory from "./components/TradingHistory";
 //
 import ContactList from "./components/ContactList";
 
@@ -25,12 +26,41 @@ const URL =
 
 function App() {
   const [selectFlag, setSelectFlag] = useState("signIn");
+
+  useEffect(() => {
+    console.log("表示コンポーネント", selectFlag);
+  }, [selectFlag]);
+
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
-  const [oneUser, setOneUser] = useState("");
   const [userData, setUserData] = useState({});
   const [selectBuyer, setSelectBuyer] = useState(0);
+  const [sorted, setSorted] = useState("");
+
+  const [oneUser, setOneUser] = useState("");
+  const [exhibitList, setExhibitList] = useState("");
+  const [deadLineList, setDeadLineList] = useState([]);
+  const [purchaseList, setPurchaseList] = useState("");
+  const [upDataFlag, setUpDataFlag] = useState(false);
+  const [beforeFlag, setBeforeFlag] = useState("");
+  const [editItem, setEditItem] = useState({});
+  useEffect(() => {
+    console.log("editItem===========", editItem);
+  }, [editItem]);
+  const [tradingHistory, setTradingHistory] = useState("");
+
+  const [flagHistory, setFlagHistory] = useState(["list"]);
+
+  useEffect(() => {
+    const userName = localStorage.getItem("user");
+
+    if (userName === undefined || userName === null || userName === "") {
+      setSelectFlag("signIn");
+    } else {
+      setSelectFlag("list");
+    }
+  }, []);
 
   const getAllUsers = async () => {
     const resData = await fetch(URL + "/userAllData");
@@ -54,10 +84,41 @@ function App() {
       itemData.forEach((elem) => {
         elem.item_img = JSON.parse(elem.item_img);
       });
+      userData.forEach((elem) => {
+        elem.favorite = JSON.parse(elem.favorite);
+      });
+
       setUsers(userData);
       setItems(itemData);
+
+      let openUserId;
+      userData.forEach((elem) => {
+        if (elem.user_name === localStorage.getItem("user")) {
+          openUserId = elem.id;
+        }
+      });
+      const userItemData = itemData.filter(
+        (elem) => elem.item_seller === openUserId
+      );
+      setExhibitList(userItemData);
+
+      // 期限切れデータリスト作成
+      const AddDeadLineList = userItemData.filter(
+        (elem) => new Date(elem.item_deadline) > new Date()
+      );
+      console.log("AddDeadLineList============", AddDeadLineList);
+
+      const userPurchaseList = itemData.filter(
+        (elem) => elem.buyer_id === openUserId
+      );
+      setPurchaseList(userPurchaseList);
     };
     asyncPkg();
+    setUpDataFlag(false);
+  }, [selectFlag, upDataFlag]);
+
+  useEffect(() => {
+    setFlagHistory((prevHistory) => [...prevHistory, selectFlag]);
   }, [selectFlag]);
 
   useEffect(() => {
@@ -121,13 +182,22 @@ function App() {
     case "list":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setUpDataFlag={setUpDataFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <List
             setSelectFlag={setSelectFlag}
             items={items}
             setItems={setItems}
             setSelectImg={setSelectImg}
             getAllItems={getAllItems}
+            sorted={sorted}
+            setSorted={setSorted}
+            users={users}
+            setUsers={setUsers}
             setSelectBuyer={setSelectBuyer}
           />
           <Footer setSelectFlag={setSelectFlag} />
@@ -136,7 +206,11 @@ function App() {
     case "card":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <Card
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -144,6 +218,9 @@ function App() {
             oneUser={oneUser}
             userData={userData}
             URL={URL}
+            setSelectImg={setSelectImg}
+            // oneUser={oneUser}
+            setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -153,7 +230,11 @@ function App() {
       console.log("contactList");
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <ContactList
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -174,7 +255,11 @@ function App() {
     case "transaction":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <Transaction
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -183,9 +268,11 @@ function App() {
             URL={URL}
             getAllItems={getAllItems}
             setItems={setItems}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
+            selectBuyer={selectBuyer} //選択された購入者
             userData={userData}
             setUserData={setUserData}
-            selectBuyer={selectBuyer} //選択された購入者
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -211,11 +298,16 @@ function App() {
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
-    case "notification":
+    case "tradingHistory":
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <Notification />
+          <TradingHistory
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+            purchaseList={purchaseList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -223,7 +315,16 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <ExhibitionList />
+          <ExhibitionList
+            selectFlag={selectFlag}
+            setSelectFlag={setSelectFlag}
+            items={items}
+            setSelectImg={setSelectImg}
+            exhibitList={exhibitList}
+            setExhibitList={setExhibitList}
+            setBeforeFlag={setBeforeFlag}
+            setEditItem={setEditItem}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -231,7 +332,12 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <Favorite />
+          <Favorite
+            oneUser={oneUser}
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
@@ -239,18 +345,31 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <PurchaseList />
+          <PurchaseList
+            items={items}
+            setSelectFlag={setSelectFlag}
+            setSelectImg={setSelectImg}
+            purchaseList={purchaseList}
+          />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
     case "post":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <ItemPost
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
             URL={URL}
+            setBeforeFlag={setBeforeFlag}
+            beforeFlag={beforeFlag}
+            editItem={editItem}
+            setItems={setItems}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
