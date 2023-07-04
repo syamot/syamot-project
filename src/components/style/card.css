@@ -30,8 +30,9 @@
 
 .cardTitle {
   position: relative;
-  top: 31vh;
+  top: 27vh;
 }
+
 .imageBrock {
   display: flex;
   flex-direction: row;
@@ -68,7 +69,7 @@
 }
 .cardItemTxtarea {
   height: 11vh;
-  width: 40vh;
+  width: 52vh;
   resize: none;
 }
 .itemImage {
