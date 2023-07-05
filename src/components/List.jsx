@@ -11,6 +11,7 @@ function List(props) {
     setSorted,
     users,
     setUsers,
+    setSelectBuyer,
   } = props;
   // console.log(users);
   const [sortedItems, setSortedItems] = useState([]);
@@ -141,6 +142,7 @@ function List(props) {
     setSorted(filteredArray);
   }, [deadline, filteredItem, filteredArea, inputText, items]);
 
+  setSelectBuyer(0);
   return (
     <>
       <div className="mainBrock-list">

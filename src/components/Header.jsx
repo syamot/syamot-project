@@ -50,7 +50,8 @@ const Header = (props) => {
   } else if (
     selectFlag === "card" ||
     selectFlag === "transaction" ||
-    selectFlag === "post"
+    selectFlag === "post" ||
+    selectFlag === "contactList"
   ) {
     return (
       <>

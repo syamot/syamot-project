@@ -6,7 +6,15 @@ import Swipe from "./Swipe";
 
 //詳細情報ページ
 const Card = (props) => {
-  const { setSelectFlag, selectImg, users, oneUser, setOneUser, URL } = props;
+  const {
+    setSelectFlag,
+    selectImg,
+    users,
+    oneUser,
+    setOneUser,
+    URL,
+    userData,
+  } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
   const date = new Date(dateString);
@@ -64,7 +72,7 @@ const Card = (props) => {
           )}
 
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
-          <Swipe etSelectFlag={setSelectFlag} selectImg={selectImg} />
+          <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
         <div className="cardItemBrock">
           <p className="cardItem">説明</p>
@@ -74,7 +82,6 @@ const Card = (props) => {
           ></textarea>
           <p className="cardItem">取引状況: {selectImg.item_status}</p>
           <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
-          <p className="cardItem">ステータス: {selectImg.item_condition}</p>
           <p className="cardItem">個数: {selectImg.item_num}</p>
           <p className="cardItem">期限: {formattedDate}</p>
           <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
@@ -84,7 +91,20 @@ const Card = (props) => {
           <button
             className="buyBtn"
             onClick={() => {
-              setSelectFlag("transaction");
+              console.log("oneuser.id:", oneUser.id);
+              console.log("selectImg.item_seller", selectImg.item_seller);
+              console.log("sellerUser:", sellerUser);
+
+              // 購入者であれば連絡リストに遷移
+              if (oneUser.id === sellerUser[0].id) {
+                console.log("contact");
+                setSelectFlag("contactList");
+                // setSelectFlag("transaction");
+              } else {
+                console.log("transaction");
+                setSelectFlag("transaction");
+              }
+
               // changeStatus();
             }}
           >

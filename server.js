@@ -142,7 +142,7 @@ app.put("/buyer", async (req, res) => {
   try {
     await knex("items")
       .update({
-        buyer_id: obj.buyer_id,
+        soldBuyer_id: obj.soldBuyer_id,
       })
       .where("id", obj.item_id);
     res.status(200).json();
@@ -281,21 +281,26 @@ app.post("/addItems", async (req, res) => {
 });
 
 app.post("/addChat", async (req, res) => {
-  const { item_id, user_id, message, partner_id, send_date } = req.body;
-  // const now = new Date();
-  // console.log(
-  //   formatToTimeZone(now, FORMAT, { timeZone: TIME_ZONE_TOKYO }),
-  //   "!!!!!!!!!!!!!!!!"
-  // );
+  const {
+    item_id,
+    user_id,
+    message,
+    seller_id,
+    buyer_id,
+    send_date,
+    seller_read_flag,
+    buyer_read_flag,
+  } = req.body;
   const addItemObj = {
     // 日本時刻は格納できない
     send_date: send_date,
-    partner_id: partner_id,
-    buyer_read_flag: false,
-    seller_read_flag: false,
+    buyer_id: buyer_id,
+    seller_id: seller_id,
     item_id: item_id,
     user_id: user_id,
     message: message,
+    seller_read_flag: seller_read_flag,
+    buyer_read_flag: buyer_read_flag,
   };
   await knex("chat").insert(addItemObj);
   res.send("チャット送信完了");
@@ -304,6 +309,10 @@ app.post("/addChat", async (req, res) => {
 // ステータス更新
 app.put("/putItemStatus", async (req, res) => {
   const obj = req.body;
+  console.log("ステータス更新");
+  console.log(obj);
+  console.log(obj.id);
+
   try {
     await knex("items")
       .update({
@@ -317,6 +326,26 @@ app.put("/putItemStatus", async (req, res) => {
     res.status(500);
   }
 });
+
+// 既読ステータス更新########################
+app.put("/putChatStatus", async (req, res) => {
+  console.log("read_arr");
+  const { read_arr, flagText } = req.body;
+  console.log(read_arr);
+  try {
+    await knex("chat")
+      .update({
+        [flagText]: true,
+      })
+      .whereIn("chat_id", read_arr); //[1, 11, 15]
+    const result = await knex.select("*").from("chat");
+    res.status(200).json(result);
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+
 // item編集時の更新
 app.put("/editItems", async (req, res) => {
   const obj = req.body;
@@ -343,6 +372,10 @@ app.put("/editItems", async (req, res) => {
 // ステータスキャンセル更新
 app.put("/putItemStatusCancel", async (req, res) => {
   const obj = req.body;
+
+  console.log("ステータスキャンセル更新");
+  console.log(obj);
+  console.log(obj.id);
   try {
     await knex("items")
       .update({
@@ -359,6 +392,8 @@ app.put("/putItemStatusCancel", async (req, res) => {
 // 完了ステータス更新
 app.put("/putCompleteStatus", async (req, res) => {
   const obj = req.body;
+  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
+  // console.log(obj.id);
   try {
     await knex("items")
       .update({
@@ -524,11 +559,11 @@ app.get("/display", (req, res) => {
 });
 
 // DELETE /items/:id
-app.delete('/items/:id', async (req, res) => {
+app.delete("/items/:id", async (req, res) => {
   const itemId = req.params.id;
   try {
     // deleteItem関数
-    await knex('items').where('id', itemId).del();
+    await knex("items").where("id", itemId).del();
     // const data = await knex.select("*").from("items")
     res.status(200).send("delete完了"); // 成功のステータスコード
   } catch (error) {

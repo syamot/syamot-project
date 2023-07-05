@@ -16,6 +16,8 @@ import ExhibitionList from "./components/ExhibitionList";
 import Favorite from "./components/Favorite";
 import PurchaseList from "./components/PurchaseList";
 import TradingHistory from "./components/TradingHistory";
+//
+import ContactList from "./components/ContactList";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -27,13 +29,13 @@ function App() {
 
   useEffect(() => {
     console.log("表示コンポーネント", selectFlag);
-  }, [selectFlag])
+  }, [selectFlag]);
 
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [selectImg, setSelectImg] = useState({});
   const [userData, setUserData] = useState({});
-
+  const [selectBuyer, setSelectBuyer] = useState(0);
   const [sorted, setSorted] = useState("");
 
   const [oneUser, setOneUser] = useState("");
@@ -42,7 +44,7 @@ function App() {
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
   const [beforeFlag, setBeforeFlag] = useState("");
-  const [editItem, setEditItem] = useState({})
+  const [editItem, setEditItem] = useState({});
   useEffect(() => {
     console.log("selectImg===========", selectImg)
   }, [selectImg])
@@ -73,7 +75,6 @@ function App() {
   };
 
   useEffect(() => {
-
     let userData;
     let itemData;
     const asyncPkg = async () => {
@@ -196,6 +197,7 @@ function App() {
             setSorted={setSorted}
             users={users}
             setUsers={setUsers}
+            setSelectBuyer={setSelectBuyer}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -203,23 +205,59 @@ function App() {
     case "card":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <Card
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
             users={users}
+            oneUser={oneUser}
+            userData={userData}
             URL={URL}
             setSelectImg={setSelectImg}
-            oneUser={oneUser}
+            // oneUser={oneUser}
             setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
+    //
+    case "contactList":
+      console.log("contactList");
+      return (
+        <>
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
+          <ContactList
+            setSelectFlag={setSelectFlag}
+            selectImg={selectImg}
+            setSelectImg={setSelectImg}
+            users={users}
+            URL={URL}
+            oneUser={oneUser}
+            getAllItems={getAllItems}
+            setItems={setItems}
+            setSelectBuyer={setSelectBuyer} //購入者情報選択関数
+          />
+          <Footer setSelectFlag={setSelectFlag} />
+        </>
+      );
+
+    //
     case "transaction":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <Transaction
             setSelectFlag={setSelectFlag}
             selectImg={selectImg}
@@ -230,6 +268,7 @@ function App() {
             setItems={setItems}
             oneUser={oneUser}
             setOneUser={setOneUser}
+            selectBuyer={selectBuyer} //選択された購入者
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
@@ -315,7 +354,11 @@ function App() {
     case "post":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} setBeforeFlag={setBeforeFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
+          />
           <ItemPost
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
@@ -324,7 +367,6 @@ function App() {
             beforeFlag={beforeFlag}
             editItem={editItem}
             setItems={setItems}
-
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>
