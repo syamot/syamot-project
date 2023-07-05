@@ -41,8 +41,9 @@ PAYPAY.Configure({
 app.get('/payInfo/:payId/:itemId', async (req, res) => {
   const response = await PAYPAY.GetCodePaymentDetails([req.params.payId]);
   const body = response.BODY;
-  // console.log(req.params.itemId);
-  // console.log(req.params.payId);
+  console.log("商品ID", req.params.itemId);
+  console.log("pay_id", req.params.payId);
+  console.log(body);
   try {
     await knex("items")
       .update({
@@ -329,9 +330,9 @@ app.put("/putItemStatus", async (req, res) => {
 
 // 既読ステータス更新########################
 app.put("/putChatStatus", async (req, res) => {
-  console.log("read_arr");
+  // console.log("read_arr");
   const { read_arr, flagText } = req.body;
-  console.log(read_arr);
+  // console.log(read_arr);
   try {
     await knex("chat")
       .update({
