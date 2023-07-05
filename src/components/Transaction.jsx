@@ -51,7 +51,7 @@ const Transaction = (props) => {
         console.log("pay_id操作処理に入ったよ！");
         console.log("支払い処理経過時間", payFetchCnt, "秒");
         setPayFetchCnt((prevCnt) => prevCnt + 1);
-        // 60秒経過したら止める
+        // 120秒経過したら止める
         if (payFetchCnt === 120 || payStatus === "FALSE") {
           setPayFetchCnt(0);
           try {
