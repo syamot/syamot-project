@@ -82,7 +82,8 @@ const Transaction = (props) => {
         chatData.length > 0 &&
         chatData[0].pay_id !== "" &&
         chatData[0].pay_id !== null &&
-        !chatData[0].payment
+        !chatData[0].payment &&
+        chatData[0].buyer_id === oneUser.id
       ) {
         console.log("pay_id操作処理に入ったよ！");
         console.log("支払い処理経過時間", payFetchCnt, "秒");
@@ -105,13 +106,19 @@ const Transaction = (props) => {
           //それ以外はステータス完了までAPIを叩く
         } else {
           try {
+            console.log(
+              `${URL}/payInfo/${chatData[0].pay_id}/${chatData[0].item_id}`
+            );
             const response = await fetch(
               `${URL}/payInfo/${chatData[0].pay_id}/${chatData[0].item_id}`
             );
             const data = await response.json();
             console.log("支払いステータス＝====", data);
             payStatus = data;
-            if (paymentFlg) return;
+            if (paymentFlg) {
+              paymentFlg = false;
+              return;
+            }
             // console.log("paymentFlg===========", paymentFlg);
             if (data === "COMPLETED") {
               paymentFlg = true;
@@ -130,7 +137,6 @@ const Transaction = (props) => {
               });
               createMessageStatus("支払い完了");
               window.alert("paypayでの支払いが完了しました");
-              // paymentFlg = false;
             }
           } catch (error) {
             console.error(error);
@@ -445,19 +451,19 @@ const Transaction = (props) => {
         <button
           className="payment"
           onClick={() => payment()}
-          disabled={selectImg.payment}
+          disabled={selectImg.payment || selectImg.item_seller === oneUser.id}
         >
           支払い
         </button>
       </div>
-      <h2 className>{partnerUser}</h2>
+      <h2>{partnerUser}</h2>
       <div className="transMainBrock">
-      {chatData.map((chat, index) => {
+        {chatData.map((chat, index) => {
           // console.log(chat);
           if (
             chat.message === "承認完了" ||
             chat.message === "承認キャンセル" ||
-            chat.message === "受取完了"   ||
+            chat.message === "受取完了" ||
             chat.message === "支払い処理中" ||
             chat.message === "支払い処理が中断されました" ||
             chat.message === "支払い完了"
