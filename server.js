@@ -6,12 +6,6 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-
-// //日付取得
-// const formatToTimeZone = require("date-fns-timezone");
-// const FORMAT = "YYYY-MM-DD_HH:mm:ss";
-// const TIME_ZONE_TOKYO = "Asia/Tokyo";
-
 require("dotenv").config({
   // path: "./.env",
 });
@@ -23,6 +17,83 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+
+// paypay=========================================================
+
+const settings = require('./settings');
+
+const paypay = require('./paypay/paypay');
+app.use('/paypay', paypay);
+
+app.use(express.Router());
+app.use(express.static(__dirname + '/public'));
+app.get('/paypay', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'paypay.html'));
+});
+
+const PAYPAY = require('@paypayopa/paypayopa-sdk-node');
+PAYPAY.Configure({
+  clientId: settings.apikey,
+  clientSecret: settings.apisecret,
+  merchantId: settings.merchantid,
+  productionMode: settings.productionMode
+});
+app.get('/payInfo/:payId/:itemId', async (req, res) => {
+  const response = await PAYPAY.GetCodePaymentDetails([req.params.payId]);
+  const body = response.BODY;
+  // console.log(req.params.itemId);
+  // console.log(req.params.payId);
+  try {
+    await knex("items")
+      .update({
+        pay_id: req.params.payId,
+      })
+      .where("id", req.params.itemId);
+    // console.log(body.resultInfo.code);
+    // console.log(body.data.status);
+    // res.status(200).json();
+    res.json(body.data.status)
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+})
+app.put("/putPayment", async (req, res) => {
+  // console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        payment: true,
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+app.put("/putPaymentDel", async (req, res) => {
+  // console.log(req.body);
+  const obj = req.body;
+  try {
+    await knex("items")
+      .update({
+        pay_id: "",
+      })
+      .where("id", obj.id);
+    res.status(200).json();
+  } catch (e) {
+    console.error("Error", e);
+    res.status(500);
+  }
+});
+// ====================================================================
+// //日付取得
+// const formatToTimeZone = require("date-fns-timezone");
+// const FORMAT = "YYYY-MM-DD_HH:mm:ss";
+// const TIME_ZONE_TOKYO = "Asia/Tokyo";
+
 
 //チャット
 // const http = require("http");

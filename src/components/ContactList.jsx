@@ -85,10 +85,10 @@ const ContactList = (props) => {
               <h2>User: {arr[0].user_name}</h2>
               <p>
                 {arr.filter((e) => !e.seller_read_flag).length === 0
-                  ? "新着なし"
+                  ? "新着通知なし"
                   : `${
                       arr.filter((e) => !e.seller_read_flag).length
-                    }の通知があります`}
+                    }件の通知があります`}
               </p>
             </div>
           ))}

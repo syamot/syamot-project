@@ -46,8 +46,8 @@ function App() {
   const [beforeFlag, setBeforeFlag] = useState("");
   const [editItem, setEditItem] = useState({});
   useEffect(() => {
-    console.log("editItem===========", editItem);
-  }, [editItem]);
+    console.log("selectImg===========", selectImg)
+  }, [selectImg])
   const [tradingHistory, setTradingHistory] = useState("");
 
   const [flagHistory, setFlagHistory] = useState(["list"]);
@@ -103,10 +103,9 @@ function App() {
       setExhibitList(userItemData);
 
       // 期限切れデータリスト作成
-      const AddDeadLineList = userItemData.filter(
-        (elem) => new Date(elem.item_deadline) > new Date()
-      );
-      console.log("AddDeadLineList============", AddDeadLineList);
+      const AddDeadLineList = userItemData.filter((elem) => new Date(elem.item_deadline) < new Date())
+      setDeadLineList(AddDeadLineList)
+      console.log("AddDeadLineList============", AddDeadLineList)
 
       const userPurchaseList = itemData.filter(
         (elem) => elem.buyer_id === openUserId
@@ -321,6 +320,7 @@ function App() {
             setExhibitList={setExhibitList}
             setBeforeFlag={setBeforeFlag}
             setEditItem={setEditItem}
+            deadLineList={deadLineList}
           />
           <Footer setSelectFlag={setSelectFlag} />
         </>

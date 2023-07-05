@@ -7,6 +7,7 @@ import "./style/transaction.css";
 // ＃＃＃＃＃＃＃＃＃＃＃＃
 // import { formatToTimeZone } from "date-fns-timezone"; // 追加
 // ＃＃＃＃＃
+let paymentFlg = false;
 
 // チャットぺージ
 const Transaction = (props) => {
@@ -24,6 +25,7 @@ const Transaction = (props) => {
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
   const [chatData, setChatData] = useState([]);
+  const [payFetchCnt, setPayFetchCnt] = useState(0);
   const partnerId =
     selectImg.item_seller === oneUser.id ? selectBuyer : selectImg.item_seller;
   const partnerUser = users.filter((el) => el.id === Number(partnerId))[0]
@@ -74,6 +76,65 @@ const Transaction = (props) => {
         return 0;
       });
       setChatData(dateAscChatData);
+      if (
+        chatData &&
+        chatData.length > 0 &&
+        chatData[0].pay_id !== "" &&
+        chatData[0].pay_id !== null &&
+        !chatData[0].payment
+      ) {
+        console.log("pay_id操作処理に入ったよ！");
+        console.log("支払い処理経過時間", payFetchCnt, "秒");
+        setPayFetchCnt((prevCnt) => prevCnt + 1);
+        // 10秒経過したら止める
+        if (payFetchCnt === 180) {
+          setPayFetchCnt(0);
+          try {
+            await fetch(URL + "/putPaymentDel", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(selectImg),
+            });
+            createMessageStatus("支払い処理が中断されました");
+          } catch (error) {
+            console.error(error);
+          }
+          //それ以外はステータス完了までAPIを叩く
+        } else {
+          try {
+            const response = await fetch(
+              `${URL}/payInfo/${chatData[0].pay_id}/${chatData[0].item_id}`
+            );
+            const data = await response.json();
+            console.log("支払いステータス＝====", data);
+            if (paymentFlg) return;
+            console.log("paymentFlg===========", paymentFlg);
+            if (data === "COMPLETED") {
+              paymentFlg = true;
+              console.log("paymentFlg中中中中中=====", paymentFlg);
+              await fetch(URL + "/putPayment", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(selectImg),
+              });
+
+              setSelectImg({
+                ...selectImg,
+                payment: true,
+              });
+              createMessageStatus("支払い完了");
+              window.alert("paypayでの支払いが完了しました");
+              // paymentFlg = false;
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
     };
     //0.5秒ごとにチャット内容更新
     const interval = setInterval(fetchData, 1000);
@@ -83,7 +144,10 @@ const Transaction = (props) => {
       clearInterval(interval);
     };
   }, [URL, chatData, selectImg.id, selectImg.item_seller, oneUser.id]);
-  // console.log("###################", chatData);
+
+  useEffect(() => {
+    console.log("chatData=====", chatData);
+  }, [chatData]);
 
   //setSelectImgの内容をchatDataをもとに更新
   useEffect(() => {
@@ -365,28 +429,36 @@ const Transaction = (props) => {
       }
     }
   };
-
+  const payment = () => {
+    // ページ遷移の処理
+    // window.location.href = '/paypay'; // 遷移先のURLを指定
+    createMessageStatus("支払い処理中");
+    window.open(URL + "/paypay?itemId=" + selectImg.id, "PayPayWindow");
+  };
   return (
     <>
       <div className="titleBrock">
         <BsFillChatDotsFill className="chatIcon" />
         <h2 className="transactionTitle">{`${selectImg.item_name} 🤝 ${partnerUser}`}</h2>
+        <button
+          className="payment"
+          onClick={() => payment()}
+          disabled={selectImg.payment}
+        >
+          支払い
+        </button>
       </div>
       <h2 className>{partnerUser}</h2>
       <div className="transMainBrock">
-        {/* {messages.map((message, index) => {
-          if (
-            message.user === "approve" || //これ効いていない
-            message.text === "承認完了" ||
-            message.text === "承認キャンセル" ||
-            message.text === "受取完了"
-          ) { */}
-        {chatData.map((chat, index) => {
+      {chatData.map((chat, index) => {
           // console.log(chat);
           if (
             chat.message === "承認完了" ||
             chat.message === "承認キャンセル" ||
-            chat.message === "受取完了"
+            chat.message === "受取完了"   ||
+            chat.message === "支払い処理中" ||
+            chat.message === "支払い処理が中断されました" ||
+            chat.message === "支払い完了"
           ) {
             return (
               <div key={index} className="messageBlock2">
@@ -446,7 +518,9 @@ const Transaction = (props) => {
             <button
               className="completeBtn"
               disabled={
-                !selectImg.item_approval_flag || selectImg.item_transaction_flag
+                !selectImg.item_approval_flag ||
+                selectImg.item_transaction_flag ||
+                !selectImg.payment
               }
               onClick={() => complete()}
             >

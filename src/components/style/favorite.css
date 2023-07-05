@@ -1,4 +1,4 @@
-.favorite-box {
+/* .favorite-box {
   flex-direction: column;
   flex-wrap: nowrap;
   position: fixed;
@@ -11,4 +11,90 @@
   height: 81vh;
   overflow-y: scroll;
   align-items: stretch;
+} */
+
+h2.favorite-title {
+  margin: 0px;
+}
+
+.favorite-list-box {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: fixed;
+  top: 10vh;
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
+  max-height: 83vh;
+  display: flex;
+  height: 83vh;
+  overflow-y: scroll;
+  align-items: stretch;
+}
+
+.favorite-piece {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: solid 0.1px;
+}
+/* img */
+.favorite-image-box img {
+  width: auto;
+  height: 90px;
+  max-width: 130px;
+  margin: 5px;
+}
+
+.favorite-image-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: solid 0.1px;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+}
+
+li.favorite-image-item {
+  /* list-style: none;
+  margin: 10px;
+  object-fit: cover;
+  width: 150px;
+  height: 130px; */
+  list-style-type: none;
+}
+
+ul.favorite-image-list {
+  margin-top: 8px;
+  padding-left: 0;
+  width: 100%;
+}
+
+.favorite-nextIcon {
+  position: relative;
+  right: -2vh;
+  height: 5vh;
+  width: 5vh;
+}
+/* imgのブロック */
+.favorite-imgBlock {
+  display: flex;
+  justify-content: center;
+  border-style: solid double groove ridge;
+  border-color: #808080;
+  background-color: rgba(255, 255, 255, 1);
+  width: 130px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  left: 1vh;
+}
+/* textのブロック */
+.favorite-info {
+  position: relative;
+  left: 2vh;
 }

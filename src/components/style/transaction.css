@@ -3,7 +3,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: fixed;
   width: 100%;
@@ -12,6 +12,7 @@
 .transactionTitle {
   position: relative;
   top: -1vh;
+  left: 3vh;
 }
 .footerBrock {
   display: flex;
@@ -48,7 +49,7 @@
   height: 5vh;
   position: relative;
   top: -1vh;
-  left: -1vh;
+  left: 2vh;
 }
 .approvalBtn {
   width: 52vh;
@@ -139,4 +140,14 @@
   vertical-align: middle;
   padding: 1vh;
   margin: 1vh;
+}
+.payment {
+  width: 10vh;
+  height: 5vh;
+  border-radius: 1vh;
+  /* top: -1vh; */
+  position: fixed;
+  right: 3vh;
+  top: 12vh;
+  margin: 0;
 }
