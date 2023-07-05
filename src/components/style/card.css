@@ -1,18 +1,8 @@
-/* body {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-} */
-.mainBrock {
+.card-mainBrock {
   position: relative;
   top: 10vh;
   width: 80vw;
   margin: 0 10vw;
-  /* padding: 5vw; */
   height: 69vh;
   max-height: 69vh;
   display: flex;
@@ -21,35 +11,30 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  /* background-color: rgb(140, 21, 21); */
-  /* border-radius: 2vh; */
 }
 
-.cardTitle {
+.card-cardTitle {
   position: absolute;
   top: 0vh;
   margin: 1vh auto;
 }
 
-.imageBrock {
+.card-imageBrock {
   position: absolute;
   top: 5vh;
   width: 30vh;
   margin: 0 5vw;
-  /* padding: 5vw; */
-  /* height: auto; */
-  /* max-height: 30vh; */
+
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   align-items: center;
-  /* background-color: rgb(21, 255, 255); */
   border-radius: 2vh;
   height: 30vh;
 }
-.cardItemBrock {
+.card-cardItemBrock {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -57,7 +42,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   position: absolute;
-  top: 35vh;
+  top: 34vh;
   max-height: 45vh;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -65,8 +50,17 @@
   padding: 5px;
   border-radius: 15px;
   width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
 }
-.goodIcon {
+
+/*スクロールバー非表示（Chrome・Safari）*/
+.card-cardItemBrock::-webkit-scrollbar {
+  display: none;
+}
+
+.card-goodIcon {
   width: 12vh;
   height: 5vh;
   position: absolute;
@@ -74,14 +68,13 @@
   right: 0vw;
   color: red;
   z-index: 2;
-  /* background-color: red; */
 }
-.cardItem {
+.card-cardItem {
   font-size: 1rem;
   margin-bottom: 1vh;
   margin-top: 1vh;
 }
-.cardItemTxtarea {
+.card-cardItemTxtarea {
   height: 62px;
   width: 80%;
   resize: none;
@@ -91,14 +84,13 @@
   max-width: 80%;
   min-width: 80%;
   min-height: 120%;
-  /* max-width: 100%; */
-  /* min-width: 100%; */
+
   min-height: 5vh;
 }
-.itemImage {
+.card-itemImage {
   width: 25vh;
 }
-.buyBrock {
+.card-buyBrock {
   width: 100%;
   height: 8vh;
   display: flex;
@@ -110,14 +102,14 @@
   position: fixed;
   bottom: 1vh;
 }
-.buyBtn {
+.card-buyBtn {
   width: 40vh;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
 
   background-color: #59c1bd;
-  border: none; /* ボタンの枠線を非表示にする */
-  outline: none; /* ボタンがフォーカスされたときの枠線も非表示にする（オプション） */
+  border: none;
+  outline: none;
   box-shadow: 0 5px 5px #00000067;
 }

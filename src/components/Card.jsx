@@ -52,47 +52,47 @@ const Card = (props) => {
 
   return (
     <>
-      <div className="mainBrock">
-        <h2 className="cardTitle">{selectImg.item_name}</h2>
-        <div className="imageBrock">
+      <div className="card-mainBrock">
+        <h2 className="card-cardTitle">{selectImg.item_name}</h2>
+        <div className="card-imageBrock">
           {oneUser.favorite.includes(selectImg.id) ? (
             <AiFillHeart
-              className="goodIcon"
+              className="card-goodIcon"
               onClick={() => {
                 changeHeart();
               }}
             />
           ) : (
             <AiOutlineHeart
-              className="goodIcon"
+              className="card-goodIcon"
               onClick={() => {
                 changeHeart();
               }}
             />
           )}
 
-          {/* <img src={data.img} alt="product" className="itemImage" /> */}
+          {/* <img src={data.img} alt="product" className="card-itemImage" /> */}
           <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
-        <div className="cardItemBrock">
-          {/* <div className="mainBrock"> */}
-          {/* <div className="cardItemBrock"> */}
-          <p className="cardItem">取引状況: {selectImg.item_status}</p>
-          <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
-          <p className="cardItem">個数: {selectImg.item_num}</p>
-          <p className="cardItem">期限: {formattedDate}</p>
-          <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
-          <p className="cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
-          <p className="cardItem">備考欄</p>
+        <div className="card-cardItemBrock">
+          {/* <div className="card-mainBrock"> */}
+          {/* <div className="card-cardItemBrock"> */}
+          <p className="card-cardItem">取引状況: {selectImg.item_status}</p>
+          <p className="card-cardItem">カテゴリ: {selectImg.item_category}</p>
+          <p className="card-cardItem">個数: {selectImg.item_num}</p>
+          <p className="card-cardItem">期限: {formattedDate}</p>
+          <p className="card-cardItem">販売者: {sellerUser[0].user_name}</p>
+          <p className="card-cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
+          <p className="card-cardItem">備考欄</p>
           <textarea
-            className="cardItemTxtarea"
+            className="card-cardItemTxtarea"
             defaultValue={selectImg.item_explanation}
           ></textarea>
         </div>
 
-        <div className="buyBrock">
+        <div className="card-buyBrock">
           <button
-            className="buyBtn"
+            className="card-buyBtn"
             onClick={() => {
               console.log("oneuser.id:", oneUser.id);
               console.log("selectImg.item_seller", selectImg.item_seller);
@@ -118,44 +118,44 @@ const Card = (props) => {
     </>
 
     //    <>
-    //    <div className="mainBrock">
-    //      <h2 className="cardTitle">{selectImg.item_name}</h2>
-    //      <div className="imageBrock">
+    //    <div className="card-mainBrock">
+    //      <h2 className="card-cardTitle">{selectImg.item_name}</h2>
+    //      <div className="card-imageBrock">
     //        {oneUser.favorite.includes(selectImg.id) ? (
     //          <AiFillHeart
-    //            className="goodIcon"
+    //            className="card-goodIcon"
     //            onClick={() => {
     //              changeHeart();
     //            }}
     //          />
     //        ) : (
     //          <AiOutlineHeart
-    //            className="goodIcon"
+    //            className="card-goodIcon"
     //            onClick={() => {
     //              changeHeart();
     //            }}
     //          />
     //        )}
 
-    //        {/* <img src={data.img} alt="product" className="itemImage" /> */}
+    //        {/* <img src={data.img} alt="product" className="card-itemImage" /> */}
     //        <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
     //      </div>
-    //      <div className="cardItemBrock">
-    //        <p className="cardItem">説明</p>
+    //      <div className="card-cardItemBrock">
+    //        <p className="card-cardItem">説明</p>
     //        <textarea
-    //          className="cardItemTxtarea"
+    //          className="card-cardItemTxtarea"
     //          defaultValue={selectImg.item_explanation}
     //        ></textarea>
-    //        <p className="cardItem">取引状況: {selectImg.item_status}</p>
-    //        <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
-    //        <p className="cardItem">個数: {selectImg.item_num}</p>
-    //        <p className="cardItem">期限: {formattedDate}</p>
-    //        <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
-    //        <p className="cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
+    //        <p className="card-cardItem">取引状況: {selectImg.item_status}</p>
+    //        <p className="card-cardItem">カテゴリ: {selectImg.item_category}</p>
+    //        <p className="card-cardItem">個数: {selectImg.item_num}</p>
+    //        <p className="card-cardItem">期限: {formattedDate}</p>
+    //        <p className="card-cardItem">販売者: {sellerUser[0].user_name}</p>
+    //        <p className="card-cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
     //      </div>
-    //      <div className="buyBrock">
+    //      <div className="card-buyBrock">
     //        <button
-    //          className="buyBtn"
+    //          className="card-buyBtn"
     //          onClick={() => {
     //            console.log("oneuser.id:", oneUser.id);
     //            console.log("selectImg.item_seller", selectImg.item_seller);

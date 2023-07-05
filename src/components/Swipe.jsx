@@ -5,6 +5,10 @@ import { AiFillCaretLeft } from "react-icons/ai";
 import { AiFillCaretRight } from "react-icons/ai";
 import "swiper/css";
 import "./style/swipe.css";
+
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+
 const Swipe = (props) => {
   const { selectImg } = props;
   return (
@@ -21,39 +25,23 @@ const Swipe = (props) => {
         }}
         pagination={{ clickable: true }}
       >
-        <SwiperSlide className="slide">
-          <img
-            src={
-              selectImg.item_img[0]
-                ? selectImg.item_img[0]
-                : process.env.PUBLIC_URL + "/photo/noImage.png"
-            }
-            alt=""
-            className="itemImage"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="slide">
-          <img
-            src={
-              selectImg.item_img[1]
-                ? selectImg.item_img[1]
-                : process.env.PUBLIC_URL + "/photo/noImage.png"
-            }
-            alt=""
-            className="itemImage"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="slide">
-          <img
-            src={
-              selectImg.item_img[2]
-                ? selectImg.item_img[2]
-                : process.env.PUBLIC_URL + "/photo/noImage.png"
-            }
-            alt=""
-            className="itemImage"
-          />
-        </SwiperSlide>
+        {selectImg.item_img.map((img) => {
+          return (
+            <>
+              <SwiperSlide className="slide">
+                <Zoom>
+                  <img
+                    src={
+                      img ? img : process.env.PUBLIC_URL + "/photo/noImage.png"
+                    }
+                    alt=""
+                    className="itemImage"
+                  />
+                </Zoom>
+              </SwiperSlide>
+            </>
+          );
+        })}
       </Swiper>
       <div id="button_prev" className="swiper-button-prev">
         <AiFillCaretLeft className="leftAllow" />
