@@ -17,13 +17,12 @@ const Transaction = (props) => {
     getAllItems,
     setItems,
     setSelectImg,
-    setOneUser,
     oneUser,
     users,
     selectBuyer,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   const [chatData, setChatData] = useState([]);
   const [payFetchCnt, setPayFetchCnt] = useState(0);
   const partnerId =

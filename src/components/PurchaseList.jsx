@@ -27,9 +27,11 @@ const PurchaseList = (props) => {
       </div>
       <div>
         <ul className="purchase-image-list">
+
           {purchaseList.length !== 0 &&
             purchaseList.map((item, index) => (
               <li key={item.id} className="purchase-image-item">
+
                 <div className="purchase-image-box">
                   <div className="purchase-imgBlock">
                     <img
@@ -38,6 +40,7 @@ const PurchaseList = (props) => {
                       alt={item.item_name}
                     />
                   </div>
+                  
                   <div className="purchase-info">
                     <p>商品名:{item.item_name}</p>
                     <p>期限:{item.item_deadline.split("T")[0]}</p>
