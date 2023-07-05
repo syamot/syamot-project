@@ -92,4 +92,9 @@
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
+
+  background-color: #59c1bd;
+  border: none; /* ボタンの枠線を非表示にする */
+  outline: none; /* ボタンがフォーカスされたときの枠線も非表示にする（オプション） */
+  box-shadow: 0 5px 5px #00000067;
 }
