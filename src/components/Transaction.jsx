@@ -8,6 +8,7 @@ import "./style/transaction.css";
 import { formatToTimeZone } from "date-fns-timezone"; // 追加
 // ＃＃＃＃＃
 let paymentFlg = false;
+let payStatus = "";
 
 // チャットぺージ
 const Transaction = (props) => {
@@ -50,8 +51,8 @@ const Transaction = (props) => {
         console.log("pay_id操作処理に入ったよ！");
         console.log("支払い処理経過時間", payFetchCnt, "秒");
         setPayFetchCnt((prevCnt) => prevCnt + 1);
-        // 10秒経過したら止める
-        if (payFetchCnt === 180) {
+        // 120秒経過したら止める
+        if (payFetchCnt === 120 || payStatus === "FALSE") {
           setPayFetchCnt(0);
           try {
             await fetch(URL + "/putPaymentDel", {
@@ -73,11 +74,12 @@ const Transaction = (props) => {
             );
             const data = await response.json();
             console.log("支払いステータス＝====", data);
+            payStatus = data;
             if (paymentFlg) return;
-            console.log("paymentFlg===========", paymentFlg);
+            // console.log("paymentFlg===========", paymentFlg);
             if (data === "COMPLETED") {
               paymentFlg = true;
-              console.log("paymentFlg中中中中中=====", paymentFlg);
+              // console.log("paymentFlg中中中中中=====", paymentFlg);
               await fetch(URL + "/putPayment", {
                 method: "PUT",
                 headers: {
