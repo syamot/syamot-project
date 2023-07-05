@@ -24,16 +24,16 @@ const Header = (props) => {
 
   return (
     <>
-      <header>
+      <header className="header-head">
         <ImHome
-          className="backIcon"
+          className="header-backIcon"
           onClick={() => {
             pageHandler();
           }}
         />
-        <h1 className="header1">シャモティ</h1>
+        <h1 className="header-header1">シャモティ</h1>
         <FaUserCircle
-          className="userIcon"
+          className="header-userIcon"
           onClick={() => {
             changeMyPage();
           }}

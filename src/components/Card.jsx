@@ -52,7 +52,7 @@ const Card = (props) => {
 
   return (
     <>
-      <div className="mainBrock">
+      <div>
         <h2 className="cardTitle">{selectImg.item_name}</h2>
         <div className="imageBrock">
           {oneUser.favorite.includes(selectImg.id) ? (
@@ -74,6 +74,8 @@ const Card = (props) => {
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
           <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
+      </div>
+      <div className="mainBrock">
         <div className="cardItemBrock">
           <p className="cardItem">説明</p>
           <textarea
