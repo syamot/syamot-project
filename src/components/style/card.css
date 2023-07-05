@@ -8,12 +8,11 @@
   overflow: hidden;
 } */
 .mainBrock {
-  position: fixed;
-  top: 12vh;
-  /* width: 93%; */
-  width: 97%;
-  margin-left: 1%;
-  margin-right: 2%;
+  position: relative;
+  top: 10vh;
+  width: 80vw;
+  margin: 0 10vw;
+  /* padding: 5vw; */
   height: 69vh;
   max-height: 69vh;
   display: flex;
@@ -22,55 +21,79 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  border-style: solid;
-  border-radius: 2vh;
+  /* background-color: rgb(140, 21, 21); */
+  /* border-radius: 2vh; */
 }
 
 .cardTitle {
-  position: relative;
-  top: 27vh;
+  position: absolute;
+  top: 0vh;
+  margin: 1vh auto;
 }
 
 .imageBrock {
+  position: absolute;
+  top: 5vh;
+  width: 30vh;
+  margin: 0 5vw;
+  /* padding: 5vw; */
+  /* height: auto; */
+  /* max-height: 30vh; */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 5vh;
+  /* background-color: rgb(21, 255, 255); */
+  border-radius: 2vh;
+  height: 30vh;
 }
 .cardItemBrock {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
-  position: relative;
-  top: 12vh;
+  position: absolute;
+  top: 35vh;
+  max-height: 45vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: gainsboro;
+  padding: 5px;
+  border-radius: 15px;
+  width: 100%;
 }
 .goodIcon {
-  width: 5vh;
+  width: 12vh;
   height: 5vh;
   position: absolute;
-  top: 48%;
-  right: -45%;
+  top: 3vh;
+  right: 0vw;
   color: red;
   z-index: 2;
+  /* background-color: red; */
 }
 .cardItem {
-  font-size: 3vh;
+  font-size: 1rem;
   margin-bottom: 1vh;
   margin-top: 1vh;
 }
 .cardItemTxtarea {
-  height: 11vh;
-  width: 52vh;
+  height: 62px;
+  width: 80%;
   resize: none;
+  margin: 0px 7%;
+  padding: 3%;
+  border-radius: 3px;
+  max-width: 80%;
+  min-width: 80%;
+  min-height: 120%;
+  /* max-width: 100%; */
+  /* min-width: 100%; */
+  min-height: 5vh;
 }
 .itemImage {
   width: 25vh;
@@ -85,7 +108,7 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 10vh;
+  bottom: 1vh;
 }
 .buyBtn {
   width: 40vh;

@@ -52,7 +52,7 @@ const Card = (props) => {
 
   return (
     <>
-      <div>
+      <div className="mainBrock">
         <h2 className="cardTitle">{selectImg.item_name}</h2>
         <div className="imageBrock">
           {oneUser.favorite.includes(selectImg.id) ? (
@@ -74,21 +74,22 @@ const Card = (props) => {
           {/* <img src={data.img} alt="product" className="itemImage" /> */}
           <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
         </div>
-      </div>
-      <div className="mainBrock">
         <div className="cardItemBrock">
-          <p className="cardItem">説明</p>
-          <textarea
-            className="cardItemTxtarea"
-            defaultValue={selectImg.item_explanation}
-          ></textarea>
+          {/* <div className="mainBrock"> */}
+          {/* <div className="cardItemBrock"> */}
           <p className="cardItem">取引状況: {selectImg.item_status}</p>
           <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
           <p className="cardItem">個数: {selectImg.item_num}</p>
           <p className="cardItem">期限: {formattedDate}</p>
           <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
           <p className="cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
+          <p className="cardItem">備考欄</p>
+          <textarea
+            className="cardItemTxtarea"
+            defaultValue={selectImg.item_explanation}
+          ></textarea>
         </div>
+
         <div className="buyBrock">
           <button
             className="buyBtn"
@@ -115,6 +116,69 @@ const Card = (props) => {
         </div>
       </div>
     </>
+
+    //    <>
+    //    <div className="mainBrock">
+    //      <h2 className="cardTitle">{selectImg.item_name}</h2>
+    //      <div className="imageBrock">
+    //        {oneUser.favorite.includes(selectImg.id) ? (
+    //          <AiFillHeart
+    //            className="goodIcon"
+    //            onClick={() => {
+    //              changeHeart();
+    //            }}
+    //          />
+    //        ) : (
+    //          <AiOutlineHeart
+    //            className="goodIcon"
+    //            onClick={() => {
+    //              changeHeart();
+    //            }}
+    //          />
+    //        )}
+
+    //        {/* <img src={data.img} alt="product" className="itemImage" /> */}
+    //        <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
+    //      </div>
+    //      <div className="cardItemBrock">
+    //        <p className="cardItem">説明</p>
+    //        <textarea
+    //          className="cardItemTxtarea"
+    //          defaultValue={selectImg.item_explanation}
+    //        ></textarea>
+    //        <p className="cardItem">取引状況: {selectImg.item_status}</p>
+    //        <p className="cardItem">カテゴリ: {selectImg.item_category}</p>
+    //        <p className="cardItem">個数: {selectImg.item_num}</p>
+    //        <p className="cardItem">期限: {formattedDate}</p>
+    //        <p className="cardItem">販売者: {sellerUser[0].user_name}</p>
+    //        <p className="cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
+    //      </div>
+    //      <div className="buyBrock">
+    //        <button
+    //          className="buyBtn"
+    //          onClick={() => {
+    //            console.log("oneuser.id:", oneUser.id);
+    //            console.log("selectImg.item_seller", selectImg.item_seller);
+    //            console.log("sellerUser:", sellerUser);
+
+    //            // 購入者であれば連絡リストに遷移
+    //            if (oneUser.id === sellerUser[0].id) {
+    //              console.log("contact");
+    //              setSelectFlag("contactList");
+    //              // setSelectFlag("transaction");
+    //            } else {
+    //              console.log("transaction");
+    //              setSelectFlag("transaction");
+    //            }
+
+    //            // changeStatus();
+    //          }}
+    //        >
+    //          取引き
+    //        </button>
+    //      </div>
+    //    </div>
+    //  </>
   );
 };
 

@@ -12,10 +12,14 @@
   align-items: center;
 }
 .itemImage {
-  width: auto;
-  height: 177px;
-  max-width: 200px;
-  margin: 5px;
+  /* width: auto; */
+  /* height: 192px; */
+  /* max-width: 200px; */
+  /* margin: 5px; */
+  width: 25vh;
+  height: 25vh;
+  object-fit: cover;
+  border-radius: 15px;
 }
 .slider__wrapper {
   position: relative;
@@ -27,18 +31,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: relative;
-  top: 22vh;
+  position: absolute;
+  top: 2vh;
 }
 #button_prev {
-  position: relative;
-  left: -18vh;
-  top: -15vh;
+  position: absolute;
+  left: -7vh;
+  top: 9vh;
 }
 #button_next {
-  position: relative;
-  left: 18vh;
-  top: -22vh;
+  position: absolute;
+  right: -7vh;
+  top: 9vh;
 }
 .leftAllow {
   height: 6vh;
@@ -47,4 +51,27 @@
 .rightAllow {
   height: 6vh;
   width: 6vh;
+}
+
+/*  */
+.swiper-container {
+  width: 100%;
+  margin: 40px 0;
+  padding: 45px 0;
+}
+
+.swiper-slide {
+  opacity: 0.4;
+  overflow: hidden;
+  transition: 0.7s;
+}
+
+.swiper-slide img {
+  width: 100%;
+}
+
+.swiper-slide-active {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.5); /* スライドの大きさ調整 */
 }
