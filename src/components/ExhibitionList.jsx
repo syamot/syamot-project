@@ -3,7 +3,8 @@ import "./style/exhibitionList.css";
 import { AiFillWarning } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-// import { ImWarning } from "react-icons/im";
+import { PiUserList } from "react-icons/pi";
+
 const ExhibitionList = (props) => {
   const {
     items,
@@ -39,17 +40,20 @@ const ExhibitionList = (props) => {
           className="exhibition-navi-icon"
           onClick={() => setSelectFlag("myPage")}
         />
-        <h2 className="exhibition-title">出品リスト</h2>
+        <div className="exhibition-title-box">
+          <h2 className="exhibition-title">出品リスト</h2>
+          <PiUserList className="exhibition-title-icon" />
+        </div>
         <div className="exhibition-position-adjustment"></div>
       </div>
-
 
       <ul className="exhibition-image-list">
         {exhibitList.length !== 0 &&
           exhibitList.map((item) => (
-            <li key={item.id} className="exhibition-image-item">
-
-
+            <li
+              key={`exhibitList_${item.id}`}
+              className="exhibition-image-item"
+            >
               <div className="exhibition-image-box">
                 <div className="exhibition-imgBlock">
                   <img src={item.item_img[0]} alt={item.item_name}></img>
@@ -73,8 +77,6 @@ const ExhibitionList = (props) => {
                 />
               </div>
             </li>
-
-            
           ))}
       </ul>
     </div>
