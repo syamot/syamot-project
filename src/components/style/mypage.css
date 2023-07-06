@@ -13,7 +13,7 @@
 
 .mypage-menu {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -24,6 +24,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
+  right: 3vw;
 }
 
 .mypage-navi-icon {

@@ -74,6 +74,10 @@ const ContactList = (props) => {
           <IoIosArrowBack
             className="contactList-navi-icon"
             onClick={() => {
+              // if (beforeFlag === "contact-To-transaction") {
+              //   setSelectFlag("card");
+              //   setBeforeFlag("contactList");
+              // }
               setSelectFlag(beforeFlag);
               setBeforeFlag("contactList");
             }}
@@ -120,6 +124,7 @@ const ContactList = (props) => {
                       onClick={() => {
                         setSelectBuyer(user_id);
                         setSelectFlag("transaction");
+                        setBeforeFlag("contactList");
                       }}
                     />
                   </div>

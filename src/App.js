@@ -281,6 +281,8 @@ function App() {
             getAllItems={getAllItems}
             setItems={setItems}
             setSelectBuyer={setSelectBuyer} //購入者情報選択関数
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -312,6 +314,7 @@ function App() {
             setOneUser={setOneUser}
             selectBuyer={selectBuyer} //選択された購入者
             selectFlag={selectFlag}
+            beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
@@ -425,6 +428,7 @@ function App() {
             items={items}
             setSelectFlag={setSelectFlag}
             setSelectImg={setSelectImg}
+            beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
