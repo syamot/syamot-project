@@ -1,26 +1,29 @@
-p {
+.profile-piece-smallTitle {
   margin: 40px;
   margin-top: 13px;
   margin-bottom: 0px;
   font-size: 14px;
 }
 
-.title {
+.profile-piece-title {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: solid;
+  border-color: #59c1bd;
 }
 
+.profile-BiEdit {
+  font-size: 30px;
+}
 .profile-arrow {
   margin: 2vh 1vh;
   font-size: 30px;
 }
 
-.title h2 {
-  display: flex;
-  font-size: 1em;
-  margin-left: 10vh;
-  margin-right: auto;
-  align-items: center;
+.profile-position-adj {
+  width: 45px;
 }
 
 .profile-box {
@@ -46,13 +49,6 @@ p {
   flex-direction: column;
 }
 
-.profile-piece title {
-  display: flex;
-  margin-top: 1vh;
-  flex-direction: row;
-  align-items: center;
-}
-
 .profile-piece-side {
   display: flex;
   margin-left: 10vh;
@@ -67,7 +63,7 @@ p {
   margin-left: 2vh;
   display: flex;
   align-items: center;
-  margin-top: 0vh;
+  margin-top: 3vh;
 }
 
 .profile-tmc-email {

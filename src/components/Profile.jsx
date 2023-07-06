@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./style/profile.css";
 import { IoIosArrowBack } from "react-icons/io";
+import { BiEdit } from "react-icons/bi";
 
 const Profile = (props) => {
   const { setSelectFlag, oneUser, setOneUser, URL } = props;
@@ -26,15 +27,17 @@ const Profile = (props) => {
   return (
     <div className="profile-box">
       <div className="profile-contents">
-        <div className="profile-piece title">
+        <div className="profile-piece-title">
           <IoIosArrowBack
             className="profile-arrow"
             onClick={() => setSelectFlag("myPage")}
           />
           <h2>プロフィール編集</h2>
+          <BiEdit className="profile-BiEdit" />
+          <div className="profile-position-adj"></div>
         </div>
         <div className="profile-piece">
-          <p lassName="profile-piece-smallTitle">名前</p>
+          <p className="profile-piece-smallTitle">名前</p>
           <p className="profile-user">{userName}</p>
         </div>
         <div className="profile-piece">
@@ -51,7 +54,7 @@ const Profile = (props) => {
         </div>
 
         <div className="profile-piece">
-          <p className="profile-piece-block">
+          <p className="profile-piece-smallTitle">
             メールアドレス
             <br />- 個人
           </p>
@@ -67,7 +70,7 @@ const Profile = (props) => {
         </div>
 
         <div className="profile-piece">
-          <p className="profile-piece-block">- 会社</p>
+          <p className="profile-piece-smallTitle">- 会社</p>
           <div className="profile-piece-side">
             <input
               placeholder=""
