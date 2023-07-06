@@ -20,25 +20,25 @@ app.use((req, res, next) => {
 
 // paypay=========================================================
 
-const settings = require('./settings');
+const settings = require("./settings");
 
-const paypay = require('./paypay/paypay');
-app.use('/paypay', paypay);
+const paypay = require("./paypay/paypay");
+app.use("/paypay", paypay);
 
 app.use(express.Router());
-app.use(express.static(__dirname + '/public'));
-app.get('/paypay', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'paypay.html'));
+app.use(express.static(__dirname + "/public"));
+app.get("/paypay", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "paypay.html"));
 });
 
-const PAYPAY = require('@paypayopa/paypayopa-sdk-node');
+const PAYPAY = require("@paypayopa/paypayopa-sdk-node");
 PAYPAY.Configure({
   clientId: settings.apikey,
   clientSecret: settings.apisecret,
   merchantId: settings.merchantid,
-  productionMode: settings.productionMode
+  productionMode: settings.productionMode,
 });
-app.get('/payInfo/:payId/:itemId', async (req, res) => {
+app.get("/payInfo/:payId/:itemId", async (req, res) => {
   const response = await PAYPAY.GetCodePaymentDetails([req.params.payId]);
   const body = response.BODY;
   console.log("商品ID", req.params.itemId);
@@ -53,12 +53,12 @@ app.get('/payInfo/:payId/:itemId', async (req, res) => {
     // console.log(body.resultInfo.code);
     // console.log(body.data.status);
     // res.status(200).json();
-    res.json(body.data.status)
+    res.json(body.data.status);
   } catch (e) {
     console.error("Error", e);
     res.status(500);
   }
-})
+});
 app.put("/putPayment", async (req, res) => {
   // console.log(req.body);
   const obj = req.body;
@@ -94,7 +94,6 @@ app.put("/putPaymentDel", async (req, res) => {
 // const formatToTimeZone = require("date-fns-timezone");
 // const FORMAT = "YYYY-MM-DD_HH:mm:ss";
 // const TIME_ZONE_TOKYO = "Asia/Tokyo";
-
 
 //チャット
 // const http = require("http");

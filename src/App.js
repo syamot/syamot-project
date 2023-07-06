@@ -254,6 +254,7 @@ function App() {
             setOneUser={setOneUser}
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
+            setEditItem={setEditItem}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -342,6 +343,7 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
+
             setBeforeFlag={setBeforeFlag}
             URL={URL}
             oneUser={oneUser}

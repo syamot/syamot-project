@@ -9,9 +9,10 @@
   justify-content: center;
   align-content: center;
   flex-wrap: nowrap;
-  height: 90%;
+  height: 100%;
   position: fixed;
-  width: 95%;
+  width: 100%;
+  background: #d6f4e8;
 }
 .loginBrock {
   display: flex;

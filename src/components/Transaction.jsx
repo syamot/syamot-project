@@ -445,6 +445,7 @@ const Transaction = (props) => {
   };
 
   const pageHandler = () => {
+
     setSelectFlag("card");
   };
 

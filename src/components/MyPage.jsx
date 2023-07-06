@@ -20,7 +20,6 @@ const MyPage = (props) => {
   return (
     <div className="mypage-body">
       <div className="mypage-menu">
-        <p>MyPage</p>
         <div className="mypage-icons">
           <BsBell
             className="mypage-navi-icon"
