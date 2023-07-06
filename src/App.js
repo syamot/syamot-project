@@ -18,6 +18,7 @@ import PurchaseList from "./components/PurchaseList";
 import TradingHistory from "./components/TradingHistory";
 //
 import ContactList from "./components/ContactList";
+import ConfettiComponent from "./components/ConfettiComponent";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -183,6 +184,7 @@ function App() {
     case "list":
       return (
         <>
+          <ConfettiComponent />
           <Header
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}

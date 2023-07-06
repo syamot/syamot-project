@@ -182,11 +182,24 @@ function List(props) {
   };
   useEffect(() => {
     if (isClicked) {
+      playAudio();
       setTimeout(() => {
         setIsClicked(false);
       }, 1000);
     }
   }, [isClicked]);
+
+  // music===================
+  const audioRef = useRef(null);
+  const playAudio = () => {
+    audioRef.current.play();
+  };
+  const pauseAudio = () => {
+    audioRef.current.pause();
+  };
+  const resetAudio = () => {
+    audioRef.current.currentTime = 0;
+  };
 
   return (
     <>
@@ -225,6 +238,9 @@ function List(props) {
       <div className="list-mainBrock-list">
         <div className="list-updateBlock">
           <span className="list-exhibitList-span">出品一覧</span>
+          <audio ref={audioRef}>
+            <source src="music/updata.mp3" type="audio/mp3" />
+          </audio>
           <GrUpdate
             className={
               !isClicked ? "list-updateIcon" : "list-updateIcon rotation"
