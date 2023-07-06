@@ -200,8 +200,11 @@ function App() {
             users={users}
             setUsers={setUsers}
             setSelectBuyer={setSelectBuyer}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
+            setUpDataFlag={setUpDataFlag}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "card":
@@ -220,7 +223,6 @@ function App() {
             userData={userData}
             URL={URL}
             setSelectImg={setSelectImg}
-            // oneUser={oneUser}
             setOneUser={setOneUser}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
@@ -228,7 +230,6 @@ function App() {
       );
     //
     case "contactList":
-      console.log("contactList");
       return (
         <>
           <Header
@@ -247,7 +248,7 @@ function App() {
             setItems={setItems}
             setSelectBuyer={setSelectBuyer} //購入者情報選択関数
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
 
@@ -272,15 +273,14 @@ function App() {
             setOneUser={setOneUser}
             selectBuyer={selectBuyer} //選択された購入者
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "myPage":
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <MyPage setSelectFlag={setSelectFlag} />
-          <Footer setSelectFlag={setSelectFlag} />
+          <MyPage setSelectFlag={setSelectFlag} oneUser={oneUser} />
         </>
       );
     case "profile":
@@ -293,7 +293,7 @@ function App() {
             setOneUser={setOneUser}
             URL={URL}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "tradingHistory":
@@ -306,7 +306,7 @@ function App() {
             setSelectImg={setSelectImg}
             purchaseList={purchaseList}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "exhibitionList":
@@ -324,7 +324,7 @@ function App() {
             setEditItem={setEditItem}
             deadLineList={deadLineList}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "favorite":
@@ -337,7 +337,7 @@ function App() {
             setSelectFlag={setSelectFlag}
             setSelectImg={setSelectImg}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "purchaseList":
@@ -350,7 +350,7 @@ function App() {
             setSelectImg={setSelectImg}
             purchaseList={purchaseList}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "post":
@@ -370,7 +370,7 @@ function App() {
             editItem={editItem}
             setItems={setItems}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     default:

@@ -14,43 +14,29 @@ h2.exhibition-title {
   display: flex;
   height: 83vh;
   overflow-y: scroll;
-  align-items: stretch;
+  align-items: center;
 }
 
 .exhibition-piece {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom: solid 0.1px;
-}
-/* img */
-.exhibition-image-box img {
-  width: auto;
-  height: 90px;
-  max-width: 130px;
-  margin: 5px;
-}
-
-.exhibition-image-box {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2vh 0;
   border-bottom: solid 0.1px;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: nowrap;
+  border-color: #a0a0a0;
 }
 
-li.exhibition-image-item {
-  /* list-style: none;
-  margin: 10px;
-  object-fit: cover;
-  width: 150px;
-  height: 130px; */
-  list-style-type: none;
+.exhibition-navi-icon {
+  margin: 0px 1.5vh;
+  width: 4vh;
+  height: 4vh;
 }
-li.active {
-  background-color: #ff000069;
+
+.exhibition-list-area {
+  width: 100%;
 }
 ul.exhibition-image-list {
   margin-top: 8px;
@@ -58,98 +44,39 @@ ul.exhibition-image-list {
   width: 100%;
 }
 
-.nextIcon {
-  position: relative;
-  right: -2vh;
-  height: 5vh;
-  width: 5vh;
-}
-/* 編集のアイコン */
-.editIcon {
-  width: 5vh;
-  height: 5vh;
-  position: absolute;
-  /* top: 61vh; */
-  background-color: rgb(255 255 255 / 50%);
-  color: rgb(0 0 0 / 55%);
-}
-.EditIconBlock {
-  position: relative;
-  /* border-style: solid; */
-  width: 100%;
-  height: 100%;
-  top: -3vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
-/* imgのブロック */
-.imgBlock {
-  display: flex;
-  justify-content: center;
-  border-style: solid double groove ridge;
-  border-color: #808080;
-  background-color: rgba(255, 255, 255, 1);
-  width: 130px;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-  left: 1vh;
-}
-/* textのブロック */
-.exhibition-info {
-  position: relative;
-  left: 2vh;
+/* img */
+.exhibition-image-box img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 5px 5px #00000067;
 }
 
-.warningBlock {
-  position: relative;
-  border-style: solid;
-  /* width: 32vh; */
-  /* height: 100%; */
-  top: 1vh;
-  left: 1vh;
+.exhibition-image-box {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
   align-items: center;
-  background-color: yellow;
-  border-radius: 1vh;
+  border-bottom: solid 0.1px;
+  border-color: #a0a0a0;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 2vh 0;
 }
-.warningIcon {
-  width: 4vh;
-  height: 3vh;
-  color: #f10f38;
+
+.exhibition-imgBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.warningText {
-  color: #f10f38;
-  /* animation: anime-color 10s infinite; */
+
+.exhibition-contents-icon {
+  width: 5vh;
+  height: 5vh;
+  margin: 0 2vh;
 }
-@keyframes anime-color {
-  0% {
-    color: #e74c3c;
-  }
-  20% {
-    color: #f1c40f;
-  }
-  40% {
-    color: #1abc9c;
-  }
-  60% {
-    color: #3498db;
-  }
-  80% {
-    color: #9b59b6;
-  }
-  100% {
-    color: #e74c3c;
-  }
+
+.exhibition-warningIcon {
+  color: yellow;
+  box-shadow: 0 5px 5px #00000067;
 }
