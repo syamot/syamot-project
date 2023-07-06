@@ -2,7 +2,14 @@ import React from "react";
 import "./style/tradingHistory.css";
 
 function TradingHistory(props) {
-  const { items, setSelectFlag, setSelectImg, purchaseList } = props;
+  const {
+    items,
+    setSelectFlag,
+    setSelectImg,
+    purchaseList,
+    beforeFlag,
+    setBeforeFlag,
+  } = props;
   const clickImg = (e) => {
     let item;
     let numTargetId = Number(e.target.id);

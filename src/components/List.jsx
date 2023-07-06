@@ -19,6 +19,8 @@ function List(props) {
     oneUser,
     setOneUser,
     setUpDataFlag,
+    beforeFlag,
+    setBeforeFlag,
   } = props;
   // Modalのselectbox値
   const [modalAreaSort, setModalAreaSort] = useState("");
@@ -213,12 +215,14 @@ function List(props) {
                 <li key={item.id} className="image-item">
                   <div className="list-image-box">
                     <img
+                      className="list-image"
                       id={item.id}
                       src={item.item_img[0]}
                       alt={item.item_name}
                       onClick={(e) => {
                         clickImg(e);
                         setSelectFlag("card");
+                        setBeforeFlag("list");
                       }}
                     />
                     <p className="list-item-p">{item.item_name}</p>

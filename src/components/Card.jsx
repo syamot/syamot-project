@@ -15,6 +15,8 @@ const Card = (props) => {
     setOneUser,
     URL,
     userData,
+    beforeFlag,
+    setBeforeFlag,
   } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
@@ -54,24 +56,29 @@ const Card = (props) => {
   return (
     <>
       <div className="card-mainBrock">
-        <h2 className="card-cardTitle">{selectImg.item_name}</h2>
-        <IoIosArrowBack className="card-backIcon" onClick={() => {}} />
+        <div className="card-piece">
+          <IoIosArrowBack
+            className="card-navi-icon"
+            onClick={() => {
+              setSelectFlag(beforeFlag);
+              setBeforeFlag("card");
+            }}
+          />
+          <h2 className="card-title">{selectImg.item_name}</h2>
+          {/* <h2 className="card-cardTitle">{selectImg.item_name}</h2> */}
+          <div className="card-position-adjustment"></div>
+        </div>
+
+        {/* <IoIosArrowBack className="card-backIcon" onClick={() => {}} /> */}
+
         <div className="card-imageBrock">
-          {oneUser.favorite.includes(selectImg.id) ? (
-            <AiFillHeart
-              className="card-goodIcon"
-              onClick={() => {
-                changeHeart();
-              }}
-            />
-          ) : (
-            <AiOutlineHeart
-              className="card-goodIcon"
-              onClick={() => {
-                changeHeart();
-              }}
-            />
-          )}
+          <div className="card-IconBrock" onClick={() => changeHeart()}>
+            {oneUser.favorite.includes(selectImg.id) ? (
+              <AiFillHeart className="card-goodIcon" />
+            ) : (
+              <AiOutlineHeart className="card-goodIcon" />
+            )}
+          </div>
 
           {/* <img src={data.img} alt="product" className="card-itemImage" /> */}
           <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />

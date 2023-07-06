@@ -23,7 +23,7 @@
 .slider__wrapper {
   position: relative;
 }
-.swipeBrock {
+/* .swipeBrock {
   display: flex;
   flex-wrap: nowrap;
   align-content: center;
@@ -32,7 +32,7 @@
   flex-direction: column;
   position: absolute;
   top: 2vh;
-}
+} */
 #button_prev {
   position: absolute;
   left: -7vh;

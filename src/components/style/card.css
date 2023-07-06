@@ -1,16 +1,19 @@
 .card-mainBrock {
   position: relative;
   top: 10vh;
-  width: 80vw;
-  margin: 0 10vw;
-  height: 69vh;
-  max-height: 69vh;
+  width: 98vw;
+  margin: 0 1vw;
+  height: 80vh;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   align-items: center;
+  /* width: 100%; */
+  /* padding-left: 1%; */
+  /* padding-right: 1%; */
 }
 
 .card-cardTitle {
@@ -20,11 +23,10 @@
 }
 
 .card-imageBrock {
-  position: absolute;
+  position: relative;
   top: 5vh;
-  width: 30vh;
+  width: 25vh;
   margin: 0 5vw;
-
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -32,7 +34,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 2vh;
-  height: 30vh;
+  height: 25vh;
 }
 .card-cardItemBrock {
   display: flex;
@@ -41,15 +43,15 @@
   align-content: center;
   justify-content: flex-start;
   align-items: flex-start;
-  position: absolute;
-  top: 34vh;
-  max-height: 45vh;
+  position: relative;
+  top: 8vh;
+  max-height: 38vh;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: gainsboro;
   padding: 5px;
   border-radius: 15px;
-  width: 100%;
+  width: 85%;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
@@ -61,13 +63,14 @@
 }
 
 .card-goodIcon {
-  width: 12vh;
-  height: 5vh;
-  position: absolute;
-  top: 3vh;
-  right: 0vw;
+  width: 4vh;
+  height: 4vh;
+  /* position: absolute; */
+  /* top: 0vh; */
+  /* right: 0vw; */
   color: red;
-  z-index: 2;
+  /* z-index: 2; */
+  /* align-content: center; */
 }
 .card-cardItem {
   font-size: 1rem;
@@ -112,4 +115,48 @@
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
+}
+
+.card-IconBrock {
+  width: 6vh;
+  height: 6vh;
+  position: absolute;
+  top: 1vh;
+  right: 1vh;
+  /* color: red; */
+  z-index: 2;
+  background-color: #ffffff;
+  border-radius: 3vh;
+  /* align-content: center; */
+  display: flex;
+  /* align-content: center; */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px 2px #666666;
+}
+
+.card-piece {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2vh 0;
+  border-bottom: solid 0.1px;
+  border-color: #a0a0a0;
+  position: absolute;
+  top: 1px;
+}
+
+.card-position-adjustment {
+  width: 45px;
+}
+.card-navi-icon {
+  margin: 0px 1.5vh;
+  width: 4vh;
+  height: 4vh;
+}
+h2.card-title {
+  margin: 0px;
 }

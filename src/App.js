@@ -203,6 +203,8 @@ function App() {
             oneUser={oneUser}
             setOneUser={setOneUser}
             setUpDataFlag={setUpDataFlag}
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -224,6 +226,8 @@ function App() {
             URL={URL}
             setSelectImg={setSelectImg}
             setOneUser={setOneUser}
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -305,6 +309,8 @@ function App() {
             setSelectFlag={setSelectFlag}
             setSelectImg={setSelectImg}
             purchaseList={purchaseList}
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
