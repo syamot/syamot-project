@@ -277,8 +277,7 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <MyPage setSelectFlag={setSelectFlag} />
-          <Footer setSelectFlag={setSelectFlag} />
+          <MyPage setSelectFlag={setSelectFlag} oneUser={oneUser} />
         </>
       );
     case "profile":
