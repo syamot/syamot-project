@@ -9,13 +9,6 @@
   max-height: 90vh;
   height: 90vh;
   background: #d6f4e8;
-
-  /* flex-wrap: nowrap; */
-  /* max-height: 81vh; */
-  /* display: flex; */
-  /* height: 81vh; */
-  /* overflow-y: scroll; */
-  /* align-items: stretch; */
 }
 
 .mypage-menu {
@@ -32,6 +25,7 @@
   flex-direction: row;
   align-items: center;
 }
+
 .mypage-navi-icon {
   margin: 0px 1.5vh;
   width: 4vh;
@@ -45,10 +39,6 @@
 }
 
 .mypage-image-user-icon {
-  /* width: 170px;
-  height: 170px;
-  color: white; */
-
   width: 170px;
   height: 170px;
   color: #0d4c92;
