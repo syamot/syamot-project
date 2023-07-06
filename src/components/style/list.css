@@ -101,7 +101,7 @@ ul.list-image-list {
     transform: rotate(0);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(720deg);
   }
 }
 
@@ -201,7 +201,7 @@ ul.list-image-list {
   align-content: center;
   justify-content: center;
   align-items: center;
-  width: 11vh;
+  width: 10vh;
   height: 10vh;
   border-style: solid;
   border-radius: 100%;
