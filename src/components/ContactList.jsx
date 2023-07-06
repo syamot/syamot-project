@@ -15,6 +15,8 @@ const ContactList = (props) => {
     setSelectImg,
     setSelectBuyer,
     oneUser,
+    setBeforeFlag,
+    beforeFlag,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   const [messages, setMessages] = useState([]);
@@ -71,7 +73,10 @@ const ContactList = (props) => {
         <div className="contactList-piece">
           <IoIosArrowBack
             className="contactList-navi-icon"
-            onClick={() => setSelectFlag("card")}
+            onClick={() => {
+              setSelectFlag(beforeFlag);
+              setBeforeFlag("contactList");
+            }}
           />
           <h2 className="contactList-title">チャットリスト</h2>
           <div className="contactList-position-adjustment"></div>
@@ -126,7 +131,7 @@ const ContactList = (props) => {
       </div>
 
       {/* ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃ */}
-      {/* 
+      {/*
       <>
         <div className="titleBrock">
           <BsFillChatDotsFill className="chatIcon" />
