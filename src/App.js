@@ -46,8 +46,8 @@ function App() {
   const [beforeFlag, setBeforeFlag] = useState("");
   const [editItem, setEditItem] = useState({});
   useEffect(() => {
-    console.log("selectImg===========", selectImg)
-  }, [selectImg])
+    console.log("selectImg===========", selectImg);
+  }, [selectImg]);
   const [tradingHistory, setTradingHistory] = useState("");
 
   const [flagHistory, setFlagHistory] = useState(["list"]);
@@ -103,9 +103,11 @@ function App() {
       setExhibitList(userItemData);
 
       // 期限切れデータリスト作成
-      const AddDeadLineList = userItemData.filter((elem) => new Date(elem.item_deadline) < new Date())
-      setDeadLineList(AddDeadLineList)
-      console.log("AddDeadLineList============", AddDeadLineList)
+      const AddDeadLineList = userItemData.filter(
+        (elem) => new Date(elem.item_deadline) < new Date()
+      );
+      setDeadLineList(AddDeadLineList);
+      console.log("AddDeadLineList============", AddDeadLineList);
 
       const userPurchaseList = itemData.filter(
         (elem) => elem.buyer_id === openUserId
@@ -198,8 +200,11 @@ function App() {
             users={users}
             setUsers={setUsers}
             setSelectBuyer={setSelectBuyer}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
+            setUpDataFlag={setUpDataFlag}
           />
-          <Footer setSelectFlag={setSelectFlag} />
+          {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
       );
     case "card":
@@ -218,7 +223,6 @@ function App() {
             userData={userData}
             URL={URL}
             setSelectImg={setSelectImg}
-            // oneUser={oneUser}
             setOneUser={setOneUser}
           />
           <Footer setSelectFlag={setSelectFlag} />
@@ -226,7 +230,6 @@ function App() {
       );
     //
     case "contactList":
-      console.log("contactList");
       return (
         <>
           <Header
@@ -277,7 +280,7 @@ function App() {
       return (
         <>
           <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
-          <MyPage setSelectFlag={setSelectFlag} />
+          <MyPage setSelectFlag={setSelectFlag} oneUser={oneUser} />
           <Footer setSelectFlag={setSelectFlag} />
         </>
       );
