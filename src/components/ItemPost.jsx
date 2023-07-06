@@ -334,7 +334,7 @@ const ItemPost = (props) => {
           </div>
           <div className="post-History-position-adjustment"></div>
         </div>
-        <div className="post-box-piece">
+        <div className="post-box-piece-img">
           <h4 className="post-h4">商品画像</h4>
           <div>
             <input

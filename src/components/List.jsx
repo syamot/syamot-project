@@ -6,6 +6,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
 import { VscFilter } from "react-icons/vsc";
 import { VscFilterFilled } from "react-icons/vsc";
+import { FaBuildingUser } from "react-icons/fa6";
+
 import Modal from "./Modal";
 import ListCard from "./ListCard";
 
@@ -105,7 +107,17 @@ function List(props) {
     setFilteredArea(newUserArea);
     setdeadline("near");
     setModalAreaSort(newUserArea);
+    setIsClickedY(true);
   };
+  const [isClickedY, setIsClickedY] = useState(false);
+  useEffect(() => {
+    if (isClickedY) {
+      // playAudio();
+      setTimeout(() => {
+        setIsClickedY(false);
+      }, 1000);
+    }
+  }, [isClickedY]);
 
   //*＊全ての検索・ソート実作業＆表示準備*＊
   useEffect(() => {
@@ -231,9 +243,17 @@ function List(props) {
               />
             )}
           </div>
-          <button className="list-userhome" onClick={(e) => handleMyarea(e)}>
+          <div
+            className={
+              !isClickedY ? "list-userhome" : "list-userhome rotationY"
+            }
+            onClick={(e) => handleMyarea(e)}
+          >
+            <FaBuildingUser className="list-myHomeIcon" />
+          </div>
+          {/* <button className="list-userhome" onClick={(e) => handleMyarea(e)}>
             自分の寮
-          </button>
+          </button> */}
         </div>
 
         {/* エリアソート */}
