@@ -1,13 +1,21 @@
 .profile-piece-smallTitle {
-  margin: 40px;
-  margin-top: 13px;
-  margin-bottom: 0px;
-  font-size: 14px;
+  width: 51vh;
+  height: 7vh;
+  padding: 5px 15px;
+  border-radius: 1vh;
+  box-sizing: border-box;
+  font-size: 1em;
+  position: relative;
+  left: 2vh;
+  margin-bottom: 3vh;
+  text-align: center;
+  /* border-color: #b3b3b3; */
+  border-width: 1px;
 }
 
 .profile-piece-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: row;
   align-items: center;
   border-bottom: solid;
@@ -50,8 +58,8 @@
 }
 
 .profile-piece-side {
-  display: flex;
-  margin-left: 10vh;
+  /* display: flex; */
+  /* margin-left: 10vh; */
   margin-top: 0vh;
   font-size: 5px;
   height: 8vh;
@@ -60,23 +68,17 @@
 }
 
 .profile-piece-address {
-  margin-left: 2vh;
-  display: flex;
+  /* margin-left: 2vh; */
+  /* display: flex; */
   align-items: center;
-  margin-top: 3vh;
+  /* margin-top: 3vh; */
+  position: relative;
+  top: -10.8vh;
+  right: -48%;
+  font-size: 2.5vh;
 }
 
-.profile-tmc-email {
-  border: 0px none;
-  height: 5vh;
-  border-radius: 10px;
-  text-align: right;
-  padding-right: 3vh;
-  width: 17vh;
-  background-color: #a0e4cb;
-}
-
-.profile-user {
+/* .profile-user {
   margin-left: 10vh;
   margin-top: 1vh;
   width: 33vh;
@@ -89,9 +91,60 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+} */
+.profile-user,
+.profile-employeeCode,
+.profile-private-email,
+.profile-location,
+.profile-area,
+.profile-tmc-email {
+  width: 51vh;
+  height: 7vh;
+  padding: 5px 15px;
+  border-radius: 1vh;
+  box-sizing: border-box;
+  font-size: 1em;
+  position: relative;
+  /* left: 2vh; */
+  margin-bottom: 3vh;
+  text-align: center;
+  /* border-color: #b3b3b3; */
+  border-width: 1px;
 }
-
-.profile-employeeCode {
+.profile-user {
+  background-color: #efecec;
+}
+.profile-tmc-email {
+  padding-right: 25vh;
+  font-size: 3vh;
+  padding-right: 27vh;
+  font-size: 2.5vh;
+}
+.profile-piece-smallTitle-side {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  position: relative;
+  left: -12vh;
+  /* margin-bottom: 1vh; */
+  align-content: center;
+  flex-wrap: nowrap;
+  width: 26vh;
+  /* background-color: red; */
+}
+.profile-piece {
+  height: 15vh;
+  margin-top: 3vh;
+  border-bottom: solid 0.1px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+/* .profile-private-email {
   margin-left: 10vh;
   margin-top: 1vh;
   width: 33vh;
@@ -100,21 +153,9 @@
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
-  background-color: #a0e4cb;
-}
-
-.profile-private-email {
-  margin-left: 10vh;
-  margin-top: 1vh;
-  width: 33vh;
-  border: 0px none;
-  height: 5vh;
-  border-radius: 10px;
-  text-align: right;
-  padding-right: 3vh;
-  background-color: #a0e4cb;
-}
-
+  background-color: #a0e4cb; */
+/* } */
+/* 
 .profile-location {
   margin-left: 10vh;
   margin-top: 1vh;
@@ -125,9 +166,9 @@
   text-align: right;
   padding-right: 3vh;
   background-color: #a0e4cb;
-}
+} */
 
-.profile-area {
+/* .profile-area {
   margin-top: 1vh;
   margin: 1vh 10vh;
   width: 33vh;
@@ -137,16 +178,73 @@
   text-align: right;
   padding-right: 3vh;
   background-color: #a0e4cb;
+} */
+.profile-h2 {
+  margin-left: 3vh;
 }
-
 .profile-btn-createAccountBtn {
   margin: 8vh 8vh;
   background-color: #59c1bd;
-  color: #fefefe;
   border: 0px none;
   border-radius: 10px;
   height: 8vh;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 18px;
   width: 40vh;
+}
+.profile-createBlock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.profile-selectbox {
+  position: relative;
+  margin: 2vh;
+  margin-bottom: 3vh;
+}
+
+.profile-selectbox::before,
+.profile-selectbox::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.profile-selectbox::before {
+  display: inline-block;
+  right: 0;
+  width: 2.8em;
+  height: 2.8em;
+  border-radius: 0 3px 3px 0;
+  background-color: #59c1bd;
+}
+
+.profile-selectbox::after {
+  position: absolute;
+  top: 50%;
+  right: 1.4em;
+  transform: translate(50%, -50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  border-bottom: 3px solid #fff;
+  border-right: 3px solid #fff;
+}
+
+.profile-selectbox select {
+  appearance: none;
+  min-width: 51vh;
+  height: 2.8em;
+  padding: 0.4em 3.6em 0.4em 0.8em;
+  border-radius: 3px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+  border-width: 1px;
+}
+
+.profile-selectbox select:focus {
+  outline: 2px solid #59c1bd;
 }
