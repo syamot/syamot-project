@@ -253,6 +253,7 @@ function App() {
             setOneUser={setOneUser}
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
+            setEditItem={setEditItem}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>

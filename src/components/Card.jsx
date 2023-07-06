@@ -18,6 +18,7 @@ const Card = (props) => {
     userData,
     beforeFlag,
     setBeforeFlag,
+    setEditItem,
   } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
@@ -91,6 +92,7 @@ const Card = (props) => {
                 onClick={() => {
                   setSelectFlag("post");
                   setBeforeFlag("card");
+                  setEditItem(selectImg);
                 }}
               />
             ) : oneUser.favorite.includes(selectImg.id) ? (
