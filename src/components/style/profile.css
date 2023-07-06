@@ -1,19 +1,26 @@
 p {
-  margin: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-button {
-  margin: 3vh 5vh;
+  margin: 40px;
+  margin-top: 13px;
+  margin-bottom: 0px;
+  font-size: 14px;
 }
 
 .title {
   display: flex;
   justify-content: center;
 }
+
+.profile-arrow {
+  margin: 2vh 1vh;
+  font-size: 30px;
+}
+
 .title h2 {
-  margin: 10px;
+  display: flex;
+  font-size: 1em;
+  margin-left: 10vh;
+  margin-right: auto;
+  align-items: center;
 }
 
 .profile-box {
@@ -24,11 +31,14 @@ button {
   width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 81vh;
+  max-height: 82vh;
   display: flex;
-  height: 81vh;
+  height: 82vh;
   overflow-y: scroll;
   align-items: stretch;
+  background-color: #fdfdfd;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .profile-contents {
@@ -36,14 +46,110 @@ button {
   flex-direction: column;
 }
 
-.profile-piece-side {
+.profile-piece title {
   display: flex;
+  margin-top: 1vh;
   flex-direction: row;
   align-items: center;
 }
 
-.profile-piece {
+.profile-piece-side {
   display: flex;
-  border-bottom: solid 0.1px;
-  flex-direction: column;
+  margin-left: 10vh;
+  margin-top: 0vh;
+  font-size: 5px;
+  height: 8vh;
+  border-radius: 10px;
+}
+
+.profile-piece-address {
+  margin-left: 2vh;
+  display: flex;
+  align-items: center;
+  margin-top: 1vh;
+}
+
+.profile-tmc-email {
+  border: 0px none;
+  height: 8vh;
+  border-radius: 10px;
+  text-align: right;
+  padding-right: 3vh;
+  width: 17vh;
+  background-color: #a0e4cb;
+}
+
+.profile-user {
+  margin-left: 10vh;
+  margin-top: 1vh;
+  width: 33vh;
+  border: 0px none;
+  height: 8vh;
+  border-radius: 10px;
+  text-align: right;
+  padding-right: 3vh;
+  background-color: #a0e4cb;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.profile-employeeCode {
+  margin-left: 10vh;
+  margin-top: 1vh;
+  width: 33vh;
+  border: 0px none;
+  height: 8vh;
+  border-radius: 10px;
+  text-align: right;
+  padding-right: 3vh;
+  background-color: #a0e4cb;
+}
+
+.profile-private-email {
+  margin-left: 10vh;
+  margin-top: 1vh;
+  width: 33vh;
+  border: 0px none;
+  height: 8vh;
+  border-radius: 10px;
+  text-align: right;
+  padding-right: 3vh;
+  background-color: #a0e4cb;
+}
+
+.profile-location {
+  margin-left: 10vh;
+  margin-top: 1vh;
+  width: 33vh;
+  border: 0px none;
+  height: 8vh;
+  border-radius: 10px;
+  text-align: right;
+  padding-right: 3vh;
+  background-color: #a0e4cb;
+}
+
+.profile-area {
+  margin-top: 1vh;
+  margin: 1vh 10vh;
+  width: 33vh;
+  border: 0px none;
+  height: 8vh;
+  border-radius: 10px;
+  text-align: right;
+  padding-right: 3vh;
+  background-color: #a0e4cb;
+}
+
+.profile-btn-createAccountBtn {
+  margin: 8vh 8vh;
+  background-color: #59c1bd;
+  color: #fefefe;
+  border: 0px none;
+  border-radius: 10px;
+  height: 8vh;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+  width: 40vh;
 }
