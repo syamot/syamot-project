@@ -18,6 +18,7 @@ const Card = (props) => {
     userData,
     beforeFlag,
     setBeforeFlag,
+    setEditItem,
   } = props;
   // 日付までを取得
   const dateString = selectImg.item_deadline;
@@ -61,8 +62,17 @@ const Card = (props) => {
           <IoIosArrowBack
             className="card-navi-icon"
             onClick={() => {
-              setSelectFlag(beforeFlag);
-              setBeforeFlag("card");
+              if (beforeFlag === "exhibitionList") {
+                setSelectFlag("exhibitionList");
+              } else if (beforeFlag === "favorite") {
+                setSelectFlag("favorite");
+              } else if (beforeFlag === "tradingHistory") {
+                setSelectFlag("tradingHistory");
+              } else {
+                setSelectFlag("list");
+              }
+
+              // setBeforeFlag("card");
             }}
           />
           <h2 className="card-title">{selectImg.item_name}</h2>
@@ -82,6 +92,7 @@ const Card = (props) => {
                 onClick={() => {
                   setSelectFlag("post");
                   setBeforeFlag("card");
+                  setEditItem(selectImg);
                 }}
               />
             ) : oneUser.favorite.includes(selectImg.id) ? (
@@ -128,10 +139,12 @@ const Card = (props) => {
               if (oneUser.id === sellerUser[0].id) {
                 console.log("contact");
                 setSelectFlag("contactList");
+                setBeforeFlag("card");
                 // setSelectFlag("transaction");
               } else {
                 console.log("transaction");
                 setSelectFlag("transaction");
+                setBeforeFlag("card");
               }
 
               // changeStatus();

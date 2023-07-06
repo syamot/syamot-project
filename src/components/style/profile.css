@@ -11,11 +11,13 @@
   text-align: center;
   /* border-color: #b3b3b3; */
   border-width: 1px;
+
 }
 
 .profile-piece-title {
   display: flex;
   justify-content: center;
+
   flex-direction: row;
   align-items: center;
   border-bottom: solid;
@@ -76,6 +78,7 @@
   top: -10.8vh;
   right: -48%;
   font-size: 2.5vh;
+
 }
 
 /* .profile-user {

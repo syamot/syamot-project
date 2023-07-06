@@ -33,6 +33,7 @@ const Profile = (props) => {
             onClick={() => setSelectFlag("myPage")}
           />
           <h2 className="profile-h2">プロフィール編集</h2>
+
           <BiEdit className="profile-BiEdit" />
           <div className="profile-position-adj"></div>
         </div>
@@ -44,6 +45,7 @@ const Profile = (props) => {
             className="profile-user"
             value={userName}
           />
+
         </div>
         <div className="profile-piece">
           <p className="profile-piece-smallTitle-side">従業員コード</p>
@@ -73,6 +75,7 @@ const Profile = (props) => {
 
         <div className="profile-piece">
           <p className="profile-piece-smallTitle-side">- 会社</p>
+
           <div className="profile-piece-side">
             <input
               placeholder=""

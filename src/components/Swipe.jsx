@@ -29,6 +29,7 @@ const Swipe = (props) => {
         {selectImg.item_img.map((img, index) => {
           return (
             <div>
+
               <SwiperSlide className="slide" key={`swipe_${index}`}>
                 <Zoom>
                   <img
