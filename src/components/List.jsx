@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./style/list.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
-import { FiFilter } from "react-icons/fi";
+import { VscFilter } from "react-icons/vsc";
+import { VscFilterFilled } from "react-icons/vsc";
 import Modal from "./Modal";
 
 function List(props) {
@@ -26,11 +27,27 @@ function List(props) {
   const [modalAreaSort, setModalAreaSort] = useState("");
   const [modalItemFilter, setModalItemFilter] = useState("");
   const [modalItemSort, setModalItemSort] = useState("");
-
+  // filterの有無のステータス
+  const [filterStatus, setFilterStatus] = useState(false);
   // console.log(users);
   const [sortedItems, setSortedItems] = useState([]);
   // modalFlag
   const [modalVisible, setModalVisible] = useState(false);
+
+  // fileter有無の判定関数
+  const filterOnOff = () => {
+    if (
+      inputText === "" &&
+      modalAreaSort === "" &&
+      modalItemSort === "" &&
+      modalItemFilter === ""
+    ) {
+      setFilterStatus(false);
+    } else {
+      setFilterStatus(true);
+    }
+  };
+
   //*＊全点リスト表示
   useEffect(() => {
     setSortedItems(items);
@@ -154,6 +171,9 @@ function List(props) {
 
     setSorted(sortedArray);
     setSorted(filteredArray);
+
+    // filterの有無判定
+    filterOnOff();
   }, [deadline, filteredItem, filteredArea, inputText, items, userArea]);
 
   const [isClicked, setIsClicked] = useState(false);
@@ -167,6 +187,7 @@ function List(props) {
       }, 1000);
     }
   }, [isClicked]);
+
   return (
     <>
       <div className="list-search_boxes">
@@ -182,10 +203,17 @@ function List(props) {
             className="list-searchTextBox"
           />
           <div className="list-filterIconBlock">
-            <FiFilter
-              className="list-filterIcon"
-              onClick={() => setModalVisible(true)}
-            />
+            {!filterStatus ? (
+              <VscFilter
+                className="list-filterIcon"
+                onClick={() => setModalVisible(true)}
+              />
+            ) : (
+              <VscFilterFilled
+                className="list-filterIcon"
+                onClick={() => setModalVisible(true)}
+              />
+            )}
           </div>
           <button className="list-userhome" onClick={(e) => handleMyarea(e)}>
             自分の寮
@@ -243,6 +271,7 @@ function List(props) {
           <AiOutlinePlus className="list-addIcon" />
         </div>
       </div>
+
       {modalVisible && (
         <Modal
           handleFilterArea={handleFilterArea}

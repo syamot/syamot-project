@@ -101,6 +101,7 @@ ul.list-image-list {
   margin-right: 5vh;
   width: 4vh;
   height: 4vh;
+  color: #0d4c92;
 }
 .rotation {
   animation: 1s rotation;
@@ -168,6 +169,7 @@ ul.list-image-list {
 .list-filterIcon {
   width: 4vh;
   height: 4vh;
+  color: #0d4c92;
 }
 .list-userhome {
   height: 7vh;
