@@ -103,3 +103,23 @@
 .modal-selectbox select:focus {
   outline: 2px solid #59c1bd;
 }
+
+.modal-warning-box p {
+  margin: 1vh 0;
+}
+
+.modal-warning-box button {
+  width: 40vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+  margin-top: 3vh;
+}
+.modal-warning-box button:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0;
+}

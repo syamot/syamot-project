@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Modal from "./Modal";
 import "./style/exhibitionList.css";
 import { AiFillWarning } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -17,6 +18,12 @@ const ExhibitionList = (props) => {
     setBeforeFlag,
     setEditItem,
   } = props;
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    console.log("modalVisible", modalVisible);
+    console.log("selectFlag", selectFlag);
+  }, [modalVisible, selectFlag]);
 
   const clickImg = (e) => {
     console.log(e.target);
@@ -34,52 +41,66 @@ const ExhibitionList = (props) => {
   };
 
   return (
-    <div className="exhibition-list-box">
-      <div className="exhibition-piece">
-        <IoIosArrowBack
-          className="exhibition-navi-icon"
-          onClick={() => setSelectFlag("myPage")}
-        />
-        <div className="exhibition-title-box">
-          <h2 className="exhibition-title">出品リスト</h2>
-          <PiUserList className="exhibition-title-icon" />
+    <>
+      <div className="exhibition-list-box">
+        <div className="exhibition-piece">
+          <IoIosArrowBack
+            className="exhibition-navi-icon"
+            onClick={() => setSelectFlag("myPage")}
+          />
+          <div className="exhibition-title-box">
+            <h2 className="exhibition-title">出品リスト</h2>
+            <PiUserList className="exhibition-title-icon" />
+          </div>
+          <div className="exhibition-position-adjustment"></div>
         </div>
-        <div className="exhibition-position-adjustment"></div>
-      </div>
 
-      <ul className="exhibition-image-list">
-        {exhibitList.length !== 0 &&
-          exhibitList.map((item) => (
-            <li
-              key={`exhibitList_${item.id}`}
-              className="exhibition-image-item"
-            >
-              <div className="exhibition-image-box">
-                <div className="exhibition-imgBlock">
-                  <img src={item.item_img[0]} alt={item.item_name}></img>
-                  <div className="exhibition-info">
-                    <p>商品名:{item.item_name}</p>
-                    <div className="exhibition-warning">
-                      <p>期限:{item.item_deadline.split("T")[0]}</p>
-                      {deadLineList.some((obj) => obj.id === item.id) && (
-                        <AiFillWarning className="exhibition-warningIcon" />
-                      )}
+        <ul className="exhibition-image-list">
+          {exhibitList.length !== 0 &&
+            exhibitList.map((item) => (
+              <li
+                key={`exhibitList_${item.id}`}
+                className="exhibition-image-item"
+              >
+                <div className="exhibition-image-box">
+                  <div className="exhibition-imgBlock">
+                    <img src={item.item_img[0]} alt={item.item_name}></img>
+                    <div className="exhibition-info">
+                      <p>商品名:{item.item_name}</p>
+                      <div className="exhibition-warning">
+                        <p>期限:{item.item_deadline.split("T")[0]}</p>
+                        {deadLineList.some((obj) => obj.id === item.id) && (
+                          <AiFillWarning
+                            className="exhibition-warningIcon"
+                            onClick={() => {
+                              setModalVisible(true);
+                            }}
+                          />
+                        )}
+                      </div>
+                      <p>商品の状態:{item.item_status}</p>
                     </div>
-                    <p>商品の状態:{item.item_status}</p>
                   </div>
+                  <IoIosArrowForward
+                    className="exhibition-contents-icon"
+                    id={item.id}
+                    onClick={(e) => {
+                      clickImg(e);
+                    }}
+                  />
                 </div>
-                <IoIosArrowForward
-                  className="exhibition-contents-icon"
-                  id={item.id}
-                  onClick={(e) => {
-                    clickImg(e);
-                  }}
-                />
-              </div>
-            </li>
-          ))}
-      </ul>
-    </div>
+              </li>
+            ))}
+        </ul>
+      </div>
+      {modalVisible && (
+        <Modal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          selectFlag={selectFlag}
+        />
+      )}
+    </>
   );
 };
 
