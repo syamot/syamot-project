@@ -30,7 +30,7 @@ const Favorite = (props) => {
           onClick={() => setSelectFlag("myPage")}
         />
         <div className="favorite-title-box">
-          <h2 className="favorite-title">出品リスト</h2>
+          <h2 className="favorite-title">お気に入り</h2>
           <AiOutlineHeart className="favorite-title-icon" />
         </div>
         <div className="favorite-position-adjustment"></div>
