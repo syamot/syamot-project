@@ -45,7 +45,6 @@ const Profile = (props) => {
             className="profile-user"
             value={userName}
           />
-
         </div>
         <div className="profile-piece">
           <p className="profile-piece-smallTitle-side">従業員コード</p>
