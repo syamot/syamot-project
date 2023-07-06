@@ -303,6 +303,16 @@ const ItemPost = (props) => {
     }
   };
 
+  const back = () => {
+    if (beforeFlag === "card") {
+      console.log(beforeFlag);
+      setSelectFlag("card");
+    } else {
+      console.log(beforeFlag);
+      setSelectFlag("list");
+    }
+  };
+
   return (
     <>
       {load ? <Loading /> : null}
@@ -310,7 +320,7 @@ const ItemPost = (props) => {
         <div className="post-History-piece">
           <IoIosArrowBack
             className="post-History-navi-icon"
-            onClick={() => setSelectFlag("list")}
+            onClick={() => back()}
           />
           <div className="post-History-title-box">
             <h2 className="post-History-title">
