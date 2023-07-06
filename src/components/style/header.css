@@ -25,3 +25,26 @@
 .header-header1 {
   font-size: 3.5vh;
 }
+
+.circleIcon-box {
+  position: absolute;
+  right: 15px;
+  bottom: 9px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.circleIcon-number {
+  margin: 0;
+  position: fixed;
+  color: white;
+  font-size: 15px;
+}
+.circleIcon {
+  color: red;
+  width: 4vh;
+  height: 4vh;
+}

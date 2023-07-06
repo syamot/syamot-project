@@ -46,6 +46,12 @@ function App() {
   const [upDataFlag, setUpDataFlag] = useState(false);
   const [beforeFlag, setBeforeFlag] = useState("");
   const [editItem, setEditItem] = useState({});
+
+  // 売手側のチャット情報
+  const [sellerChatData, setSellerChatData] = useState();
+  // 買手側のチャット情報
+  const [buyerChatData, setBuyerChatData] = useState();
+
   useEffect(() => {
     console.log("selectImg===========", selectImg);
   }, [selectImg]);
@@ -187,9 +193,13 @@ function App() {
           <ConfettiComponent />
           <Header
             setSelectFlag={setSelectFlag}
-            selectFlag={selectFlag}
-            setUpDataFlag={setUpDataFlag}
             setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
           />
           <List
             setSelectFlag={setSelectFlag}
@@ -216,8 +226,13 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
-            selectFlag={selectFlag}
             setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
           />
           <Card
             setSelectFlag={setSelectFlag}
@@ -240,8 +255,13 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
-            selectFlag={selectFlag}
             setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
           />
           <ContactList
             setSelectFlag={setSelectFlag}
@@ -264,8 +284,13 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
-            selectFlag={selectFlag}
             setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
           />
           <Transaction
             setSelectFlag={setSelectFlag}
@@ -307,7 +332,16 @@ function App() {
     case "tradingHistory":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
+          />
           <TradingHistory
             items={items}
             setSelectFlag={setSelectFlag}
@@ -322,7 +356,16 @@ function App() {
     case "exhibitionList":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
+          />
           <ExhibitionList
             selectFlag={selectFlag}
             setSelectFlag={setSelectFlag}
@@ -340,7 +383,16 @@ function App() {
     case "favorite":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
+          />
           <Favorite
             oneUser={oneUser}
             items={items}
@@ -354,7 +406,16 @@ function App() {
     case "purchaseList":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
+          />
           <PurchaseList
             items={items}
             setSelectFlag={setSelectFlag}
@@ -369,8 +430,13 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
-            selectFlag={selectFlag}
             setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
           />
           <ItemPost
             setSelectFlag={setSelectFlag}
