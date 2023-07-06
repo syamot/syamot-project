@@ -72,6 +72,18 @@
   /* z-index: 2; */
   /* align-content: center; */
 }
+
+.card-editIcon {
+  width: 4vh;
+  height: 4vh;
+  /* position: absolute; */
+  /* top: 0vh; */
+  /* right: 0vw; */
+  color: rgb(0, 0, 0);
+  /* z-index: 2; */
+  /* align-content: center; */
+}
+
 .card-cardItem {
   font-size: 1rem;
   margin-bottom: 1vh;
