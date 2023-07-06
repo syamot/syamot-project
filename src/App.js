@@ -200,6 +200,9 @@ function App() {
             users={users}
             setUsers={setUsers}
             setSelectBuyer={setSelectBuyer}
+            oneUser={oneUser}
+            setOneUser={setOneUser}
+            setUpDataFlag={setUpDataFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>

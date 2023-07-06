@@ -1,16 +1,24 @@
-.image-box img {
+body {
+  overflow: hidden;
+}
+.list-image-box img {
   width: auto;
-  height: 130px;
+  height: 100px;
   max-width: 130px;
   margin: 5px;
+  border-radius: 1vh;
 }
 
-.image-box {
+.list-image-box {
   display: flex;
   justify-content: center;
-  border: 2px solid;
-  border-color: #a0e4cb;
+  border-radius: 3vh;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
   background-color: #ffffff;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
 }
 
 li.image-item {
@@ -19,11 +27,10 @@ li.image-item {
   object-fit: cover;
   width: 150px;
   height: 130px;
-  background-color: #ccc;
 }
 
-ul.image-list {
-  margin-top: 7vh;
+ul.list-image-list {
+  margin-top: 0vh;
   padding-left: 0;
   display: flex;
   flex-direction: row;
@@ -34,56 +41,175 @@ ul.image-list {
   align-items: center;
   width: 100%;
 }
-
-.mainBrock-list {
+.list-item-p {
+  margin: 0px;
+}
+.list-mainBrock-list {
   position: fixed;
-  top: 10.5vh;
+  top: 23vh;
   width: 100%;
-  max-height: 81vh;
+  max-height: 77vh;
   display: flex;
-  height: 81vh;
+  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #cff5e7;
+  flex-direction: column;
 }
 
-.serach_boxes {
+.list-search_boxes {
   display: flex;
   margin-left: 1vh;
+  flex-direction: column;
+  position: relative;
+  top: 12vh;
 }
 
-.serch-box {
+.list-search-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.list-updateBlock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  height: 8vh;
+  justify-content: space-between;
+}
+.list-exhibitList-span {
   margin-left: 3vh;
-  margin-top: 0vh;
-  width: 50px;
-  border: 2px;
+  font-size: 3vh;
+}
+.list-updateIcon {
+  margin-right: 5vh;
+  width: 4vh;
+  height: 4vh;
+}
+.rotation {
+  animation: 1s rotation;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.area_sort {
-  margin-left: -7vh;
-  margin-top: 4.2vh;
-  width: 80px;
-  border: 2px;
-}
-
-.item_filter {
-  margin-left: 5.5vh;
-  margin-top: 4.2vh;
-  width: 5%;
-  border: 2px;
-}
-
-.item_sort {
-  margin-left: 10.5vh;
-  margin-top: 4.2vh;
-  width: 120px;
-  border: 2px;
-}
-
-.error-message {
+.list-error-message {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50vh;
   font-size: 7vw;
+}
+.list-searchTextBox {
+  width: 26vh;
+  height: 7vh;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 1vh 0 0 1vh;
+  box-sizing: border-box;
+  background-color: #e6edf3;
+  font-size: 1em;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+}
+.list-searchIconBlock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  /* border-style: solid; */
+  height: 7vh;
+  width: 7vh;
+  border-radius: 1vh 0 0 1vh;
+  background-color: #e6edf3;
+  box-shadow: 0 5px 5px #00000067;
+}
+.list-searchIcon {
+  width: 4vh;
+  height: 4vh;
+}
+.list-filterIconBlock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  /* border-style: solid; */
+  height: 7vh;
+  width: 9vh;
+  border-radius: 0vh 1vh 1vh 0vh;
+  background-color: #59c1bd;
+  box-shadow: 0 5px 5px #00000067;
+}
+.list-filterIcon {
+  width: 4vh;
+  height: 4vh;
+}
+.list-userhome {
+  height: 7vh;
+  margin: 0;
+  margin-left: 3vh;
+  background: #59c1bd;
+  /* color: #ffffff; */
+  font-size: 15px;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+}
+
+.list-boxset {
+  display: flex;
+  position: relative;
+  top: 2vh;
+}
+
+.list-addIconBrock1 {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: center;
+  height: 15%;
+  width: 100%;
+  bottom: 0;
+}
+
+.list-addIconBrock2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 11vh;
+  height: 10vh;
+  border-style: solid;
+  border-radius: 100%;
+  margin-right: 3vh;
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
+  background-color: #59c1bd;
+}
+.list-addIcon {
+  width: 6vh;
+  height: 6vh;
 }
