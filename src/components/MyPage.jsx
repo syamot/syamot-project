@@ -73,7 +73,7 @@ const MyPage = (props) => {
         <div className="mypage-user-contents">
           <div className="mypage-user-contents-piece">
             <GrTransaction className="mypage-contents-icon" />
-            <p>取引履歴</p>
+            <p>取引画面</p>
           </div>
           <IoIosArrowForward
             className="mypage-contents-icon"

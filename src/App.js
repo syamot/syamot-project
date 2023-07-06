@@ -116,9 +116,17 @@ function App() {
       setDeadLineList(AddDeadLineList);
       console.log("AddDeadLineList============", AddDeadLineList);
 
-      const userPurchaseList = itemData.filter(
-        (elem) => elem.buyer_id === openUserId
-      );
+      const userPurchaseList = itemData.filter((elem) => {
+        if (elem.soldBuyer_id === openUserId) {
+          return true;
+        } else if (
+          elem.item_seller === openUserId &&
+          elem.soldBuyer_id !== null
+        ) {
+          return true;
+        }
+      });
+      console.log("userPurchaseList", userPurchaseList);
       setPurchaseList(userPurchaseList);
     };
     asyncPkg();
@@ -349,6 +357,7 @@ function App() {
             purchaseList={purchaseList}
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
+            oneUser={oneUser}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>

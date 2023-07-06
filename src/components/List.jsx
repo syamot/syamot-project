@@ -255,8 +255,8 @@ function List(props) {
         <div>
           <ul className="list-image-list">
             {sorted.length !== 0 ? (
-              sorted.map((item, index) => (
-                <li key={item.id} className="image-item">
+              sorted.map((item) => (
+                <li key={`list_${item.id}`} className="image-item">
                   <div className="list-image-box">
                     <img
                       className="list-image"
@@ -274,7 +274,9 @@ function List(props) {
                 </li>
               ))
             ) : (
-              <li className="list-error-message">検索結果がありません。</li>
+              <li key="empty" className="list-error-message">
+                検索結果がありません。
+              </li>
             )}
           </ul>
         </div>
