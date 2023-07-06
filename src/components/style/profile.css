@@ -60,18 +60,19 @@ p {
   font-size: 5px;
   height: 8vh;
   border-radius: 10px;
+  align-items: center;
 }
 
 .profile-piece-address {
   margin-left: 2vh;
   display: flex;
   align-items: center;
-  margin-top: 1vh;
+  margin-top: 0vh;
 }
 
 .profile-tmc-email {
   border: 0px none;
-  height: 8vh;
+  height: 5vh;
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
@@ -84,7 +85,7 @@ p {
   margin-top: 1vh;
   width: 33vh;
   border: 0px none;
-  height: 8vh;
+  height: 5vh;
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
@@ -99,7 +100,7 @@ p {
   margin-top: 1vh;
   width: 33vh;
   border: 0px none;
-  height: 8vh;
+  height: 5vh;
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
@@ -111,7 +112,7 @@ p {
   margin-top: 1vh;
   width: 33vh;
   border: 0px none;
-  height: 8vh;
+  height: 5vh;
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
@@ -123,7 +124,7 @@ p {
   margin-top: 1vh;
   width: 33vh;
   border: 0px none;
-  height: 8vh;
+  height: 5vh;
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
@@ -135,7 +136,7 @@ p {
   margin: 1vh 10vh;
   width: 33vh;
   border: 0px none;
-  height: 8vh;
+  height: 5vh;
   border-radius: 10px;
   text-align: right;
   padding-right: 3vh;
