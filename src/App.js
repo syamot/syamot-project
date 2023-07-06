@@ -276,6 +276,8 @@ function App() {
             oneUser={oneUser}
             setOneUser={setOneUser}
             selectBuyer={selectBuyer} //選択された購入者
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
