@@ -27,6 +27,7 @@ const Transaction = (props) => {
     selectBuyer,
     setSelectFlag,
     setBeforeFlag,
+    beforeFlag,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   // const [messages, setMessages] = useState([]);
@@ -450,8 +451,8 @@ const Transaction = (props) => {
   };
 
   const pageHandler = () => {
-    setSelectFlag("list");
-    setBeforeFlag("");
+    setSelectFlag(beforeFlag);
+    setBeforeFlag("list");
   };
 
   return (
