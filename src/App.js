@@ -211,6 +211,7 @@ function App() {
           />
           <List
             setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
             items={items}
             setItems={setItems}
             setSelectImg={setSelectImg}
@@ -342,7 +343,6 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
-
 
             setBeforeFlag={setBeforeFlag}
             URL={URL}
