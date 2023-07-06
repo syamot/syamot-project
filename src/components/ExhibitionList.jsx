@@ -42,10 +42,14 @@ const ExhibitionList = (props) => {
         <h2 className="exhibition-title">出品リスト</h2>
         <div className="exhibition-position-adjustment"></div>
       </div>
+
+
       <ul className="exhibition-image-list">
         {exhibitList.length !== 0 &&
           exhibitList.map((item) => (
             <li key={item.id} className="exhibition-image-item">
+
+
               <div className="exhibition-image-box">
                 <div className="exhibition-imgBlock">
                   <img src={item.item_img[0]} alt={item.item_name}></img>
@@ -69,6 +73,8 @@ const ExhibitionList = (props) => {
                 />
               </div>
             </li>
+
+            
           ))}
       </ul>
     </div>
