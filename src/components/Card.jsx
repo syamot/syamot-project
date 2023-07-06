@@ -3,6 +3,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
 import Swipe from "./Swipe";
+import { IoIosArrowBack } from "react-icons/io";
 
 //詳細情報ページ
 const Card = (props) => {
@@ -54,6 +55,7 @@ const Card = (props) => {
     <>
       <div className="card-mainBrock">
         <h2 className="card-cardTitle">{selectImg.item_name}</h2>
+        <IoIosArrowBack className="card-backIcon" onClick={() => {}} />
         <div className="card-imageBrock">
           {oneUser.favorite.includes(selectImg.id) ? (
             <AiFillHeart
