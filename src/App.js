@@ -18,6 +18,7 @@ import PurchaseList from "./components/PurchaseList";
 import TradingHistory from "./components/TradingHistory";
 //
 import ContactList from "./components/ContactList";
+import ConfettiComponent from "./components/ConfettiComponent";
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -183,6 +184,7 @@ function App() {
     case "list":
       return (
         <>
+          <ConfettiComponent />
           <Header
             setSelectFlag={setSelectFlag}
             selectFlag={selectFlag}
@@ -203,6 +205,8 @@ function App() {
             oneUser={oneUser}
             setOneUser={setOneUser}
             setUpDataFlag={setUpDataFlag}
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -224,6 +228,8 @@ function App() {
             URL={URL}
             setSelectImg={setSelectImg}
             setOneUser={setOneUser}
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -272,6 +278,8 @@ function App() {
             oneUser={oneUser}
             setOneUser={setOneUser}
             selectBuyer={selectBuyer} //選択された購入者
+            selectFlag={selectFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -305,6 +313,8 @@ function App() {
             setSelectFlag={setSelectFlag}
             setSelectImg={setSelectImg}
             purchaseList={purchaseList}
+            beforeFlag={beforeFlag}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>

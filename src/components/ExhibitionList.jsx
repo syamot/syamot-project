@@ -30,6 +30,7 @@ const ExhibitionList = (props) => {
     });
     setSelectImg(item);
     setSelectFlag("card");
+    setBeforeFlag("exhibitionList");
   };
 
   return (

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
-import { BiMailSend } from "react-icons/bi";
+// import { BiMailSend } from "react-icons/bi";
+import { BsSend } from "react-icons/bs";
+
+// import { BiArrowBack } from "react-icons/bi";
+import { IoIosArrowBack } from "react-icons/io";
+
 import "./style/transaction.css";
-// import io from "socket.io-client";
 
 // ＃＃＃＃＃＃＃＃＃＃＃＃
 // import { formatToTimeZone } from "date-fns-timezone"; // 追加
@@ -21,6 +25,8 @@ const Transaction = (props) => {
     oneUser,
     users,
     selectBuyer,
+    setSelectFlag,
+    setBeforeFlag,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   // const [messages, setMessages] = useState([]);
@@ -442,66 +448,90 @@ const Transaction = (props) => {
     createMessageStatus("支払い処理中");
     window.open(URL + "/paypay?itemId=" + selectImg.id, "PayPayWindow");
   };
+
+  const pageHandler = () => {
+    setSelectFlag("list");
+    setBeforeFlag("");
+  };
+
   return (
-    <>
-      <div className="titleBrock">
-        <BsFillChatDotsFill className="chatIcon" />
-        <h2 className="transactionTitle">{`${selectImg.item_name} 🤝 ${partnerUser}`}</h2>
-        <button
-          className="payment"
-          onClick={() => payment()}
-          disabled={selectImg.payment || selectImg.item_seller === oneUser.id}
-        >
-          支払い
-        </button>
-      </div>
-      <h2>{partnerUser}</h2>
-      <div className="transMainBrock">
-        {chatData.map((chat, index) => {
-          // console.log(chat);
-          if (
-            chat.message === "承認完了" ||
-            chat.message === "承認キャンセル" ||
-            chat.message === "受取完了" ||
-            chat.message === "支払い処理中" ||
-            chat.message === "支払い処理が中断されました" ||
-            chat.message === "支払い完了"
-          ) {
-            return (
-              <div key={index} className="messageBlock2">
-                <p className="messageContent">{chat.message}</p>
-              </div>
-            );
-          } else if (chat.user_id === oneUser.id) {
-            return (
-              <div key={index} className="messageBlock">
-                <p className="messageContent">{chat.message}</p>
-              </div>
-            );
-          } else {
-            return (
-              <div key={index} className="messageBlock3">
-                <p className="messageContent">{chat.message}</p>
-              </div>
-            );
-          }
-        })}
-      </div>
-      <div className="postMessageBrock">
-        <input
-          type="text"
-          className="chatInput"
-          value={sendTxt}
-          onChange={(e) => changeTxt(e)}
+    <div className="transaction-all">
+      <div className="transaction-titleBrock">
+        <IoIosArrowBack
+          className="transaction-backIcon"
+          //戻るボタン処理追加する
+          onClick={() => {
+            pageHandler();
+          }}
         />
-        <BiMailSend className="sendBtn" onClick={createMessage} />
+        <div className="transaction-title">
+          <h2 className="transaction-titleName">{selectImg.item_name}</h2>
+          <h2 className="transaction-titleName">{`${partnerUser}さんとのチャット`}</h2>
+        </div>
+        <div className="transaction-posionAdjust"></div>
       </div>
-      <div className="footerBrock">
+
+      <div className="transaction-mainBlock">
+        <div className="transaction-chatBlock">
+          {chatData.map((chat, index) => {
+            // console.log(chat);
+            if (
+              chat.message === "承認完了" ||
+              chat.message === "承認キャンセル" ||
+              chat.message === "受取完了" ||
+              chat.message === "支払い処理中" ||
+              chat.message === "支払い処理が中断されました" ||
+              chat.message === "支払い完了"
+            ) {
+              return (
+                <div key={index} className="messageBlock2">
+                  <p className="transaction-statusMessageContent">
+                    {chat.message}
+                  </p>
+                </div>
+              );
+            } else if (chat.user_id === oneUser.id) {
+              return (
+                <div key={index} className="transaction-sendMessageBlock">
+                  <p className="transaction-messageContent">{chat.message}</p>
+                  {/* <p>{chat.message}</p> */}
+                </div>
+              );
+            } else {
+              return (
+                <div key={index} className="transaction-otherMessage">
+                  <p className="transaction-messageContent">{chat.message}</p>
+                </div>
+              );
+            }
+          })}
+        </div>
+
+        <div className="transaction-postMessageBlock">
+          <input
+            type="text"
+            className="transaction-chatInput"
+            value={sendTxt}
+            onChange={(e) => changeTxt(e)}
+          />
+          <BsSend className="transaction-sendBtn" onClick={createMessage} />
+        </div>
+      </div>
+
+      <div className="transaction-footerBlock">
+        <button
+          className="transaction-payment"
+          onClick={() => payment()}
+          disabled={selectImg.payment}
+        >
+          手数料支払い
+        </button>
+
         {oneUser.length !== 0 &&
           (oneUser.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
               <button
-                className="approvalBtn"
+                className="transaction-statusBtn"
                 disabled={selectImg.item_approval_flag}
                 onClick={() => approval()}
               >
@@ -510,7 +540,7 @@ const Transaction = (props) => {
             ) : (
               <>
                 <button
-                  className="approvalBtn"
+                  className="transaction-statusBtn"
                   disabled={
                     selectImg.item_approval_flag &&
                     selectImg.item_transaction_flag
@@ -523,7 +553,7 @@ const Transaction = (props) => {
             )
           ) : (
             <button
-              className="completeBtn"
+              className="transaction-statusBtn"
               disabled={
                 !selectImg.item_approval_flag ||
                 selectImg.item_transaction_flag ||
@@ -535,7 +565,7 @@ const Transaction = (props) => {
             </button>
           ))}
       </div>
-    </>
+    </div>
   );
 };
 

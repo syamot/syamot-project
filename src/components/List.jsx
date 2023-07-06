@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./style/list.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
-import { FiFilter } from "react-icons/fi";
+import { VscFilter } from "react-icons/vsc";
+import { VscFilterFilled } from "react-icons/vsc";
 import Modal from "./Modal";
 
 function List(props) {
@@ -19,16 +20,34 @@ function List(props) {
     oneUser,
     setOneUser,
     setUpDataFlag,
+    beforeFlag,
+    setBeforeFlag,
   } = props;
   // Modalのselectbox値
   const [modalAreaSort, setModalAreaSort] = useState("");
   const [modalItemFilter, setModalItemFilter] = useState("");
   const [modalItemSort, setModalItemSort] = useState("");
-
+  // filterの有無のステータス
+  const [filterStatus, setFilterStatus] = useState(false);
   // console.log(users);
   const [sortedItems, setSortedItems] = useState([]);
   // modalFlag
   const [modalVisible, setModalVisible] = useState(false);
+
+  // fileter有無の判定関数
+  const filterOnOff = () => {
+    if (
+      inputText === "" &&
+      modalAreaSort === "" &&
+      modalItemSort === "" &&
+      modalItemFilter === ""
+    ) {
+      setFilterStatus(false);
+    } else {
+      setFilterStatus(true);
+    }
+  };
+
   //*＊全点リスト表示
   useEffect(() => {
     setSortedItems(items);
@@ -152,6 +171,9 @@ function List(props) {
 
     setSorted(sortedArray);
     setSorted(filteredArray);
+
+    // filterの有無判定
+    filterOnOff();
   }, [deadline, filteredItem, filteredArea, inputText, items, userArea]);
 
   const [isClicked, setIsClicked] = useState(false);
@@ -160,11 +182,25 @@ function List(props) {
   };
   useEffect(() => {
     if (isClicked) {
+      playAudio();
       setTimeout(() => {
         setIsClicked(false);
       }, 1000);
     }
   }, [isClicked]);
+
+  // music===================
+  const audioRef = useRef(null);
+  const playAudio = () => {
+    audioRef.current.play();
+  };
+  const pauseAudio = () => {
+    audioRef.current.pause();
+  };
+  const resetAudio = () => {
+    audioRef.current.currentTime = 0;
+  };
+
   return (
     <>
       <div className="list-search_boxes">
@@ -180,10 +216,17 @@ function List(props) {
             className="list-searchTextBox"
           />
           <div className="list-filterIconBlock">
-            <FiFilter
-              className="list-filterIcon"
-              onClick={() => setModalVisible(true)}
-            />
+            {!filterStatus ? (
+              <VscFilter
+                className="list-filterIcon"
+                onClick={() => setModalVisible(true)}
+              />
+            ) : (
+              <VscFilterFilled
+                className="list-filterIcon"
+                onClick={() => setModalVisible(true)}
+              />
+            )}
           </div>
           <button className="list-userhome" onClick={(e) => handleMyarea(e)}>
             自分の寮
@@ -195,6 +238,9 @@ function List(props) {
       <div className="list-mainBrock-list">
         <div className="list-updateBlock">
           <span className="list-exhibitList-span">出品一覧</span>
+          <audio ref={audioRef}>
+            <source src="music/updata.mp3" type="audio/mp3" />
+          </audio>
           <GrUpdate
             className={
               !isClicked ? "list-updateIcon" : "list-updateIcon rotation"
@@ -213,12 +259,14 @@ function List(props) {
                 <li key={item.id} className="image-item">
                   <div className="list-image-box">
                     <img
+                      className="list-image"
                       id={item.id}
                       src={item.item_img[0]}
                       alt={item.item_name}
                       onClick={(e) => {
                         clickImg(e);
                         setSelectFlag("card");
+                        setBeforeFlag("list");
                       }}
                     />
                     <p className="list-item-p">{item.item_name}</p>
@@ -239,6 +287,7 @@ function List(props) {
           <AiOutlinePlus className="list-addIcon" />
         </div>
       </div>
+
       {modalVisible && (
         <Modal
           handleFilterArea={handleFilterArea}
