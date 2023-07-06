@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
-// import { BiMailSend } from "react-icons/bi";
 import { BsSend } from "react-icons/bs";
 
-// import { BiArrowBack } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
-
 import "./style/transaction.css";
 
-// ＃＃＃＃＃＃＃＃＃＃＃＃
-// import { formatToTimeZone } from "date-fns-timezone"; // 追加
-// ＃＃＃＃＃
 let paymentFlg = false;
 let payStatus = "";
 
@@ -484,7 +478,7 @@ const Transaction = (props) => {
               chat.message === "支払い完了"
             ) {
               return (
-                <div key={index} className="messageBlock2">
+                <div key={`transaction1_${index}`} className="messageBlock2">
                   <p className="transaction-statusMessageContent">
                     {chat.message}
                   </p>
@@ -492,14 +486,20 @@ const Transaction = (props) => {
               );
             } else if (chat.user_id === oneUser.id) {
               return (
-                <div key={index} className="transaction-sendMessageBlock">
+                <div
+                  key={`transaction2_${index}`}
+                  className="transaction-sendMessageBlock"
+                >
                   <p className="transaction-messageContent">{chat.message}</p>
                   {/* <p>{chat.message}</p> */}
                 </div>
               );
             } else {
               return (
-                <div key={index} className="transaction-otherMessage">
+                <div
+                  key={`transaction3_${index}`}
+                  className="transaction-otherMessage"
+                >
                   <p className="transaction-messageContent">{chat.message}</p>
                 </div>
               );

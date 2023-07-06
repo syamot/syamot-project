@@ -41,7 +41,7 @@ const Favorite = (props) => {
             const item = items.filter((elem) => elem.id === idNum)[0];
 
             return (
-              <li key={idNum} className="favorite-image-item">
+              <li key={`favorite_${idNum}`} className="favorite-image-item">
                 <div className="favorite-image-box">
                   <div className="favorite-imgBlock">
                     <img src={item.item_img[0]} alt={item.item_name}></img>

@@ -34,7 +34,7 @@ const Profile = (props) => {
           <h2>プロフィール編集</h2>
         </div>
         <div className="profile-piece">
-          <p lassName="profile-piece-smallTitle">名前</p>
+          <p className="profile-piece-smallTitle">名前</p>
           <p className="profile-user">{userName}</p>
         </div>
         <div className="profile-piece">

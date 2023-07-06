@@ -80,16 +80,17 @@ const ContactList = (props) => {
 
         <div>
           <ul className="contact-image-list">
-
             {Object.keys(chatData).length === 0 ? (
               <li className="contact-image-item">新着メッセージはありません</li>
             ) : (
-
               Object.entries(chatData).map(([user_id, arr]) => (
-                <li key={arr[0].id} className="contact-image-item">
+                <li
+                  key={`contactList_${arr[0].id}`}
+                  className="contact-image-item"
+                >
                   <div className="contact-image-box">
                     <div className="contact-imgBlock">
-                      <FaUserCircle/>
+                      <FaUserCircle />
                     </div>
 
                     <div className="contact-info">
