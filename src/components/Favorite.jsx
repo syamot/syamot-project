@@ -20,6 +20,7 @@ const Favorite = (props) => {
     setSelectImg(item);
     setBeforeFlag("favorite");
     setSelectFlag("card");
+    setBeforeFlag("favorite");
   };
 
   return (
