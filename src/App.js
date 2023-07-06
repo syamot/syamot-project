@@ -346,6 +346,7 @@ function App() {
             items={items}
             setSelectFlag={setSelectFlag}
             setSelectImg={setSelectImg}
+            setBeforeFlag={setBeforeFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
