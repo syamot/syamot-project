@@ -1,4 +1,8 @@
 const express = require("express");
+// dotenv はknexの前に置いてね
+require("dotenv").config({
+  path: "./.env",
+});
 const knex = require("./db/knex");
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -6,9 +10,6 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-require("dotenv").config({
-  // path: "./.env",
-});
 app.use(express.static("build"));
 app.use(express.json());
 app.use((req, res, next) => {
@@ -20,7 +21,6 @@ app.use((req, res, next) => {
 
 // paypay=========================================================
 
-const settings = require("./settings");
 
 const paypay = require("./paypay/paypay");
 app.use("/paypay", paypay);
@@ -33,11 +33,13 @@ app.get("/paypay", (req, res) => {
 
 const PAYPAY = require("@paypayopa/paypayopa-sdk-node");
 PAYPAY.Configure({
-  clientId: settings.apikey,
-  clientSecret: settings.apisecret,
-  merchantId: settings.merchantid,
-  productionMode: settings.productionMode,
+  clientId: process.env.API_KEY,
+  clientSecret: process.env.API_SECRET,
+  merchantId: process.env.MERCHANT_ID,
+  productionMode: false,
+
 });
+
 app.get("/payInfo/:payId/:itemId", async (req, res) => {
   const response = await PAYPAY.GetCodePaymentDetails([req.params.payId]);
   const body = response.BODY;

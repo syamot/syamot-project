@@ -82,6 +82,7 @@ ul.list-image-list {
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 1vh;
 }
 
 .list-updateBlock {
@@ -176,7 +177,7 @@ ul.list-image-list {
   margin: 0;
   margin-left: 3vh;
   background: #59c1bd;
-  /* color: #ffffff; */
+  color: #0d4c92;
   font-size: 15px;
   border-style: solid;
   border-radius: 1vh;
@@ -184,8 +185,23 @@ ul.list-image-list {
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
+  width: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
 }
-
+.rotationY {
+  animation: 1s rotationY;
+}
+@keyframes rotationY {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(720deg);
+  }
+}
 .list-boxset {
   display: flex;
   position: relative;
@@ -225,3 +241,8 @@ ul.list-image-list {
   outline: none;
   box-shadow: 0 5px 5px #00000067;
 } */
+
+.list-myHomeIcon {
+  width: 4vh;
+  height: 4vh;
+}
