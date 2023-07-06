@@ -451,8 +451,7 @@ const Transaction = (props) => {
   };
 
   const pageHandler = () => {
-    setSelectFlag(beforeFlag);
-    setBeforeFlag("list");
+    setSelectFlag("card");
   };
 
   return (
@@ -460,7 +459,6 @@ const Transaction = (props) => {
       <div className="transaction-titleBrock">
         <IoIosArrowBack
           className="transaction-backIcon"
-          //戻るボタン処理追加する
           onClick={() => {
             pageHandler();
           }}

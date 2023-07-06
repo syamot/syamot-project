@@ -3,7 +3,13 @@ import "./style/favorite.css";
 import { GrNext } from "react-icons/gr";
 
 const Favorite = (props) => {
-  const { oneUser, items, setSelectFlag, setSelectImg } = props;
+  const {
+    oneUser,
+    items,
+    setSelectFlag,
+    setSelectImg,
+    setBeforeFlag,
+  } = props;
 
   const clickImg = (e) => {
     console.log(e.target);
@@ -17,6 +23,7 @@ const Favorite = (props) => {
     });
     setSelectImg(item);
     setSelectFlag("card");
+    setBeforeFlag("favorite");
   };
 
   return (

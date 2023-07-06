@@ -39,6 +39,7 @@ function TradingHistory(props) {
                     onClick={(e) => {
                       clickImg(e);
                       setSelectFlag("card");
+                      setBeforeFlag("tradingHistory");
                     }}
                   />
                 </div>
