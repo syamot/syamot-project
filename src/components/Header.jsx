@@ -92,7 +92,7 @@ const Header = (props) => {
             pageHandler();
           }}
         />
-        <h1 className="header-header1">シャモティ</h1>
+        <h1 className="header-header1">Syamo-t</h1>
         <FaUserCircle
           className="header-userIcon"
           onClick={() => {

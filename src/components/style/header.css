@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@500&display=swap");
 .header-head {
   display: flex;
   flex-direction: row;
@@ -23,7 +24,10 @@
 }
 
 .header-header1 {
-  font-size: 3.5vh;
+  font-family: "Saira Semi Condensed", sans-serif;
+  font-size: 4.5vh;
+  text-decoration: underline;
+  color: #0d4c92;
 }
 
 .circleIcon-box {

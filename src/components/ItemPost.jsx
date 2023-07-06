@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./style/post.css";
 import { Loading } from "./Loading";
+import { AiFillFolderAdd } from "react-icons/ai";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
+import { FaRegPaperPlane } from "react-icons/fa";
 
 // S3アップロード用配列
 let imagePathArr = [];
@@ -144,7 +148,7 @@ const ItemPost = (props) => {
     const getUser = async () => {
       const user = await fetchUser();
 
-      if (beforeFlag === "exhibitionList") {
+      if (beforeFlag === "card") {
         console.log("editItem========", editItem);
         const date = new Date(editItem.item_deadline);
         date.setDate(date.getDate() + 1);
@@ -289,18 +293,49 @@ const ItemPost = (props) => {
 
   //###########################################################################
 
+  // post-fileAddIcon 処理
+  const postItemBtn = (e) => {
+    if (e.target.tagName === "path") {
+      e.target.closest("svg").previousElementSibling.click();
+    } else {
+      e.target.previousElementSibling.click();
+    }
+  };
+
   return (
     <>
       {load ? <Loading /> : null}
       <div className="post-box">
+        <div className="post-History-piece">
+          <IoIosArrowBack
+            className="post-History-navi-icon"
+            onClick={() => setSelectFlag("list")}
+          />
+          <div className="post-History-title-box">
+            <h2 className="post-History-title">
+              商品{beforeFlag === "card" ? "編集" : "投稿"}
+            </h2>
+            {beforeFlag === "card" ? (
+              <FaRegPaperPlane className="post-titleIcon" />
+            ) : (
+              <FaRegPaperPlane className="post-titleIcon" />
+            )}
+          </div>
+          <div className="post-History-position-adjustment"></div>
+        </div>
         <div className="post-box-piece">
-          <h4>商品画像</h4>
+          <h4 className="post-h4">商品画像</h4>
           <div>
             <input
               type="file"
               accept="image/*"
               multiple
               onChange={(e) => handleImageUpload(e)}
+              className="post-itemPostBtn"
+            />
+            <AiFillFolderAdd
+              className="post-fileAddIcon"
+              onClick={(e) => postItemBtn(e)}
             />
             <div className="img_block">
               {images.length !== 0 &&
@@ -319,34 +354,43 @@ const ItemPost = (props) => {
                       onChange={(event) => handleImageReupload(index, event)}
                       className="img_input"
                     />
-                    <button
+                    {/* <button
                       onClick={() => handleImageRemove(index)}
-                      className="img_remove"
+                      className="post-img_remove"
                     >
                       Remove
-                    </button>
+                    </button> */}
+                    <div
+                      className="post-closeBtnBlock"
+                      onClick={() => handleImageRemove(index)}
+                    >
+                      <IoMdClose className="post-closeBtn" />
+                    </div>
                   </div>
                 ))}
             </div>
           </div>
         </div>
-        <h4>商品概要</h4>
-        <div className="post-box-piece-side">
-          <p>カテゴリー※</p>
-          <select
-            defaultValue={selectCategory}
-            onChange={(e) => {
-              handleChange(e, "item_category");
-            }}
-          >
-            <option value="家電">家電</option>
-            <option value="家具">家具</option>
-            <option value="工具">工具</option>
-          </select>
+        <h4 className="post-h4">商品概要</h4>
+        <div className="post-box-piece">
+          <p className="post-P">カテゴリー※</p>
+          <div className="post-selectbox">
+            <select
+              defaultValue={selectCategory}
+              onChange={(e) => {
+                handleChange(e, "item_category");
+              }}
+            >
+              <option value="家電">家電</option>
+              <option value="家具">家具</option>
+              <option value="工具">工具</option>
+            </select>
+          </div>
         </div>
         <div className="post-box-piece">
-          <p>商品名※</p>
+          <p className="post-P">商品名※</p>
           <input
+            className="post-merchandise"
             type="text"
             onChange={(e) => {
               handleChange(e, "item_name");
@@ -356,8 +400,8 @@ const ItemPost = (props) => {
           ></input>
         </div>
 
-        <h4>商品詳細</h4>
-        {/* <div className="post-box-piece-side">
+        <h4 className="post-h4">商品詳細</h4>
+        {/* <div className="post-box-piece">
           <p>商品の状態※</p>
           <select
             defaultValue={selectStatus}
@@ -373,9 +417,10 @@ const ItemPost = (props) => {
             <option value="全体的に状態が悪い">全体的に状態が悪い</option>
           </select>
         </div> */}
-        <div className="post-box-piece-side">
-          <p>出品期限※</p>
+        <div className="post-box-piece">
+          <p className="post-P">出品期限※</p>
           <input
+            className="post-deadline"
             type="date"
             value={selectItemDead}
             onChange={(e) => handleChange(e, "item_deadline")}
@@ -384,19 +429,21 @@ const ItemPost = (props) => {
             min="2023-06-23"
           />
         </div>
-        <div className="post-box-piece-side">
-          <p>数量※</p>
+        <div className="post-box-piece">
+          <p className="post-P">数量※</p>
           <input
             type="number"
+            className="post-num"
             onChange={(e) => handleChange(e, "item_num")}
             step="1"
             min="1"
             max="100"
             defaultValue={selectItemNum}
+            placeholder="半角数字"
           ></input>
         </div>
         <div className="post-box-piece">
-          <p>備考欄</p>
+          <p className="post-P">備考欄</p>
           <textarea
             onChange={(e) => handleChange(e, "item_explanation")}
             placeholder="注意点など"
@@ -404,13 +451,17 @@ const ItemPost = (props) => {
             defaultValue={selectItemExplanation}
           ></textarea>
         </div>
-        {beforeFlag === "exhibitionList" ? (
+        {beforeFlag === "card" ? (
           <div className="btnBlock">
             <button onClick={() => handleClick()}>更新</button>
             <button onClick={() => itemDelete()}>削除</button>
           </div>
         ) : (
-          <button onClick={() => handleClick()}>出品</button>
+          <div className="buyBtnBlock">
+            <button className="post-button" onClick={() => handleClick()}>
+              出品
+            </button>
+          </div>
         )}
       </div>
     </>

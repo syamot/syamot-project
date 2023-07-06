@@ -279,13 +279,15 @@ function List(props) {
           </ul>
         </div>
       </div>
-      <div className="list-addIconBrock1">
-        <div
-          className="list-addIconBrock2"
-          onClick={() => setSelectFlag("post")}
-        >
-          <AiOutlinePlus className="list-addIcon" />
-        </div>
+
+      <div
+        className="list-addIconBrock"
+        onClick={() => {
+          setBeforeFlag("list");
+          setSelectFlag("post");
+        }}
+      >
+        <AiOutlinePlus className="list-addIcon" />
       </div>
 
       {modalVisible && (

@@ -192,20 +192,7 @@ ul.list-image-list {
   top: 2vh;
 }
 
-.list-addIconBrock1 {
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-end;
-  align-items: center;
-  height: 15%;
-  width: 100%;
-  bottom: 0;
-}
-
-.list-addIconBrock2 {
+.list-addIconBrock {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -219,7 +206,11 @@ ul.list-image-list {
   margin-right: 5vh;
   box-shadow: 4px 4px 20px 7px rgba(0, 0, 0, 0.4);
   background-color: #59c1bd;
+  position: fixed;
+  bottom: 2vh;
+  right: 1vh;
 }
+
 .list-addIcon {
   width: 6vh;
   height: 6vh;
