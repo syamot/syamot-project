@@ -5,21 +5,23 @@ body {
   /* width: auto; */
   /* height: 100px; */
   /* max-width: 100px; */
-  margin: 5px;
+  /* margin: 5px; */
   /* border-radius: 1vh; */
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 120px;
   object-fit: cover;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: none;
   outline: none;
   /* box-shadow: 0 5px 5px #00000067; */
+  position: relative;
+  top: -3px;
 }
 
 .list-image-box {
   display: flex;
   justify-content: center;
-  border-radius: 3vh;
+  border-radius: 15px;
   box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
   background-color: #ffffff;
   flex-direction: column;
@@ -28,6 +30,7 @@ body {
   flex-wrap: nowrap;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 li.image-item {
@@ -55,15 +58,20 @@ ul.list-image-list {
 }
 .list-mainBrock-list {
   position: fixed;
-  top: 23vh;
+  top: 22vh;
   width: 100%;
-  max-height: 77vh;
+  max-height: 78vh;
   display: flex;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #cff5e7;
   flex-direction: column;
+}
+
+/*スクロールバー非表示（Chrome・Safari）*/
+.list-mainBrock-list::-webkit-scrollbar {
+  display: none;
 }
 
 .list-search_boxes {
@@ -219,12 +227,12 @@ ul.list-image-list {
   height: 7vh;
   /* border-style: solid; */
   border-radius: 100%;
-  margin-right: 5vh;
+  /* margin-right: 5vh; */
   box-shadow: 4px 4px 20px 7px rgba(0, 0, 0, 0.4);
   background-color: #59c1bd;
   position: fixed;
-  bottom: 2vh;
-  right: 1vh;
+  bottom: 5vh;
+  right: 5vh;
 }
 
 .list-addIcon {

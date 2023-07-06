@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./style/list.css";
+import "./style/listCard.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
@@ -8,6 +9,7 @@ import { VscFilterFilled } from "react-icons/vsc";
 import { FaBuildingUser } from "react-icons/fa6";
 
 import Modal from "./Modal";
+import ListCard from "./ListCard";
 
 function List(props) {
   const {
