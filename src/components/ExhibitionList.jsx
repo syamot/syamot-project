@@ -3,7 +3,8 @@ import "./style/exhibitionList.css";
 import { AiFillWarning } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-// import { ImWarning } from "react-icons/im";
+import { PiUserList } from "react-icons/pi";
+
 const ExhibitionList = (props) => {
   const {
     items,
@@ -39,7 +40,10 @@ const ExhibitionList = (props) => {
           className="exhibition-navi-icon"
           onClick={() => setSelectFlag("myPage")}
         />
-        <h2 className="exhibition-title">出品リスト</h2>
+        <div className="exhibition-title-box">
+          <h2 className="exhibition-title">出品リスト</h2>
+          <PiUserList className="exhibition-title-icon" />
+        </div>
         <div className="exhibition-position-adjustment"></div>
       </div>
 
