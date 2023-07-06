@@ -4,6 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import "./style/card.css";
 import Swipe from "./Swipe";
 import { IoIosArrowBack } from "react-icons/io";
+import { BiEdit } from "react-icons/bi";
 
 //詳細情報ページ
 const Card = (props) => {
@@ -72,11 +73,27 @@ const Card = (props) => {
         {/* <IoIosArrowBack className="card-backIcon" onClick={() => {}} /> */}
 
         <div className="card-imageBrock">
-          <div className="card-IconBrock" onClick={() => changeHeart()}>
-            {oneUser.favorite.includes(selectImg.id) ? (
-              <AiFillHeart className="card-goodIcon" />
+          <div className="card-IconBrock">
+            {/* // 購入者であればハートお気に入り */}
+            {oneUser.id === sellerUser[0].id ? (
+              // 出品者であれば編集
+              <BiEdit
+                className="card-editIcon"
+                onClick={() => {
+                  setSelectFlag("post");
+                  setBeforeFlag("card");
+                }}
+              />
+            ) : oneUser.favorite.includes(selectImg.id) ? (
+              <AiFillHeart
+                className="card-goodIcon"
+                onClick={() => changeHeart()}
+              />
             ) : (
-              <AiOutlineHeart className="card-goodIcon" />
+              <AiOutlineHeart
+                className="card-goodIcon"
+                onClick={() => changeHeart()}
+              />
             )}
           </div>
 
