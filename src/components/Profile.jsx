@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./style/profile.css";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Profile = (props) => {
   const { setSelectFlag, oneUser, setOneUser, URL } = props;
@@ -26,19 +27,22 @@ const Profile = (props) => {
     <div className="profile-box">
       <div className="profile-contents">
         <div className="profile-piece title">
+          <IoIosArrowBack
+            className="profile-arrow"
+            onClick={() => setSelectFlag("myPage")}
+          />
           <h2>プロフィール編集</h2>
         </div>
         <div className="profile-piece">
-          <p>名前</p>
-          <p className="user">{userName}</p>
+          <p lassName="profile-piece-smallTitle">名前</p>
+          <p className="profile-user">{userName}</p>
         </div>
-
         <div className="profile-piece">
-          <p>従業員コード</p>
+          <p className="profile-piece-smallTitle">従業員コード</p>
           <input
             placeholder="1234567"
             type="text"
-            className="employeeCode"
+            className="profile-employeeCode"
             value={oneUser.employee_code}
             onChange={(e) => {
               upDataUser(e, "employee_code");
@@ -47,11 +51,14 @@ const Profile = (props) => {
         </div>
 
         <div className="profile-piece">
-          <p>私用のメールアドレス</p>
+          <p className="profile-piece-block">
+            メールアドレス
+            <br />- 個人
+          </p>
           <input
             placeholder="@gmail.comなど"
             type="email"
-            className="private-email"
+            className="profile-private-email"
             value={oneUser.private_e_mail}
             onChange={(e) => {
               upDataUser(e, "private_e_mail");
@@ -60,27 +67,27 @@ const Profile = (props) => {
         </div>
 
         <div className="profile-piece">
-          <p>tmcのメールアドレス</p>
+          <p className="profile-piece-block">- 会社</p>
           <div className="profile-piece-side">
             <input
               placeholder=""
               type="email"
-              className="tmc-email"
+              className="profile-tmc-email"
               value={oneUser.tmc_e_mail.slice(0, -18)}
               onChange={(e) => {
                 upDataUser(e, "tmc_e_mail");
               }}
             />
-            <p>@mail.toyota.co.jp</p>
+            <p className="profile-piece-address">@mail.toyota.co.jp</p>
           </div>
         </div>
 
         <div className="profile-piece">
-          <p>住所</p>
+          <p className="profile-piece-smallTitle">住所</p>
           <input
             placeholder="愛知県豊田市トヨタ町"
             type="text"
-            className="location"
+            className="profile-location"
             value={oneUser.residence}
             onChange={(e) => {
               upDataUser(e, "residence");
@@ -89,11 +96,11 @@ const Profile = (props) => {
         </div>
 
         <div className="profile-piece">
-          <p>寮</p>
+          <p className="profile-piece-smallTitle">寮</p>
           <input
             placeholder="大林和風寮"
             type="text"
-            className="area"
+            className="profile-area"
             value={oneUser.area}
             onChange={(e) => {
               upDataUser(e, "area");
@@ -102,7 +109,7 @@ const Profile = (props) => {
         </div>
 
         <button
-          className="btn createAccountBtn"
+          className="profile-btn-createAccountBtn"
           onClick={() => {
             postUpDataUser();
             setSelectFlag("myPage");
