@@ -31,12 +31,12 @@ p {
   width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 82vh;
+  max-height: 90vh;
   display: flex;
-  height: 82vh;
+  height: 90vh;
   overflow-y: scroll;
   align-items: stretch;
-  background-color: #fdfdfd;
+  background-color: #ffffff;
   overflow-y: scroll;
   overflow-x: hidden;
 }
