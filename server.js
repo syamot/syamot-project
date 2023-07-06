@@ -1,4 +1,8 @@
 const express = require("express");
+require("dotenv").config({
+  // path: "./.env",
+});
+
 const knex = require("./db/knex");
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -6,9 +10,6 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-require("dotenv").config({
-  // path: "./.env",
-});
 app.use(express.static("build"));
 app.use(express.json());
 app.use((req, res, next) => {
