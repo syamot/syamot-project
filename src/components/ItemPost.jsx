@@ -77,6 +77,7 @@ const ItemPost = (props) => {
     // =========================================================
     const testObj = itemObj;
     const changeStatus = async () => {
+      console.log("beforeFlag===", beforeFlag);
       // S3のURLがなければ全て追加する
       if (testObj.item_img.length === 0) {
         testObj.item_img = JSON.stringify(postImagePath);
@@ -98,7 +99,7 @@ const ItemPost = (props) => {
 
       try {
         // 新規登録なら
-        if (beforeFlag === "") {
+        if (beforeFlag !== "card") {
           await fetch(URL + "/addItems", {
             method: "POST",
             headers: {
@@ -107,7 +108,7 @@ const ItemPost = (props) => {
             body: JSON.stringify(testObj),
           });
           // 更新処理なら
-        } else {
+        } else if (beforeFlag === "card") {
           await fetch(URL + "/editItems", {
             method: "PUT",
             headers: {
