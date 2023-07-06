@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style/contactList.css";
 import { GrNext } from "react-icons/gr";
 import { BiSolidCircle } from "react-icons/bi";
+import { IoIosArrowBack } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 
 const ContactList = (props) => {
@@ -66,9 +67,14 @@ const ContactList = (props) => {
 
   return (
     <>
-      <div className="contact-list-box">
-        <div className="contact-piece">
-          <h2 className="contact-title">チャットリスト</h2>
+      <div className="contactList-list-box">
+        <div className="contactList-piece">
+          <IoIosArrowBack
+            className="contactList-navi-icon"
+            onClick={() => setSelectFlag("card")}
+          />
+          <h2 className="contactList-title">チャットリスト</h2>
+          <div className="contactList-position-adjustment"></div>
         </div>
         {/* <div className="contact-imgBlock">
             <img
@@ -78,21 +84,21 @@ const ContactList = (props) => {
             />
           </div> */}
 
-        <div>
-          <ul className="contact-image-list">
+        <ul className="contactList-image-list">
+          {Object.keys(chatData).length === 0 ? (
+            <li className="contactList-image-item">
+              新着メッセージはありません
+            </li>
+          ) : (
+            Object.entries(chatData).map(([user_id, arr]) => (
+              <li key={arr[0].id} className="contact-image-item">
+                <div className="contactList-image-box">
+                  <div className="contactList-imgBlock">
+                    <FaUserCircle className="contactList-userIcon" />
+                  </div>
 
-            {Object.keys(chatData).length === 0 ? (
-              <li className="contact-image-item">新着メッセージはありません</li>
-            ) : (
-
-              Object.entries(chatData).map(([user_id, arr]) => (
-                <li key={arr[0].id} className="contact-image-item">
-                  <div className="contact-image-box">
-                    <div className="contact-imgBlock">
-                      <FaUserCircle/>
-                    </div>
-
-                    <div className="contact-info">
+                  <div className="contactList-infoBox">
+                    <div className="contactList-info">
                       <p>ユーザー名:{arr[0].user_name}</p>
                       <p>
                         {arr.filter((e) => !e.seller_read_flag).length === 0
@@ -104,7 +110,7 @@ const ContactList = (props) => {
                       {/* <p>商品の状態:{arr[0].item_status}</p> */}
                     </div>
                     <GrNext
-                      className="contact-nextIcon"
+                      className="contactList-nextIcon"
                       id={arr[0].id}
                       onClick={() => {
                         setSelectBuyer(user_id);
@@ -112,11 +118,11 @@ const ContactList = (props) => {
                       }}
                     />
                   </div>
-                </li>
-              ))
-            )}
-          </ul>
-        </div>
+                </div>
+              </li>
+            ))
+          )}
+        </ul>
       </div>
 
       {/* ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃ */}
