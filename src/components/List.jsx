@@ -10,6 +10,7 @@ import Modal from "./Modal";
 function List(props) {
   const {
     setSelectFlag,
+    selectFlag,
     items,
     setSelectImg,
     setItems,
@@ -305,6 +306,7 @@ function List(props) {
           setModalItemFilter={setModalItemFilter}
           modalItemSort={modalItemSort}
           setModalItemSort={setModalItemSort}
+          selectFlag={selectFlag}
         />
       )}
     </>

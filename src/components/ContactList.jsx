@@ -96,7 +96,10 @@ const ContactList = (props) => {
             </li>
           ) : (
             Object.entries(chatData).map(([user_id, arr]) => (
-              <li key={arr[0].id} className="contact-image-item">
+              <li
+                key={`contactList_${arr[0].id}`}
+                className="contact-image-item"
+              >
                 <div className="contactList-image-box">
                   <div className="contactList-imgBlock">
                     <FaUserCircle className="contactList-userIcon" />

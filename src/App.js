@@ -211,6 +211,7 @@ function App() {
           />
           <List
             setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
             items={items}
             setItems={setItems}
             setSelectImg={setSelectImg}
@@ -320,14 +321,32 @@ function App() {
     case "myPage":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
+          />
           <MyPage setSelectFlag={setSelectFlag} oneUser={oneUser} />
         </>
       );
     case "profile":
       return (
         <>
-          <Header setSelectFlag={setSelectFlag} selectFlag={selectFlag} />
+          <Header
+            setSelectFlag={setSelectFlag}
+            setBeforeFlag={setBeforeFlag}
+            URL={URL}
+            oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            setSellerChatData={setSellerChatData}
+            buyerChatData={buyerChatData}
+            setBuyerChatData={setBuyerChatData}
+          />
           <Profile
             setSelectFlag={setSelectFlag}
             oneUser={oneUser}
