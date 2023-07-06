@@ -26,8 +26,10 @@ const Swipe = (props) => {
         pagination={{ clickable: true }}
       >
         {selectImg.item_img.map((img, index) => {
+        {selectImg.item_img.map((img, index) => {
           return (
-            <>
+            <div>
+
               <SwiperSlide className="slide" key={`swipe_${index}`}>
                 <Zoom>
                   <img
@@ -39,7 +41,7 @@ const Swipe = (props) => {
                   />
                 </Zoom>
               </SwiperSlide>
-            </>
+            </div>
           );
         })}
       </Swiper>
