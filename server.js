@@ -21,7 +21,6 @@ app.use((req, res, next) => {
 
 // paypay=========================================================
 
-
 const paypay = require("./paypay/paypay");
 app.use("/paypay", paypay);
 
@@ -37,7 +36,6 @@ PAYPAY.Configure({
   clientSecret: process.env.API_SECRET,
   merchantId: process.env.MERCHANT_ID,
   productionMode: false,
-
 });
 
 app.get("/payInfo/:payId/:itemId", async (req, res) => {
