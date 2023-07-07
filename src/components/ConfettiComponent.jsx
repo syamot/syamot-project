@@ -1,36 +1,46 @@
 import React, { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 
-const ConfettiComponent = () => {
-  //   紙吹雪
+const ConfettiComponent = (props) => {
+  const { setConfetFlag } = props;
   const [confettiActive, setConfettiActive] = useState(false);
-  // ボタンで紙吹雪を降らす関数
-  //   const startConfetti = () => {
-  //     setConfettiActive(true);
-
-  //     // 5秒後に紙吹雪を停止する
-  //     setTimeout(() => {
-  //       setConfettiActive(false);
-  //     }, 5000);
-  //   };
 
   useEffect(() => {
-    // コンポーネントのアンマウント時に紙吹雪を停止する
-    setConfettiActive(true);
-    // 5秒後に紙吹雪を停止する
-    setTimeout(() => {
+    let timeout;
+
+    const startConfetti = () => {
+      setConfettiActive(true);
+
+      // 5秒後に紙吹雪を停止する
+      timeout = setTimeout(() => {
+        setConfettiActive(false);
+        setConfetFlag(false);
+      }, 5000);
+    };
+
+    const stopConfetti = () => {
+      clearTimeout(timeout);
       setConfettiActive(false);
-    }, 5000);
+    };
+
+    // コンポーネントが表示された時に紙吹雪を開始
+    startConfetti();
+
+    // コンポーネントがアンマウントされる時に紙吹雪を停止
     return () => {
-      setConfettiActive(false);
+      stopConfetti();
     };
   }, []);
 
   return (
     <>
       <div>
-        {/* <button onClick={startConfetti}>Confetti</button> */}
-        {confettiActive && <Confetti />}
+        {confettiActive && (
+          <Confetti
+            recycle={false}
+            onConfettiComplete={() => setConfettiActive(false)}
+          />
+        )}
       </div>
     </>
   );
