@@ -93,11 +93,12 @@
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-  background-color: #59c1bd;
+  background-color: #0c4c92;
   border: none;
   outline: none;
-  box-shadow: 0 5px 5px #00000067;
+  box-shadow: 0 5px 5px #042244;
   height: 6vh;
+  color: #fff;
 }
 .loginBtn:active {
   transform: translateY(5px);
@@ -142,13 +143,14 @@
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-  background-color: #59c1bd;
+  background-color: #0c4c92;
   border: none;
   outline: none;
-  box-shadow: 0 5px 5px #00000067;
+  box-shadow: 0 5px 5px #042244;
   height: 6vh;
+  color: #fff;
 }
-.createAccountBtn:active {
+.loginBtn:active {
   transform: translateY(5px);
   box-shadow: 0 0 0;
 }

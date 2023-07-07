@@ -48,8 +48,8 @@
   top: 3vh;
   position: relative;
   width: 80%;
-  height: 57vh;
-  max-height: 60vh;
+  height: 71vh;
+  max-height: 68vh;
   display: flex;
   flex-direction: column;
   border-style: solid;
@@ -60,28 +60,19 @@
 
 .transaction-chatBlock {
   overflow-y: scroll;
-  max-height: 47vh;
+  max-height: 60vh;
 }
 
 .transaction-postMessageBlock {
   display: flex;
   position: absolute;
-  top: 50vh;
+  top: 61vh;
   left: 3vh;
   align-items: center;
 }
 
 /* ここ　送信者 */
 .transaction-sendMessageBlock {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-end;
-  align-items: center;
-  border: black;
-  width: 100%; */
-
   display: flex;
   align-items: center;
   position: relative;
@@ -100,19 +91,6 @@
   margin-right: 1rem;
   margin-left: auto;
 }
-
-/* .transaction-sendMessageBlock {
-  display: flex;
-  align-items: center;
-  position: relative;
-  max-width: 300px;
-  margin-right: 15px;
-  padding: 0.8em 1.2em;
-  border: 3px solid #adadad;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #333333;
-} */
 
 .transaction-sendMessageBlock::before,
 .transaction-sendMessageBlock::after {
@@ -135,15 +113,6 @@
 }
 
 /* ここ 相手*/
-/* .transaction-otherMessage {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-} */
 
 .transaction-otherMessage {
   display: flex;
@@ -219,11 +188,12 @@
   flex-direction: column;
   width: 60%;
   position: relative;
-  top: 5vh;
-  height: 27vh;
+  top: 6vh;
+  height: 15vh;
+  align-items: center;
 }
 
-.transaction-payment {
+/* .transaction-payment {
   height: 9vh;
   background-color: #ff5758;
   border: #ff5758;
@@ -233,9 +203,38 @@
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
+} */
+
+.transaction-payment {
+  width: 40vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+
+  background-color: #ff5758;
+  border: none;
+  outline: none;
+  /* box-shadow: 0 5px 5px #00000067; */
+  box-shadow: 0 0.3em 0 #b13a3a;
+}
+.transaction-payment:active {
+  margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #b13a3a;
 }
 
-.transaction-statusBtn {
+.transaction-dummy {
+  width: 40vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+
+  background-color: #bdbaba;
+  border: none;
+  outline: none;
+  /* box-shadow: 0 5px 5px #00000067; */
+}
+
+/* .transaction-statusBtn {
   height: 9vh;
   background-color: #d9d9d9;
   border: #d9d9d9;
@@ -245,6 +244,22 @@
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
+} */
+
+.transaction-statusBtn {
+  width: 40vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #0c4c92;
+  border: none;
+  outline: none;
+  box-shadow: 0 0.3em 0 #042244;
+  color: white;
+}
+.transaction-statusBtn:active {
+  margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244;
 }
 
 .transaction-sendBtn {

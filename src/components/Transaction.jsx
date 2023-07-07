@@ -508,7 +508,14 @@ const Transaction = (props) => {
             chatData.length !== 0 && chatData[0].payment
           );
           // 非表示
-          btn = false;
+          btn = (
+            <button
+              className="transaction-dummy"
+              onClick={() => window.alert("引き続きこのアプリをお願いします🥺")}
+            >
+              取引完了！　おめでとう🎉
+            </button>
+          );
         } else {
           console.log(
             "👹👹👹👹👹👹👹👹👹👹👹支払い確認=======",
@@ -536,7 +543,14 @@ const Transaction = (props) => {
         // 受け取りフラグ確認
         if (selectImg.item_transaction_flag === true) {
           // 非表示
-          btn = false;
+          btn = (
+            <button
+              className="transaction-dummy"
+              onClick={() => window.alert("引き続きこのアプリをお願いします🥺")}
+            >
+              取引完了！　おめでとう🎉
+            </button>
+          );
         } else {
           btn = (
             <button
@@ -556,7 +570,16 @@ const Transaction = (props) => {
         // 支払いが終了していなければ入る
         //承認されているか判定
         if (selectImg.item_approval_flag === false) {
-          btn = false;
+          btn = (
+            <button
+              className="transaction-dummy"
+              onClick={() =>
+                window.alert("出品者から承認連絡をもらってください！")
+              }
+            >
+              承認完了後、押してね！
+            </button>
+          );
         } else {
           btn = (
             <button
@@ -654,63 +677,7 @@ const Transaction = (props) => {
         </div>
       </div>
 
-      <div className="transaction-footerBlock">
-        {/* 出品者*/}
-        {/* 取引承認＋キャンセル */}
-
-        {/* 購入者*/}
-        {/* 　手数料支払いボタンのグレー */}
-        {/* item ステータスが承認完了のみ*/}
-        {/* 　手数料支払い 有効 */}
-        {/* 手数料支払いが終了*/}
-        {/* 　完了ボタンに切り替え  */}
-        {btn}
-
-        {/* <button
-          className="transaction-payment"
-          onClick={() => payment()}
-          disabled={selectImg.payment}
-        >
-          手数料支払い
-        </button> */}
-        {/* {oneUser.length !== 0 &&
-          (oneUser.id === selectImg.item_seller ? (
-            selectImg.item_approval_flag === false ? (
-              <button
-                className="transaction-statusBtn"
-                disabled={selectImg.item_approval_flag}
-                onClick={() => approval()}
-              >
-                取引承認
-              </button>
-            ) : (
-              <>
-                <button
-                  className="transaction-statusBtn"
-                  disabled={
-                    selectImg.item_approval_flag &&
-                    selectImg.item_transaction_flag
-                  }
-                  onClick={() => approvalCancel()}
-                >
-                  取引キャンセル
-                </button>
-              </>
-            )
-          ) : (
-            <button
-              className="transaction-statusBtn"
-              disabled={
-                !selectImg.item_approval_flag ||
-                selectImg.item_transaction_flag ||
-                !selectImg.payment
-              }
-              onClick={() => complete()}
-            >
-              受取連絡
-            </button>
-          ))} */}
-      </div>
+      <div className="transaction-footerBlock">{btn}</div>
     </div>
   );
 };

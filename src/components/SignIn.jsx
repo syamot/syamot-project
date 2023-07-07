@@ -28,9 +28,11 @@ const SignIn = (props) => {
           })();
         } else {
           console.log("パスワードが違います");
+          window.alert("パスワードが違います");
         }
       } else {
         console.log("ユーザーが見つかりませんでした");
+        window.alert("ユーザーが見つかりませんでした");
       }
     }, 200);
   };

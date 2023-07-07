@@ -19,6 +19,8 @@ const SignUp = (props) => {
     ) {
       console.log(selectFlag);
       setSignUp_ModalVisible(true);
+    } else {
+      window.alert("空欄もしくは間違いがあります");
     }
   };
 

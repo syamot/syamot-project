@@ -278,11 +278,20 @@
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-  background-color: #59c1bd;
+  /* background-color: #59c1bd; */
+  /* border: none; */
+  /* outline: none; */
+  /* box-shadow: 0 5px 5px #00000067; */
+  height: 6vh;
+  background-color: #0c4c92;
   border: none;
   outline: none;
-  box-shadow: 0 5px 5px #00000067;
-  height: 6vh;
+  box-shadow: 0 0.3em 0 #042244;
+  color: white;
+}
+.post-button:active {
+  margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244;
 }
 
 .post-h4 {
@@ -339,21 +348,40 @@ h2.post-History-title {
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-  background-color: #59c1bd;
-  border: none;
-  outline: none;
-  box-shadow: 0 5px 5px #00000067;
+  /* background-color: #59c1bd; */
+  /* border: none; */
+  /* outline: none; */
+  /* box-shadow: 0 5px 5px #00000067; */
   height: 6vh;
   margin-right: 5vh;
+  background-color: #0c4c92;
+  border: none;
+  outline: none;
+  box-shadow: 0 0.3em 0 #042244;
+  color: white;
 }
+.post-updateBtn:active {
+  margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244;
+}
+
 .post-deleteBtn {
   width: 20vh;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-  background-color: #59c1bd;
+  /* background-color: #59c1bd; */
+  /* border: none; */
+  /* outline: none; */
+  /* box-shadow: 0 5px 5px #00000067; */
+  height: 6vh;
+  background-color: #0c4c92;
   border: none;
   outline: none;
-  box-shadow: 0 5px 5px #00000067;
-  height: 6vh;
+  box-shadow: 0 0.3em 0 #042244;
+  color: white;
+}
+.post-deleteBtn:active {
+  margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244;
 }
