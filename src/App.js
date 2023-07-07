@@ -343,7 +343,6 @@ function App() {
         <>
           <Header
             setSelectFlag={setSelectFlag}
-
             setBeforeFlag={setBeforeFlag}
             URL={URL}
             oneUser={oneUser}
@@ -382,6 +381,8 @@ function App() {
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
             oneUser={oneUser}
+            sellerChatData={sellerChatData}
+            buyerChatData={buyerChatData}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>

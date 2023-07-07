@@ -12,7 +12,6 @@ import { GrTransaction } from "react-icons/gr";
 const MyPage = (props) => {
   const { setSelectFlag, oneUser } = props;
 
-  console.log(oneUser);
   const logOut = () => {
     localStorage.setItem("user", "");
     document.location.reload();
