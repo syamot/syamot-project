@@ -49,9 +49,9 @@
   /* height: 81vh; */
   overflow-y: scroll;
   align-items: stretch;
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
-
-.post-box-piece {
+.post-box-piece-img {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -59,6 +59,17 @@
   border-bottom: solid;
   border-bottom: solid 0.1px;
   padding-bottom: 15px;
+}
+.post-box-piece {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-bottom: solid;
+  border-bottom: solid 0.1px;
+  padding-bottom: 15px;
+  align-content: center;
+  justify-content: center;
 }
 
 .post-box-piece-side {
@@ -77,7 +88,9 @@
   position: relative;
   margin-bottom: 3vh;
   height: 10vh;
+  width: 45vh;
   border-width: 1px;
+  resize: none;
 }
 
 .post-inner-item {
@@ -174,8 +187,10 @@
 .post-P {
   margin: 0;
   margin-top: 2vh;
-  margin-left: 2vh;
-  margin-bottom: 1vh;
+  /* margin-left: 2vh; */
+  /* margin-bottom: 1vh; */
+  position: relative;
+  left: -19.5vh;
 }
 /* .post-category {
   margin-right: 2vh;
@@ -241,7 +256,6 @@
   box-sizing: border-box;
   font-size: 1em;
   position: relative;
-  left: 2vh;
   margin-bottom: 3vh;
   text-align: center;
   /* border-color: #b3b3b3; */
@@ -294,6 +308,7 @@
 
 h2.post-History-title {
   margin: 0px;
+  font-size: 1.3rem;
 }
 
 .post-History-position-adjustment {

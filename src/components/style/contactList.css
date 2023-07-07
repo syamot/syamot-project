@@ -1,5 +1,6 @@
 h2.contactList-title {
   margin: 0px;
+  font-size: 1.3em;
 }
 
 .contactList-list-box {
@@ -7,14 +8,15 @@ h2.contactList-title {
   flex-wrap: nowrap;
   position: fixed;
   top: 10vh;
-  width: 98%;
+  width: 100%;
   padding-left: 1%;
   padding-right: 1%;
   max-height: 90vh;
   display: flex;
-  height: 83vh;
+  height: 90vh;
   overflow-y: scroll;
   align-items: stretch;
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
 
 .contactList-piece {

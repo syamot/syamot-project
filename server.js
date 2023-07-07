@@ -1,5 +1,9 @@
 const express = require("express");
-require("dotenv").config();
+
+// dotenv はknexの前に置いてね
+require("dotenv").config({
+  path: "./.env",
+});
 const knex = require("./db/knex");
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -18,8 +22,6 @@ app.use((req, res, next) => {
 
 // paypay=========================================================
 
-const settings = require("./settings");
-
 const paypay = require("./paypay/paypay");
 app.use("/paypay", paypay);
 
@@ -31,11 +33,12 @@ app.get("/paypay", (req, res) => {
 
 const PAYPAY = require("@paypayopa/paypayopa-sdk-node");
 PAYPAY.Configure({
-  clientId: settings.apikey,
-  clientSecret: settings.apisecret,
-  merchantId: settings.merchantid,
-  productionMode: settings.productionMode,
+  clientId: process.env.API_KEY,
+  clientSecret: process.env.API_SECRET,
+  merchantId: process.env.MERCHANT_ID,
+  productionMode: false,
 });
+
 app.get("/payInfo/:payId/:itemId", async (req, res) => {
   const response = await PAYPAY.GetCodePaymentDetails([req.params.payId]);
   const body = response.BODY;
@@ -390,7 +393,7 @@ app.put("/putItemStatusCancel", async (req, res) => {
 // 完了ステータス更新
 app.put("/putCompleteStatus", async (req, res) => {
   const obj = req.body;
-  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
+  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
   // console.log(obj.id);
   try {
     await knex("items")

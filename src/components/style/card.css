@@ -1,10 +1,10 @@
 .card-mainBrock {
   position: relative;
   top: 10vh;
-  width: 98vw;
-  margin: 0 1vw;
-  height: 80vh;
-  max-height: 80vh;
+  width: 98%;
+  /* margin: 0 1vw; */
+  height: 100vh;
+  /* max-height: 100vh; */
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -12,8 +12,9 @@
   justify-content: center;
   align-items: center;
   /* width: 100%; */
-  /* padding-left: 1%; */
-  /* padding-right: 1%; */
+  padding-left: 1%;
+  padding-right: 1%;
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
 
 .card-cardTitle {
@@ -24,7 +25,7 @@
 
 .card-imageBrock {
   position: relative;
-  top: 5vh;
+  top: -5vh;
   width: 25vh;
   margin: 0 5vw;
   display: flex;
@@ -44,7 +45,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   position: relative;
-  top: 8vh;
+  top: -3vh;
   max-height: 38vh;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -170,5 +171,6 @@
   height: 4vh;
 }
 h2.card-title {
-  margin: 0px;
+  margin: 0;
+  font-size: 1.3em;
 }

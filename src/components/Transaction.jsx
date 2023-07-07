@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BsSend } from "react-icons/bs";
 
@@ -22,6 +22,7 @@ const Transaction = (props) => {
     setSelectFlag,
     setBeforeFlag,
     beforeFlag,
+    setConfetFlag,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   // const [messages, setMessages] = useState([]);
@@ -38,29 +39,33 @@ const Transaction = (props) => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      // console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
+      console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
 
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
         .filter((e1) => {
+          console.log("F1======", e1.item_id === selectImg.id);
           return e1.item_id === selectImg.id;
         })
         //チャットのBuyerID===ログイン者のID
         //チャットの出品者ID===選択した投稿の出品者ID
 
         .filter((e2) => {
-          // console.log(
-          //   e2.buyer_id,
-          //   oneUser.id,
-          //   e2.seller_id,
-          //   selectImg.item_seller
-          // );
-          // console.log(
-          //   e2.buyer_id,
-          //   Number(selectBuyer),
-          //   e2.seller_id,
-          //   oneUser.id
-          // );
+          console.log("メッセージ：", e2.message);
+          console.log(
+            "F2_購入者========",
+            e2.buyer_id,
+            oneUser.id,
+            e2.seller_id,
+            selectImg.item_seller
+          );
+          console.log(
+            "F2_出品者========",
+            e2.buyer_id,
+            Number(selectBuyer),
+            e2.seller_id,
+            oneUser.id
+          );
           return (
             // 購入者側
             (e2.buyer_id === oneUser.id &&
@@ -69,7 +74,7 @@ const Transaction = (props) => {
             (e2.buyer_id === Number(selectBuyer) && e2.seller_id === oneUser.id)
           );
         });
-      // console.log(filterChat);
+      console.log("filterChat========", filterChat);
       //chatDataを最新順に並び替え
       const dateAscChatData = filterChat.sort(function (a, b) {
         if (a.send_date > b.send_date) return 1;
@@ -135,8 +140,10 @@ const Transaction = (props) => {
                 ...selectImg,
                 payment: true,
               });
-              createMessageStatus("支払い完了");
-              window.alert("paypayでの支払いが完了しました");
+              if (!(chatData.length !== 0 && chatData[0].payment)) {
+                createMessageStatus("支払い完了");
+                window.alert("paypayでの支払いが完了しました");
+              }
             }
           } catch (error) {
             console.error(error);
@@ -283,6 +290,8 @@ const Transaction = (props) => {
 
   // 受取完了処理
   const complete = async () => {
+    setConfetFlag(true);
+    playAudio();
     if (selectImg.item_transaction_flag !== true) {
       try {
         // チャットTBを書き換え
@@ -445,12 +454,132 @@ const Transaction = (props) => {
   };
 
   const pageHandler = () => {
-
-    setSelectFlag("card");
+    setSelectFlag(beforeFlag);
+    if (beforeFlag === "contactList") {
+      setBeforeFlag("card");
+    } else {
+      setBeforeFlag("list");
+    }
   };
 
+  //   {/* 出品者*/}
+  // {/* 取引承認＋キャンセル */}
+
+  // {/* 購入者*/}
+  // {/* 　手数料支払いボタンのグレー */}
+  // {/* item ステータスが承認完了のみ*/}
+  // {/* 　手数料支払い 有効 */}
+  // {/* 手数料支払いが終了*/}
+  // {/* 　完了ボタンに切り替え
+  let btn;
+  // 出品者か判定
+  if (selectImg.item_seller === oneUser.id) {
+    // 出品者なら入る
+
+    if (
+      oneUser.length !== 0 &&
+      oneUser.id === selectImg.item_seller &&
+      chatData.length !== 0
+    ) {
+      console.log("chatData[0]=========", chatData[0]);
+      // 承認フラグ判定
+      if (selectImg.item_approval_flag === false) {
+        btn = (
+          <button
+            className="transaction-statusBtn"
+            disabled={selectImg.item_approval_flag}
+            onClick={() => approval()}
+          >
+            取引承認
+          </button>
+        );
+      } else {
+        // 支払い確認
+        if (chatData.length !== 0 && chatData[0].payment === true) {
+          console.log(
+            "🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠支払い完了したよ〜〜=======",
+            chatData.length !== 0 && chatData[0].payment
+          );
+          // 非表示
+          btn = false;
+        } else {
+          console.log(
+            "👹👹👹👹👹👹👹👹👹👹👹支払い確認=======",
+            chatData.length !== 0 && chatData[0].payment
+          );
+          btn = (
+            <button
+              className="transaction-statusBtn"
+              disabled={chatData.length !== 0 && chatData[0].payment}
+              // display="none"
+              onClick={() => approvalCancel()}
+            >
+              取引キャンセル
+            </button>
+          );
+        }
+      }
+    }
+  } else {
+    // 購入者側か確認
+    if (oneUser.length !== 0 && oneUser.id === selectImg.item_seller) {
+    } else {
+      // 支払い終了確認
+      if (chatData.length !== 0 && chatData[0].payment === true) {
+        // 受け取りフラグ確認
+        if (selectImg.item_transaction_flag === true) {
+          // 非表示
+          btn = false;
+        } else {
+          btn = (
+            <button
+              className="transaction-statusBtn"
+              disabled={
+                !selectImg.item_approval_flag ||
+                selectImg.item_transaction_flag ||
+                !(chatData.length !== 0 && chatData[0].payment)
+              }
+              onClick={() => complete()}
+            >
+              受取連絡
+            </button>
+          );
+        }
+      } else {
+        // 支払いが終了していなければ入る
+        //承認されているか判定
+        if (selectImg.item_approval_flag === false) {
+          btn = false;
+        } else {
+          btn = (
+            <button
+              className="transaction-payment"
+              onClick={() => payment()}
+              disabled={selectImg.payment}
+            >
+              手数料支払い
+            </button>
+          );
+        }
+      }
+    }
+  }
+  // music===================
+  const audioRef = useRef(null);
+  const playAudio = () => {
+    audioRef.current.play();
+  };
+  const pauseAudio = () => {
+    audioRef.current.pause();
+  };
+  const resetAudio = () => {
+    audioRef.current.currentTime = 0;
+  };
   return (
     <div className="transaction-all">
+      <audio ref={audioRef}>
+        <source src="music/thankyou1.mp3" type="audio/mp3" />
+      </audio>
       <div className="transaction-titleBrock">
         <IoIosArrowBack
           className="transaction-backIcon"
@@ -519,15 +648,25 @@ const Transaction = (props) => {
       </div>
 
       <div className="transaction-footerBlock">
-        <button
+        {/* 出品者*/}
+        {/* 取引承認＋キャンセル */}
+
+        {/* 購入者*/}
+        {/* 　手数料支払いボタンのグレー */}
+        {/* item ステータスが承認完了のみ*/}
+        {/* 　手数料支払い 有効 */}
+        {/* 手数料支払いが終了*/}
+        {/* 　完了ボタンに切り替え  */}
+        {btn}
+
+        {/* <button
           className="transaction-payment"
           onClick={() => payment()}
           disabled={selectImg.payment}
         >
           手数料支払い
-        </button>
-
-        {oneUser.length !== 0 &&
+        </button> */}
+        {/* {oneUser.length !== 0 &&
           (oneUser.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
               <button
@@ -563,7 +702,7 @@ const Transaction = (props) => {
             >
               受取連絡
             </button>
-          ))}
+          ))} */}
       </div>
     </div>
   );

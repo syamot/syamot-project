@@ -28,18 +28,30 @@
   font-size: 4.5vh;
   text-decoration: underline;
   color: #0d4c92;
+  /* position: relative; */
+}
+
+.header-userIcon-FaUserCircle {
+  position: relative;
+  top: 19px;
+}
+
+.circleIcon_fake {
+  height: 4vh;
+  width: 4vh;
 }
 
 .circleIcon-box {
-  position: absolute;
-  right: 15px;
-  bottom: 9px;
+  position: relative;
+  right: -19px;
+  bottom: 29px;
   display: flex;
   flex-direction: row;
   align-content: center;
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
+  /* display: none; */
 }
 .circleIcon-number {
   margin: 0;
@@ -52,3 +64,10 @@
   width: 4vh;
   height: 4vh;
 }
+/* .header-syamotIco {
+  width: 5vh;
+  height: 5vh;
+  margin: 0;
+  position: relative;
+  left: 3vh;
+} */

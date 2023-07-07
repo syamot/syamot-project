@@ -9,8 +9,15 @@ import { FaRegPaperPlane } from "react-icons/fa";
 // S3アップロード用配列
 let imagePathArr = [];
 const ItemPost = (props) => {
-  const { setSelectFlag, URL, beforeFlag, setBeforeFlag, editItem, setItems } =
-    props;
+  const {
+    setSelectFlag,
+    URL,
+    beforeFlag,
+    setBeforeFlag,
+    editItem,
+    setItems,
+    setConfetFlag,
+  } = props;
   // const [imgPathArr, setImgPathArr] = useState([]);
   const [itemObj, setItemObj] = useState({});
   // アップロード時のローディング画面
@@ -37,6 +44,7 @@ const ItemPost = (props) => {
   };
 
   const handleClick = async () => {
+    setConfetFlag("post");
     // S3へアップした画像のURLを入れる配列
     const postImagePath = [];
     let uploadFlag = false;
@@ -303,6 +311,16 @@ const ItemPost = (props) => {
     }
   };
 
+  const back = () => {
+    if (beforeFlag === "card") {
+      console.log(beforeFlag);
+      setSelectFlag("card");
+    } else {
+      console.log(beforeFlag);
+      setSelectFlag("list");
+    }
+  };
+
   return (
     <>
       {load ? <Loading /> : null}
@@ -310,7 +328,7 @@ const ItemPost = (props) => {
         <div className="post-History-piece">
           <IoIosArrowBack
             className="post-History-navi-icon"
-            onClick={() => setSelectFlag("list")}
+            onClick={() => back()}
           />
           <div className="post-History-title-box">
             <h2 className="post-History-title">
@@ -324,7 +342,7 @@ const ItemPost = (props) => {
           </div>
           <div className="post-History-position-adjustment"></div>
         </div>
-        <div className="post-box-piece">
+        <div className="post-box-piece-img">
           <h4 className="post-h4">商品画像</h4>
           <div>
             <input

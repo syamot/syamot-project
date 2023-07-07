@@ -11,6 +11,7 @@
   height: 90vh;
   overflow-y: scroll;
   align-items: center;
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
 
 .favorite-piece {
@@ -33,6 +34,7 @@
 
 h2.favorite-title {
   margin: 0px;
+  font-size: 1.3em;
 }
 
 .favorite-title-icon {

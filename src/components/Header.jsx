@@ -7,6 +7,7 @@ import { BiSolidCircle } from "react-icons/bi";
 import { ImHome } from "react-icons/im";
 
 import "./style/header.css";
+import ConfettiComponent from "./ConfettiComponent";
 
 const Header = (props) => {
   const {
@@ -18,6 +19,7 @@ const Header = (props) => {
     setSellerChatData,
     buyerChatData,
     setBuyerChatData,
+    beforeFlag,
   } = props;
   const pageHandler = () => {
     setSelectFlag("list");
@@ -82,7 +84,6 @@ const Header = (props) => {
         }).length;
   const readCount = sellerReadCount + buyerReadCount;
   // console.log("readCount=====", readCount);
-
   return (
     <>
       <header className="header-head">
@@ -92,19 +93,28 @@ const Header = (props) => {
             pageHandler();
           }}
         />
+        {/* <img
+          src="photo/syamotIcon.png"
+          alt="syamotIcon"
+          className="header-syamotIcon"
+        /> */}
         <h1 className="header-header1">Syamo-t</h1>
-        <FaUserCircle
-          className="header-userIcon"
-          onClick={() => {
-            changeMyPage();
-          }}
-        />
-        {readCount !== 0 && (
-          <div className="circleIcon-box">
-            <BiSolidCircle className="circleIcon" />
-            <p className="circleIcon-number">{readCount}</p>
-          </div>
-        )}
+        <div className="header-userIcon-FaUserCircle">
+          <FaUserCircle
+            className="header-userIcon"
+            onClick={() => {
+              changeMyPage();
+            }}
+          />
+          {readCount !== 0 ? (
+            <div className="circleIcon-box">
+              <BiSolidCircle className="circleIcon" />
+              <p className="circleIcon-number">{readCount}</p>
+            </div>
+          ) : (
+            <div className="circleIcon_fake"></div>
+          )}
+        </div>
       </header>
     </>
   );
