@@ -21,7 +21,6 @@ app.use((req, res, next) => {
 
 // paypay=========================================================
 
-
 const paypay = require("./paypay/paypay");
 app.use("/paypay", paypay);
 
@@ -37,7 +36,6 @@ PAYPAY.Configure({
   clientSecret: process.env.API_SECRET,
   merchantId: process.env.MERCHANT_ID,
   productionMode: false,
-
 });
 
 app.get("/payInfo/:payId/:itemId", async (req, res) => {
@@ -394,7 +392,7 @@ app.put("/putItemStatusCancel", async (req, res) => {
 // 完了ステータス更新
 app.put("/putCompleteStatus", async (req, res) => {
   const obj = req.body;
-  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
+  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
   // console.log(obj.id);
   try {
     await knex("items")

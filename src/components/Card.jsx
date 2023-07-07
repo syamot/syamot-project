@@ -155,69 +155,6 @@ const Card = (props) => {
         </div>
       </div>
     </>
-
-    //    <>
-    //    <div className="card-mainBrock">
-    //      <h2 className="card-cardTitle">{selectImg.item_name}</h2>
-    //      <div className="card-imageBrock">
-    //        {oneUser.favorite.includes(selectImg.id) ? (
-    //          <AiFillHeart
-    //            className="card-goodIcon"
-    //            onClick={() => {
-    //              changeHeart();
-    //            }}
-    //          />
-    //        ) : (
-    //          <AiOutlineHeart
-    //            className="card-goodIcon"
-    //            onClick={() => {
-    //              changeHeart();
-    //            }}
-    //          />
-    //        )}
-
-    //        {/* <img src={data.img} alt="product" className="card-itemImage" /> */}
-    //        <Swipe setSelectFlag={setSelectFlag} selectImg={selectImg} />
-    //      </div>
-    //      <div className="card-cardItemBrock">
-    //        <p className="card-cardItem">説明</p>
-    //        <textarea
-    //          className="card-cardItemTxtarea"
-    //          defaultValue={selectImg.item_explanation}
-    //        ></textarea>
-    //        <p className="card-cardItem">取引状況: {selectImg.item_status}</p>
-    //        <p className="card-cardItem">カテゴリ: {selectImg.item_category}</p>
-    //        <p className="card-cardItem">個数: {selectImg.item_num}</p>
-    //        <p className="card-cardItem">期限: {formattedDate}</p>
-    //        <p className="card-cardItem">販売者: {sellerUser[0].user_name}</p>
-    //        <p className="card-cardItem">メール: {sellerUser[0].tmc_e_mail}</p>
-    //      </div>
-    //      <div className="card-buyBrock">
-    //        <button
-    //          className="card-buyBtn"
-    //          onClick={() => {
-    //            console.log("oneuser.id:", oneUser.id);
-    //            console.log("selectImg.item_seller", selectImg.item_seller);
-    //            console.log("sellerUser:", sellerUser);
-
-    //            // 購入者であれば連絡リストに遷移
-    //            if (oneUser.id === sellerUser[0].id) {
-    //              console.log("contact");
-    //              setSelectFlag("contactList");
-    //              // setSelectFlag("transaction");
-    //            } else {
-    //              console.log("transaction");
-    //              setSelectFlag("transaction");
-    //            }
-
-    //            // changeStatus();
-    //          }}
-    //        >
-    //          取引き
-    //        </button>
-    //      </div>
-    //    </div>
-    //  </>
   );
 };
 

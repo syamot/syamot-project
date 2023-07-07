@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./style/list.css";
+import "./style/listCard.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
@@ -8,6 +9,7 @@ import { VscFilterFilled } from "react-icons/vsc";
 import { FaBuildingUser } from "react-icons/fa6";
 
 import Modal from "./Modal";
+import ListCard from "./ListCard";
 
 function List(props) {
   const {
@@ -291,6 +293,13 @@ function List(props) {
                       }}
                     />
                     <p className="list-item-p">{item.item_name}</p>
+                    {item.item_status === "在庫あり" ? (
+                      <p className="list-item-p2">{item.item_status}</p>
+                    ) : item.item_status === "取引中" ? (
+                      <p className="list-item-p3">{item.item_status}</p>
+                    ) : (
+                      <p className="list-item-p4">{item.item_status}</p>
+                    )}
                   </div>
                 </li>
               ))
