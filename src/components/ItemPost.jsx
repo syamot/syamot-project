@@ -472,8 +472,12 @@ const ItemPost = (props) => {
         </div>
         {beforeFlag === "card" ? (
           <div className="btnBlock">
-            <button onClick={() => handleClick()}>更新</button>
-            <button onClick={() => itemDelete()}>削除</button>
+            <button className="post-updateBtn" onClick={() => handleClick()}>
+              更新
+            </button>
+            <button className="post-deleteBtn" onClick={() => itemDelete()}>
+              削除
+            </button>
           </div>
         ) : (
           <div className="buyBtnBlock">
