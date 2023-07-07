@@ -16,9 +16,11 @@ function TradingHistory(props) {
     oneUser,
     sellerChatData,
     buyerChatData,
+    tradingState,
+    setTradingState,
   } = props;
-  const [toggleSwitch, setToggleSwitch] = useState("trading");
   const [itemsChat, setItemsChat] = useState([]);
+  // const [tradingState, setTradingState] = useState("完了");
 
   const clickImg = (e) => {
     if (e.target.tagName === "polyline" || e.target.tagName === "path") return;
@@ -33,45 +35,8 @@ function TradingHistory(props) {
     setSelectFlag("card");
     setBeforeFlag("tradingHistory");
   };
-  const toggleChangeStatus = () => {
-    toggleSwitch === "trading"
-      ? setToggleSwitch("completion")
-      : setToggleSwitch("trading");
-  };
 
   useEffect(() => {
-    // let sellerChatDataSort = [].concat(sellerChatData);
-    let sellerChatDataSort = JSON.stringify(sellerChatData);
-    sellerChatDataSort = JSON.parse(sellerChatDataSort);
-    const sellerItems = [];
-    if (sellerChatDataSort.length !== 0) {
-      sellerChatDataSort = sellerChatDataSort.sort(
-        (a, b) => b.chat_id - a.chat_id
-      );
-      sellerChatDataSort.forEach((elem1) => {
-        let flag = false;
-        sellerItems.forEach((elem2) => {
-          if (elem1.item_id === elem2.item_id) {
-            flag = true;
-          }
-        });
-        if (!flag && !elem1.seller_read_flag) {
-          sellerItems.push(elem1);
-        }
-      });
-
-      sellerItems.map((elem1) => {
-        let count = 0;
-        sellerChatDataSort.forEach((elem2) => {
-          if (elem1.item_id === elem2.item_id && !elem2.seller_read_flag) {
-            count++;
-          }
-        });
-        elem1.count = count;
-        return elem1;
-      });
-    }
-    // let buyerChatDataSort = [].concat(buyerChatData);
     let buyerChatDataSort = JSON.stringify(buyerChatData);
     buyerChatDataSort = JSON.parse(buyerChatDataSort);
     const buyerItems = [];
@@ -88,24 +53,29 @@ function TradingHistory(props) {
             flag = true;
           }
         });
-        if (!flag && !elem1.buyer_read_flag) {
+        if (!flag) {
           buyerItems.push(elem1);
         }
       });
 
-      buyerItems.map((elem1) => {
-        let count = 0;
-        buyerChatDataSort.forEach((elem2) => {
-          if (elem1.item_id === elem2.item_id && !elem1.buyer_read_flag) {
-            count++;
-          }
-        });
-        elem1.count = count;
-        return elem1;
-      });
+      // buyerItems.map((elem1) => {
+      //   let count = 0;
+      //   buyerChatDataSort.forEach((elem2) => {
+      //     if (elem1.item_id === elem2.item_id && !elem1.buyer_read_flag) {
+      //       count++;
+      //     }
+      //   });
+      //   elem1.count = count;
+      //   return elem1;
+      // });
+      console.log("buyerItems", buyerItems);
     }
-    setItemsChat([].concat(sellerItems, buyerItems));
+    setItemsChat(buyerItems);
   }, [selectFlag]);
+
+  const changeState = (state) => {
+    setTradingState(state);
+  };
 
   return (
     <div className="tradingHistory-list-box">
@@ -115,113 +85,121 @@ function TradingHistory(props) {
           onClick={() => setSelectFlag("myPage")}
         />
         <div className="tradingHistory-title-box">
-          <h2 className="tradingHistory-title">取引画面</h2>
-          <GrTransaction className="exhibition-title-icon" />
+          <h2 className="tradingHistory-title">取引管理</h2>
+          <GrTransaction className="tradingHistory-title-icon" />
         </div>
         <div className="tradingHistory-position-adjustment"></div>
       </div>
-
-      {toggleSwitch === "trading" ? (
+      <div className="tradingHistory-toggle-box">
+        <div
+          className={`tradingHistory-toggle-name ${
+            tradingState === "完了" && "tradingHistory-color"
+          }`}
+        >
+          <p onClick={() => changeState("完了")}>完了</p>
+        </div>
+        <div
+          className={`tradingHistory-toggle-name ${
+            tradingState === "取引中" && "tradingHistory-color"
+          }`}
+        >
+          <p onClick={() => changeState("取引中")}>取引中</p>
+        </div>
+      </div>
+      {tradingState === "完了" && (
         <>
-          <div className="tradingHistory-toggle-switch">
-            <div className="tradingHistory-trading-history-white">
-              <p className="tradingHistory-toggle-text">取引中</p>
-            </div>
-            <div
-              className="tradingHistory-completion-gray"
-              onClick={() => toggleChangeStatus()}
-            >
-              <p className="tradingHistory-toggle-text">完了</p>
-            </div>
-          </div>
           <div className="tradingHistory-trading-history-box"></div>
           <ul className="tradingHistory-image-list">
             {itemsChat.length !== 0 &&
-              itemsChat.map((item) => (
-                <li
-                  key={`tradingHistory1_${item.id}`}
-                  className="tradingHistory-image-item"
-                >
-                  <div className="tradingHistory-image-box">
-                    <div className="tradingHistory-imgBlock">
-                      <img
-                        src={JSON.parse(item.item_img)[0]}
-                        alt={item.item_name}
-                      ></img>
-                      <div className="tradingHistory-info">
-                        {item.buyer_id === oneUser.id ? (
-                          <>
-                            <p>受け取り商品</p>
-                          </>
-                        ) : (
-                          <>
-                            <p>差し出し商品</p>
-                          </>
-                        )}
-                        <p>商品名:{item.item_name}</p>
-                        <p>通知が{item.count}件あります。</p>
+              itemsChat
+                .filter((elem) => {
+                  console.log("itemsChat", itemsChat);
+                  if (
+                    elem.buyer_id === oneUser.id &&
+                    elem.soldBuyer_id !== null
+                  ) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })
+                .map((item) => {
+                  console.log("item-----------------", item);
+                  return (
+                    <li
+                      key={`tradingHistory1_${item.id}`}
+                      className="tradingHistory-image-item"
+                    >
+                      <div className="tradingHistory-image-box">
+                        <div className="tradingHistory-imgBlock">
+                          <img
+                            src={JSON.parse(item.item_img)[0]}
+                            alt={item.item_name}
+                          ></img>
+                          <div className="tradingHistory-info">
+                            <p>商品名:{item.item_name}</p>
+                            <p>受取日:{item.send_date.split("T")[0]}</p>
+                          </div>
+                        </div>
+                        <IoIosArrowForward
+                          className="tradingHistory-contents-icon"
+                          id={item.id}
+                          onClick={(e) => {
+                            clickImg(e);
+                          }}
+                        />
                       </div>
-                    </div>
-                    <IoIosArrowForward
-                      className="tradingHistory-contents-icon"
-                      id={item.id}
-                      onClick={(e) => {
-                        clickImg(e);
-                      }}
-                    />
-                  </div>
-                </li>
-              ))}
+                    </li>
+                  );
+                })}
           </ul>
         </>
-      ) : (
+      )}
+      {tradingState === "取引中" && (
         <>
-          <div className="tradingHistory-toggle-switch">
-            <div
-              className="tradingHistory-trading-history-gray"
-              onClick={() => toggleChangeStatus()}
-            >
-              <p className="tradingHistory-toggle-text">取引中</p>
-            </div>
-            <div className="tradingHistory-completion-white">
-              <p className="tradingHistory-toggle-text">完了</p>
-            </div>
-          </div>
           <ul className="tradingHistory-image-list">
-            {purchaseList.length !== 0 &&
-              purchaseList.map((item) => (
-                <li
-                  key={`tradingHistory2_${item.id}`}
-                  className="tradingHistory-image-item"
-                >
-                  <div className="tradingHistory-image-box">
-                    <div className="tradingHistory-imgBlock">
-                      <img src={item.item_img[0]} alt={item.item_name}></img>
-                      <div className="tradingHistory-info">
-                        {item.soldBuyer_id === oneUser.id ? (
-                          <>
-                            <p>受け取り商品</p>
-                          </>
-                        ) : (
-                          <>
-                            <p>差し出し商品</p>
-                          </>
-                        )}
-                        <p>商品名:{item.item_name}</p>
-                        <p>期限:{item.item_deadline.split("T")[0]}</p>
-                        <p>商品の状態:{item.item_status}</p>
+            {itemsChat.length !== 0 &&
+              itemsChat
+                .filter((elem) => {
+                  console.log("itemsChat", itemsChat);
+                  if (
+                    elem.buyer_id === oneUser.id &&
+                    elem.soldBuyer_id === null
+                  ) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })
+                .map((item) => {
+                  console.log("item-----------------", item);
+                  return (
+                    <li
+                      key={`tradingHistory1_${item.id}`}
+                      className="tradingHistory-image-item"
+                    >
+                      <div className="tradingHistory-image-box">
+                        <div className="tradingHistory-imgBlock">
+                          <img
+                            src={JSON.parse(item.item_img)[0]}
+                            alt={item.item_name}
+                          ></img>
+                          <div className="tradingHistory-info">
+                            <p>商品名:{item.item_name}</p>
+                            <p>期限:{item.item_deadline.split("T")[0]}</p>
+                          </div>
+                        </div>
+                        <IoIosArrowForward
+                          className="tradingHistory-contents-icon"
+                          id={item.id}
+                          onClick={(e) => {
+                            clickImg(e);
+                          }}
+                        />
                       </div>
-                    </div>
-                    <IoIosArrowForward
-                      className="tradingHistory-contents-icon"
-                      id={item.id}
-                      onClick={(e) => {
-                        clickImg(e);
-                      }}
-                    />
-                  </div>
-                </li>
-              ))}
+                    </li>
+                  );
+                })}
           </ul>
         </>
       )}
