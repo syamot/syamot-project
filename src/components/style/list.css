@@ -7,7 +7,7 @@ body {
   /* max-width: 100px; */
   /* margin: 5px; */
   /* border-radius: 1vh; */
-  width: 150px;
+  width: 165px;
   height: 120px;
   object-fit: cover;
   /* border-radius: 8px; */
@@ -15,7 +15,7 @@ body {
   outline: none;
   /* box-shadow: 0 5px 5px #00000067; */
   position: relative;
-  top: -3px;
+  top: -4px;
 }
 
 .list-image-box {
@@ -37,8 +37,8 @@ li.image-item {
   list-style: none;
   margin: 10px;
   object-fit: cover;
-  width: 150px;
-  height: 150px;
+  width: 165px;
+  height: 180px;
 }
 
 ul.list-image-list {
@@ -56,6 +56,76 @@ ul.list-image-list {
 .list-item-p {
   margin: 0px;
 }
+
+/* 在庫あり */
+.list-item-p2 {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem 0.4rem 0.2rem 1rem;
+  color: #000000;
+  border-radius: 100vh 0 0 100vh;
+  background: #3bea78;
+  font-size: 0.8rem;
+}
+
+.list-item-p2:before {
+  position: absolute;
+  top: calc(50% - 5px);
+  left: 4px;
+  width: 7px;
+  height: 7px;
+  content: "";
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* 取引中 */
+.list-item-p3 {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem 0.4rem 0.2rem 1rem;
+  color: #fff;
+  border-radius: 100vh 0 0 100vh;
+  background: #fa4141;
+  font-size: 0.8rem;
+}
+
+.list-item-p3:before {
+  position: absolute;
+  top: calc(50% - 5px);
+  left: 4px;
+  width: 7px;
+  height: 7px;
+  content: "";
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* それ以外 */
+.list-item-p4 {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem 0.4rem 0.2rem 1rem;
+  color: #fff;
+  border-radius: 100vh 0 0 100vh;
+  background: #434343;
+  font-size: 0.8rem;
+}
+
+.list-item-p4:before {
+  position: absolute;
+  top: calc(50% - 5px);
+  left: 4px;
+  width: 7px;
+  height: 7px;
+  content: "";
+  border-radius: 50%;
+  background: #fff;
+}
+
 .list-mainBrock-list {
   position: fixed;
   top: 22vh;

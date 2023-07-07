@@ -293,6 +293,13 @@ function List(props) {
                       }}
                     />
                     <p className="list-item-p">{item.item_name}</p>
+                    {item.item_status === "在庫あり" ? (
+                      <p className="list-item-p2">{item.item_status}</p>
+                    ) : item.item_status === "取引中" ? (
+                      <p className="list-item-p3">{item.item_status}</p>
+                    ) : (
+                      <p className="list-item-p4">{item.item_status}</p>
+                    )}
                   </div>
                 </li>
               ))
