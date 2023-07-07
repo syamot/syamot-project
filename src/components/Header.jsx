@@ -92,6 +92,11 @@ const Header = (props) => {
             pageHandler();
           }}
         />
+        {/* <img
+          src="photo/syamotIcon.png"
+          alt="syamotIcon"
+          className="header-syamotIcon"
+        /> */}
         <h1 className="header-header1">Syamo-t</h1>
         <FaUserCircle
           className="header-userIcon"
