@@ -392,7 +392,7 @@ app.put("/putItemStatusCancel", async (req, res) => {
 // 完了ステータス更新
 app.put("/putCompleteStatus", async (req, res) => {
   const obj = req.body;
-  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
+  // console.log("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶");
   // console.log(obj.id);
   try {
     await knex("items")
