@@ -34,6 +34,13 @@ const Transaction = (props) => {
     .user_name;
 
   // const socket = io("http://localhost:8000");
+  const chatBlockRef = useRef(null);
+
+  useEffect(() => {
+    // 投稿が追加されたら最下端にスクロールする処理
+    const chatBlock = chatBlockRef.current;
+    chatBlock.scrollTop = chatBlock.scrollHeight;
+  }, [chatData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -595,7 +602,7 @@ const Transaction = (props) => {
       </div>
 
       <div className="transaction-mainBlock">
-        <div className="transaction-chatBlock">
+        <div className="transaction-chatBlock" ref={chatBlockRef}>
           {chatData.map((chat, index) => {
             // console.log(chat);
             if (
