@@ -71,18 +71,71 @@
   align-items: center;
 }
 
+/* ここ　送信者 */
 .transaction-sendMessageBlock {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: flex-end;
   align-items: center;
   border: black;
-  width: 100%;
+  width: 100%; */
+
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 13rem;
+  margin: 1rem;
+  /* padding: 0.8em 1.2em; */
+  border: 0.5px solid #8f8f8f;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333333;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  width: fit-content;
+  top: 0px;
+  margin-right: 1rem;
+  margin-left: auto;
 }
 
-.transaction-otherMessage {
+/* .transaction-sendMessageBlock {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 300px;
+  margin-right: 15px;
+  padding: 0.8em 1.2em;
+  border: 3px solid #adadad;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333333;
+} */
+
+.transaction-sendMessageBlock::before,
+.transaction-sendMessageBlock::after {
+  position: absolute;
+  right: -12px;
+  width: 12px;
+  height: 18px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  content: "";
+  top: 0.5rem;
+}
+
+.transaction-sendMessageBlock::before {
+  background-color: #adadad;
+}
+
+.transaction-sendMessageBlock::after {
+  right: -11px;
+  background-color: #fff;
+}
+
+/* ここ 相手*/
+/* .transaction-otherMessage {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -90,19 +143,49 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-}
-
-/* .transaction-messageContent {
-  font-size: 1vh;
-  text-align: center;
-  vertical-align: middle;
-  border-bottom: 0.5px solid #333;
-  padding: 20px 0.5px 0px 0px;
-  margin: 1vh;
 } */
 
+.transaction-otherMessage {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 13rem;
+  width: fit-content;
+  margin: 1rem;
+  /* padding: 0.8em 1.2em; */
+  border: 0.5px solid #8f8f8f;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333333;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.transaction-otherMessage ::before,
+.transaction-otherMessage ::after {
+  position: absolute;
+  left: -12px;
+  width: 12px;
+  height: 18px;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  content: "";
+  top: 0.5rem;
+}
+
+.transaction-otherMessage ::before {
+  background-color: #8f8f8f;
+}
+
+.transaction-otherMessage ::after {
+  left: -11px;
+  background-color: #fff;
+}
+
+/* ・・・ */
+
 .transaction-statusMessageContent {
-  font-size: 1vh;
+  font-size: 0.8rem;
   text-align: center;
   vertical-align: middle;
   border-bottom: 0.5px solid #333;
@@ -122,13 +205,13 @@
 
 .transaction-messageContent {
   font-size: 1.8vh;
-  border: 1px solid #333;
+  /* border: 1px solid #333; */
   border-radius: 8px;
   vertical-align: middle;
-  padding: 1vh;
+  /* padding: 1vh; */
   margin: 1vh;
   border-radius: 2vh;
-  max-width: 13em;
+  max-width: 13rem;
 }
 
 .transaction-footerBlock {
