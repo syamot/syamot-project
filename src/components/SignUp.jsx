@@ -1,8 +1,26 @@
 import React, { useState } from "react";
 import { sha512 } from "js-sha512";
-
+import "./style/signIn.css";
+import Modal from "./Modal";
 const SignUp = (props) => {
-  const { setSelectFlag, setAdduser, setMessage } = props;
+  const { setSelectFlag, setAdduser, setMessage, selectFlag } = props;
+  // modalFlag
+  const [signUp_modalVisible, setSignUp_ModalVisible] = useState(false);
+  //modalによる承認事項表示
+  const signUpModalOpen = () => {
+    if (
+      employeeCode !== "" &&
+      userName !== "" &&
+      userPass !== "" &&
+      userTMCmail !== "" &&
+      userPrivatEmail !== "" &&
+      location !== "" &&
+      area !== ""
+    ) {
+      console.log(selectFlag);
+      setSignUp_ModalVisible(true);
+    }
+  };
 
   const [employeeCode, setEmployeeCode] = useState("");
   const changeCode = (e) => {
@@ -56,33 +74,33 @@ const SignUp = (props) => {
 
   // 次のコンポーネントに渡す新規登録情報
   const createAddUser = () => {
-    // パスワードのハッシュ化
-    const hashedPassword = sha512(userPass);
-    const registration_date = getCurrentTime();
-    setAdduser({
-      password: hashedPassword,
-      user_name: userName,
-      employee_code: employeeCode,
-      area: area,
-      residence: location,
-      tmc_e_mail: userTMCmail,
-      private_e_mail: userPrivatEmail,
-      registration_date: registration_date,
-      favorite: JSON.stringify([]),
-    });
-    const min = 1000; // 4桁の最小値
-    const max = 9999; // 4桁の最大値
-    setMessage(Math.floor(Math.random() * (max - min + 1)) + min);
-    setSelectFlag("signUp2");
+    setTimeout(() => {
+      // パスワードのハッシュ化
+      const hashedPassword = sha512(userPass);
+      const registration_date = getCurrentTime();
+      setAdduser({
+        password: hashedPassword,
+        user_name: userName,
+        employee_code: employeeCode,
+        area: area,
+        residence: location,
+        tmc_e_mail: userTMCmail,
+        private_e_mail: userPrivatEmail,
+        registration_date: registration_date,
+        favorite: JSON.stringify([]),
+      });
+      const min = 1000; // 4桁の最小値
+      const max = 9999; // 4桁の最大値
+      setMessage(Math.floor(Math.random() * (max - min + 1)) + min);
+      setSelectFlag("signUp2");
+    }, 200);
   };
 
   return (
     <>
-      <div className="loginMainBrock">
-        <div className="loginBrock2">
-          <h1 className="createHead ">
-            <span>アカウント新規作成</span>
-          </h1>
+      <div className="signUpMainBrock">
+        <div className="signUpBrock">
+          <h1 className="createHead ">Create Account</h1>
           <input
             placeholder="従業員コード"
             type="text"
@@ -122,73 +140,91 @@ const SignUp = (props) => {
             className="location"
             onChange={(e) => changeLocation(e)}
           />
-          <select onChange={(e) => changeArea(e)} className="area">
-            <option value="">会社寮一覧</option>
-            {/* 大林エリア*/}
-            <option value="大林寮">大林和風寮</option>
-            <option value="大林清風寮">大林清風寮</option>
-            <option value="第2大林和風寮">第2大林和風寮</option>
-            <option value="第3大林和風寮">第3大林和風寮</option>
-            <option value="第4大林和風寮">第4大林和風寮</option>
-            <option value="ｱﾋﾞﾘｵ大林">ｱﾋﾞﾘｵ大林</option>
-            <option value="大林国際ｾﾝﾀｰ">大林国際ｾﾝﾀｰ</option>
-            <option value="永覚ﾚｼﾞﾃﾞﾝｽ">永覚ﾚｼﾞﾃﾞﾝｽ</option>
-            {/* 平山エリア*/}
-            <option value="平山豊和寮">平山豊和寮</option>
-            <option value="第2平山豊和寮">第2平山豊和寮</option>
-            <option value="第3平山豊和寮">第3平山豊和寮</option>
-            <option value="第4平山豊和寮">第4平山豊和寮</option>
-            <option value="平山ﾚｼﾞﾃﾞﾝｽ">平山ﾚｼﾞﾃﾞﾝｽ</option>
-            <option value="ﾚｼﾞﾃﾞﾝｽ平山">ﾚｼﾞﾃﾞﾝｽ平山</option>
-            {/* 聖心エリア*/}
-            <option value="ｱﾋﾞﾘｵ聖心寮">ｱﾋﾞﾘｵ聖心寮</option>
-            <option value="ﾚｼﾞﾃﾞﾝｽ聖心寮">ﾚｼﾞﾃﾞﾝｽ聖心寮</option>
-            <option value="第2聖心清風寮">第2聖心清風寮</option>
-            <option value="田中清風寮">田中清風寮</option>
-            {/* 小川エリア*/}
-            <option value="小川清風寮">小川清風寮</option>
-            {/* 高岡エリア*/}
-            <option value="高岡清風寮">高岡清風寮</option>
-            <option value="高岡和風寮">高岡和風寮</option>
-            <option value="第2高岡和風寮">第2高岡和風寮</option>
-            <option value="第3高岡和風寮">第3高岡和風寮</option>
-            <option value="ﾚｼﾞﾃﾞﾝｽ高岡寮">ﾚｼﾞﾃﾞﾝｽ高岡寮</option>
-            {/* 日進エリア*/}
-            <option value="レーヴ日進">レーヴ日進</option>
-            {/* 三好ヶ丘エリア*/}
-            <option value="レーヴ三好ヶ丘">レーヴ日進</option>
-            {/* 衣浦エリア*/}
-            <option value="ｱﾋﾞﾘｵ衣浦寮">ｱﾋﾞﾘｵ衣浦寮</option>
-            <option value="ｱﾋﾞﾘｵ第5衣浦寮">ｱﾋﾞﾘｵ第5衣浦寮</option>
-            {/* 田原エリア*/}
-            <option value="第1田原寮">第1田原寮</option>
-            <option value="第3田原寮">第3田原寮</option>
-            <option value="第5田原寮">第5田原寮</option>
-            <option value="第6田原寮">第6田原寮</option>
-            <option value="第1滝頭寮">第1滝頭寮</option>
-            <option value="第2滝頭寮">第2滝頭寮</option>
-            <option value="第3滝頭寮">第3滝頭寮</option>
-            <option value="吉胡寮">吉胡寮</option>
-            {/* 東富士エリア*/}
-            <option value="第2東富士寮">第2東富士寮</option>
-          </select>
+          <div className="signIn-selectbox">
+            <select onChange={(e) => changeArea(e)} className="area">
+              <option value="">会社寮一覧</option>
+              {/* 大林エリア*/}
+              <option value="大林寮">大林和風寮</option>
+              <option value="大林清風寮">大林清風寮</option>
+              <option value="第2大林和風寮">第2大林和風寮</option>
+              <option value="第3大林和風寮">第3大林和風寮</option>
+              <option value="第4大林和風寮">第4大林和風寮</option>
+              <option value="ｱﾋﾞﾘｵ大林">ｱﾋﾞﾘｵ大林</option>
+              <option value="大林国際ｾﾝﾀｰ">大林国際ｾﾝﾀｰ</option>
+              <option value="永覚ﾚｼﾞﾃﾞﾝｽ">永覚ﾚｼﾞﾃﾞﾝｽ</option>
+              {/* 平山エリア*/}
+              <option value="平山豊和寮">平山豊和寮</option>
+              <option value="第2平山豊和寮">第2平山豊和寮</option>
+              <option value="第3平山豊和寮">第3平山豊和寮</option>
+              <option value="第4平山豊和寮">第4平山豊和寮</option>
+              <option value="平山ﾚｼﾞﾃﾞﾝｽ">平山ﾚｼﾞﾃﾞﾝｽ</option>
+              <option value="ﾚｼﾞﾃﾞﾝｽ平山">ﾚｼﾞﾃﾞﾝｽ平山</option>
+              {/* 聖心エリア*/}
+              <option value="ｱﾋﾞﾘｵ聖心寮">ｱﾋﾞﾘｵ聖心寮</option>
+              <option value="ﾚｼﾞﾃﾞﾝｽ聖心寮">ﾚｼﾞﾃﾞﾝｽ聖心寮</option>
+              <option value="第2聖心清風寮">第2聖心清風寮</option>
+              <option value="田中清風寮">田中清風寮</option>
+              {/* 小川エリア*/}
+              <option value="小川清風寮">小川清風寮</option>
+              {/* 高岡エリア*/}
+              <option value="高岡清風寮">高岡清風寮</option>
+              <option value="高岡和風寮">高岡和風寮</option>
+              <option value="第2高岡和風寮">第2高岡和風寮</option>
+              <option value="第3高岡和風寮">第3高岡和風寮</option>
+              <option value="ﾚｼﾞﾃﾞﾝｽ高岡寮">ﾚｼﾞﾃﾞﾝｽ高岡寮</option>
+              {/* 日進エリア*/}
+              <option value="レーヴ日進">レーヴ日進</option>
+              {/* 三好ヶ丘エリア*/}
+              <option value="レーヴ三好ヶ丘">レーヴ日進</option>
+              {/* 衣浦エリア*/}
+              <option value="ｱﾋﾞﾘｵ衣浦寮">ｱﾋﾞﾘｵ衣浦寮</option>
+              <option value="ｱﾋﾞﾘｵ第5衣浦寮">ｱﾋﾞﾘｵ第5衣浦寮</option>
+              {/* 田原エリア*/}
+              <option value="第1田原寮">第1田原寮</option>
+              <option value="第3田原寮">第3田原寮</option>
+              <option value="第5田原寮">第5田原寮</option>
+              <option value="第6田原寮">第6田原寮</option>
+              <option value="第1滝頭寮">第1滝頭寮</option>
+              <option value="第2滝頭寮">第2滝頭寮</option>
+              <option value="第3滝頭寮">第3滝頭寮</option>
+              <option value="吉胡寮">吉胡寮</option>
+              {/* 東富士エリア*/}
+              <option value="第2東富士寮">第2東富士寮</option>
+            </select>
+          </div>
           {/* <input
             placeholder="居住エリア"
             type="text"
             className="area"
             onChange={(e) => changeArea(e)}
           /> */}
-          <button
-            className="btn createAccountBtn"
-            onClick={() => createAddUser()}
-          >
-            新規作成
-          </button>
-          <h6 className="btn" onClick={() => setSelectFlag("signIn")}>
-            ログイン画面に戻る
-          </h6>
+          <div className="signUp-btn-block">
+            <button
+              className="btn createAccountBtn"
+              onClick={() => {
+                signUpModalOpen();
+                // createAddUser()
+              }}
+            >
+              Create new
+            </button>
+            <h5
+              className="signUp-back btn"
+              onClick={() => setSelectFlag("signIn")}
+            >
+              Return to login screen
+            </h5>
+          </div>
         </div>
       </div>
+      {signUp_modalVisible && (
+        <Modal
+          selectFlag={selectFlag}
+          modalVisible={signUp_modalVisible}
+          createAddUser={createAddUser}
+          setModalVisible={setSignUp_ModalVisible}
+        />
+      )}
     </>
   );
 };

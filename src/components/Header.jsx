@@ -1,145 +1,122 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { BsBell } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidCircle } from "react-icons/bi";
+import { ImHome } from "react-icons/im";
 
 import "./style/header.css";
 
 const Header = (props) => {
-  const { setSelectFlag, selectFlag, setUpDataFlag, setBeforeFlag } = props;
+  const {
+    setSelectFlag,
+    selectImg,
+    URL,
+    oneUser,
+    sellerChatData,
+    setSellerChatData,
+    buyerChatData,
+    setBuyerChatData,
+  } = props;
   const pageHandler = () => {
     setSelectFlag("list");
-    setBeforeFlag("");
+    // setBeforeFlag("");
   };
   const changeMyPage = () => {
     setSelectFlag("myPage");
-    setBeforeFlag("");
-  };
-  const upData = () => {
-    setUpDataFlag(true);
+    // setBeforeFlag("");
   };
 
-  if (selectFlag === "list") {
-    return (
-      <>
-        <header>
-          <GrUpdate
-            className="up-data-icon"
-            onClick={() => {
-              upData();
-            }}
-          />
-          <h1 className="header1">シャモティ</h1>
-          <div className="userIcon-box">
-            <FaUserCircle
-              className="userIcon"
-              onClick={() => {
-                changeMyPage();
-              }}
-            />
-            <div className="circleIcon-box">
-              <BiSolidCircle className="circleIcon" />
-              <p className="circleIcon-number">1</p>
-            </div>
-          </div>
-        </header>
-      </>
-    );
-  } else if (
-    selectFlag === "card" ||
-    selectFlag === "transaction" ||
-    selectFlag === "post" ||
-    selectFlag === "contactList"
-  ) {
-    return (
-      <>
-        <header>
-          <IoIosArrowBack
-            className="backIcon"
-            onClick={() => {
-              pageHandler();
-            }}
-          />
-          <h1 className="header1">シャモティ</h1>
-          <div className="userIcon-box">
-            <FaUserCircle
-              className="userIcon"
-              onClick={() => {
-                changeMyPage();
-              }}
-            />
-            <div className="circleIcon-box">
-              <BiSolidCircle className="circleIcon" />
-              <p className="circleIcon-number">1</p>
-            </div>
-          </div>
-        </header>
-      </>
-    );
-  } else if (
-    selectFlag === "profile" ||
-    selectFlag === "notification" ||
-    selectFlag === "exhibitionList" ||
-    selectFlag === "favorite" ||
-    selectFlag === "purchaseList" ||
-    selectFlag === "tradingHistory"
-  ) {
-    return (
-      <>
-        <header>
-          <IoIosArrowBack
-            className="backIcon"
-            onClick={() => {
-              setSelectFlag("myPage");
-            }}
-          />
+  // const [sellerChatData, setSellerChatData] = useState();
+  // const [buyerChatData, setBuyerChatData] = useState();
 
-          <h1 className="header1">シャモティ</h1>
-          <div className="bellIcon-box">
-            <BsBell
-              className="bellIcon"
-              onClick={() => {
-                setSelectFlag("tradingHistory");
-              }}
-            />
-            <div className="circleIcon-box">
-              <BiSolidCircle className="circleIcon" />
-              <p className="circleIcon-number">1</p>
-            </div>
-          </div>
-        </header>
-      </>
-    );
-  } else if (selectFlag === "myPage") {
-    return (
-      <>
-        <header>
-          <IoIosArrowBack
-            className="backIcon"
+  //item_id毎のchatDataを取得
+  useEffect(() => {
+    const fetchData = async () => {
+      // console.log("URL", URL);
+      const chat = await fetch(URL + "/chatAllData");
+      const chatJson = await chat.json();
+      // console.log("##############################");
+      // // console.log(selectImg);
+      // console.log("chatJson:", chatJson);
+      // console.log("oneUser:", oneUser);
+
+      if (oneUser !== undefined) {
+        // console.log("スタート");
+        // 自分の送信したチャットのみ取得
+        const sellerFilterChat = chatJson.filter(
+          (e) => e.seller_id === oneUser.id
+        );
+        // console.log("🥶🥶🥶🥶🥶sellerFilterChat:", sellerFilterChat);
+        setSellerChatData(sellerFilterChat);
+        // 自分の送信したチャットのみ取得
+        const buyerFilterChat = chatJson.filter(
+          (e) => e.buyer_id === oneUser.id
+        );
+        // console.log("buyerFilterChat:", buyerFilterChat);
+        setBuyerChatData(buyerFilterChat);
+      }
+    };
+    //0.5秒ごとにチャット内容更新
+    const interval = setInterval(fetchData, 500);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [oneUser]);
+
+  const buyerReadCount =
+    buyerChatData === undefined
+      ? 0
+      : buyerChatData.filter((e) => {
+          // console.log("oneUserChatData.filter", e);
+          return e.buyer_read_flag === false;
+        }).length;
+  const sellerReadCount =
+    sellerChatData === undefined
+      ? 0
+      : sellerChatData.filter((e) => {
+          // console.log("oneUserChatData.filter", e);
+          return e.seller_read_flag === false;
+        }).length;
+  const readCount = sellerReadCount + buyerReadCount;
+  // console.log("readCount=====", readCount);
+
+  return (
+    <>
+      <header className="header-head">
+        <ImHome
+          className="header-backIcon"
+          onClick={() => {
+            pageHandler();
+          }}
+        />
+        {/* <img
+          src="photo/syamotIcon.png"
+          alt="syamotIcon"
+          className="header-syamotIcon"
+        /> */}
+        <h1 className="header-header1">Syamo-t</h1>
+        <div className="header-userIcon-FaUserCircle">
+          <FaUserCircle
+            className="header-userIcon"
             onClick={() => {
-              setSelectFlag("list");
+              changeMyPage();
             }}
           />
-
-          <h1 className="header1">シャモティ</h1>
-          <div className="bellIcon-box">
-            <BsBell
-              className="bellIcon"
-              onClick={() => {
-                setSelectFlag("tradingHistory");
-              }}
-            />
+          {readCount !== 0 ? (
             <div className="circleIcon-box">
               <BiSolidCircle className="circleIcon" />
-              <p className="circleIcon-number">1</p>
+              <p className="circleIcon-number">{readCount}</p>
             </div>
-          </div>
-        </header>
-      </>
-    );
-  }
+          ) : (
+            <div className="circleIcon_fake"></div>
+          )}
+        </div>
+      </header>
+    </>
+  );
 };
 
 export default Header;

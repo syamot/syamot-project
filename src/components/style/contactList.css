@@ -1,7 +1,120 @@
-.contactlist {
-  display: block;
-  justify-content: center;
-  border-style: solid double groove ridge;
-  border-color: burlywood;
-  background-color: rgba(255, 255, 255, 1);
+h2.contactList-title {
+  margin: 0px;
+}
+
+.contactList-list-box {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: fixed;
+  top: 10vh;
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
+  max-height: 90vh;
+  display: flex;
+  height: 83vh;
+  overflow-y: scroll;
+  align-items: stretch;
+}
+
+.contactList-piece {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2vh 0;
+  border-bottom: solid 0.1px;
+  border-color: #a0a0a0;
+}
+
+.contactList-navi-icon {
+  margin: 0px 1.5vh;
+  width: 4vh;
+  height: 4vh;
+}
+
+.contactList-position-adjustment {
+  width: 45px;
+}
+
+.contactList-userIcon {
+  width: 8vh;
+  height: 8vh;
+  color: #0d4c92;
+  margin-left: 4vh;
+}
+
+/* img */
+.contactList-image-box img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 5px 5px #00000067;
+}
+
+.contactList-image-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: solid 0.1px;
+  border-color: #a0a0a0;
+  flex-wrap: nowrap;
+  padding: 2vh 0;
+  padding-right: 4vh;
+  justify-content: flex-start;
+}
+
+.contactList-imgBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+/*
+li.contact-image-item {
+  list-style-type: none;
+} */
+
+ul.contactList-image-list {
+  margin-top: 0;
+  padding-left: 0;
+  width: 100%;
+}
+
+.contactList-nextIcon {
+  position: absolute;
+  right: 4vh;
+  height: 5vh;
+  width: 5vh;
+}
+/* imgのブロック */
+.contactList-imgBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+/* textのブロック */
+.contactList-info {
+  position: relative;
+  display: flex;
+  left: -2vh;
+  top: -1vh;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contactList-infoBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contactList-info p {
+  margin: 40px;
+  margin-top: 13px;
+  margin-bottom: 0px;
+  font-size: 14px;
 }

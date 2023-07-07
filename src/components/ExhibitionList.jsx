@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Modal from "./Modal";
 import "./style/exhibitionList.css";
-import { GrNext } from "react-icons/gr";
-import { BiEdit } from "react-icons/bi";
 import { AiFillWarning } from "react-icons/ai";
-// import { ImWarning } from "react-icons/im";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import { PiUserList } from "react-icons/pi";
+
 const ExhibitionList = (props) => {
   const {
     items,
@@ -16,14 +18,16 @@ const ExhibitionList = (props) => {
     setBeforeFlag,
     setEditItem,
   } = props;
+  const [modalVisible, setModalVisible] = useState(false);
 
-  // const clickImg = (e) => {
-  //   setSelectImg(items[e.target.id]);
-  // };
+  useEffect(() => {
+    console.log("modalVisible", modalVisible);
+    console.log("selectFlag", selectFlag);
+  }, [modalVisible, selectFlag]);
 
   const clickImg = (e) => {
     console.log(e.target);
-    if (e.target.tagName === "polyline") return;
+    if (e.target.tagName === "polyline" || e.target.tagName === "path") return;
     let item;
     let numTargetId = Number(e.target.id);
     items.forEach((elem) => {
@@ -33,66 +37,52 @@ const ExhibitionList = (props) => {
     });
     setSelectImg(item);
     setSelectFlag("card");
+    setBeforeFlag("exhibitionList");
   };
 
-  const editItem = (e) => {
-    // console.log("editItem入れるよ====", exhibitList[0].id);
-    console.log("tagName=====", e.target.tagName);
-    if (e.target.tagName === "path") return;
-    let item = exhibitList.filter((elem) => elem.id === Number(e.target.id));
-    console.log("editItem入れるよ====", item);
-    setEditItem(item[0]);
-    console.log(selectFlag);
-    setBeforeFlag(selectFlag);
-    setSelectFlag("post");
-  };
-
-  // useEffect(()=>{
-  //   if(deadLineList.length!==0){
-
-  //   }
-  // },[])
   return (
-    <div className="exhibition-list-box">
-      <div className="exhibition-piece">
-        <h2 className="exhibition-title">出品リスト</h2>
-      </div>
-      <div>
+    <>
+      <div className="exhibition-list-box">
+        <div className="exhibition-piece">
+          <IoIosArrowBack
+            className="exhibition-navi-icon"
+            onClick={() => setSelectFlag("myPage")}
+          />
+          <div className="exhibition-title-box">
+            <h2 className="exhibition-title">出品リスト</h2>
+            <PiUserList className="exhibition-title-icon" />
+          </div>
+          <div className="exhibition-position-adjustment"></div>
+        </div>
+
         <ul className="exhibition-image-list">
           {exhibitList.length !== 0 &&
-            exhibitList.map((item, index) => (
+            exhibitList.map((item) => (
               <li
-                key={item.id}
-                className={
-                  deadLineList.some((obj) => obj.id === item.id)
-                    ? "exhibition-image-item active"
-                    : "exhibition-image-item"
-                }
+                key={`exhibitList_${item.id}`}
+                className="exhibition-image-item"
               >
                 <div className="exhibition-image-box">
-                  <div className="imgBlock">
+                  <div className="exhibition-imgBlock">
                     <img src={item.item_img[0]} alt={item.item_name}></img>
-                    <div className="EditIconBlock">
-                      <BiEdit
-                        className="editIcon"
-                        id={item.id}
-                        onClick={(e) => editItem(e)}
-                      />
+                    <div className="exhibition-info">
+                      <p>商品名:{item.item_name}</p>
+                      <div className="exhibition-warning">
+                        <p>期限:{item.item_deadline.split("T")[0]}</p>
+                        {deadLineList.some((obj) => obj.id === item.id) && (
+                          <AiFillWarning
+                            className="exhibition-warningIcon"
+                            onClick={() => {
+                              setModalVisible(true);
+                            }}
+                          />
+                        )}
+                      </div>
+                      <p>商品の状態:{item.item_status}</p>
                     </div>
                   </div>
-                  <div className="exhibition-info">
-                    {deadLineList.some((obj) => obj.id === item.id) && (
-                      <div className="warningBlock">
-                        <AiFillWarning className="warningIcon" />
-                        <span className="warningText">期限切れ商品です！</span>
-                      </div>
-                    )}
-                    <p>商品名:{item.item_name}</p>
-                    <p>期限:{item.item_deadline.split("T")[0]}</p>
-                    <p>商品の状態:{item.item_status}</p>
-                  </div>
-                  <GrNext
-                    className="nextIcon"
+                  <IoIosArrowForward
+                    className="exhibition-contents-icon"
                     id={item.id}
                     onClick={(e) => {
                       clickImg(e);
@@ -103,7 +93,14 @@ const ExhibitionList = (props) => {
             ))}
         </ul>
       </div>
-    </div>
+      {modalVisible && (
+        <Modal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          selectFlag={selectFlag}
+        />
+      )}
+    </>
   );
 };
 

@@ -1,81 +1,111 @@
-/* body {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-} */
-.mainBrock {
-  position: fixed;
-  top: 12vh;
-  /* width: 93%; */
-  width: 97%;
-  margin-left: 1%;
-  margin-right: 2%;
-  height: 69vh;
-  max-height: 69vh;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  border-style: solid;
-  border-radius: 2vh;
-}
-
-.cardTitle {
+.card-mainBrock {
   position: relative;
-  top: 27vh;
-}
-
-.imageBrock {
+  top: 10vh;
+  width: 98vw;
+  margin: 0 1vw;
+  height: 80vh;
+  max-height: 80vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   align-items: center;
+  /* width: 100%; */
+  /* padding-left: 1%; */
+  /* padding-right: 1%; */
+}
+
+.card-cardTitle {
+  position: absolute;
+  top: 0vh;
+  margin: 1vh auto;
+}
+
+.card-imageBrock {
   position: relative;
   top: 5vh;
-}
-.cardItemBrock {
+  width: 25vh;
+  margin: 0 5vw;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
+  align-items: center;
+  border-radius: 2vh;
+  height: 25vh;
+}
+.card-cardItemBrock {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   position: relative;
-  top: 12vh;
+  top: 8vh;
+  max-height: 38vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: gainsboro;
+  padding: 5px;
+  border-radius: 15px;
+  width: 85%;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
 }
-.goodIcon {
-  width: 5vh;
-  height: 5vh;
-  position: absolute;
-  top: 48%;
-  right: -45%;
+
+/*スクロールバー非表示（Chrome・Safari）*/
+.card-cardItemBrock::-webkit-scrollbar {
+  display: none;
+}
+
+.card-goodIcon {
+  width: 4vh;
+  height: 4vh;
+  /* position: absolute; */
+  /* top: 0vh; */
+  /* right: 0vw; */
   color: red;
-  z-index: 2;
+  /* z-index: 2; */
+  /* align-content: center; */
 }
-.cardItem {
-  font-size: 3vh;
+
+.card-editIcon {
+  width: 4vh;
+  height: 4vh;
+  /* position: absolute; */
+  /* top: 0vh; */
+  /* right: 0vw; */
+  color: rgb(0, 0, 0);
+  /* z-index: 2; */
+  /* align-content: center; */
+}
+
+.card-cardItem {
+  font-size: 1rem;
   margin-bottom: 1vh;
   margin-top: 1vh;
 }
-.cardItemTxtarea {
-  height: 11vh;
-  width: 52vh;
+.card-cardItemTxtarea {
+  height: 62px;
+  width: 80%;
   resize: none;
+  margin: 0px 7%;
+  padding: 3%;
+  border-radius: 3px;
+  max-width: 80%;
+  min-width: 80%;
+  min-height: 120%;
+
+  min-height: 5vh;
 }
-.itemImage {
+.card-itemImage {
   width: 25vh;
 }
-.buyBrock {
+.card-buyBrock {
   width: 100%;
   height: 8vh;
   display: flex;
@@ -85,11 +115,60 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 10vh;
+  bottom: 1vh;
 }
-.buyBtn {
+.card-buyBtn {
   width: 40vh;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
+
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+}
+
+.card-IconBrock {
+  width: 6vh;
+  height: 6vh;
+  position: absolute;
+  top: 1vh;
+  right: 1vh;
+  /* color: red; */
+  z-index: 2;
+  background-color: #ffffff;
+  border-radius: 3vh;
+  /* align-content: center; */
+  display: flex;
+  /* align-content: center; */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px 2px #666666;
+}
+
+.card-piece {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2vh 0;
+  border-bottom: solid 0.1px;
+  border-color: #a0a0a0;
+  position: absolute;
+  top: 1px;
+}
+
+.card-position-adjustment {
+  width: 45px;
+}
+.card-navi-icon {
+  margin: 0px 1.5vh;
+  width: 4vh;
+  height: 4vh;
+}
+h2.card-title {
+  margin: 0px;
 }
