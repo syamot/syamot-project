@@ -11,17 +11,24 @@
   text-align: center;
   /* border-color: #b3b3b3; */
   border-width: 1px;
-
 }
 
 .profile-piece-title {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* flex-direction: row; */
+  /* align-items: center; */
+  /* border-bottom: solid; */
+  /* border-color: #59c1bd; */
+  /* width: 100%; */
   display: flex;
-  justify-content: center;
-
   flex-direction: row;
   align-items: center;
-  border-bottom: solid;
-  border-color: #59c1bd;
+  justify-content: space-between;
+  width: 100%;
+  /* padding: 2vh 0; */
+  border-bottom: solid 2px;
+  border-color: #a0a0a0;
 }
 
 .profile-BiEdit {
@@ -52,6 +59,7 @@
   background-color: #ffffff;
   overflow-y: scroll;
   overflow-x: hidden;
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
 
 .profile-contents {
@@ -78,7 +86,6 @@
   top: -10.8vh;
   right: -48%;
   font-size: 2.5vh;
-
 }
 
 /* .profile-user {
@@ -108,11 +115,11 @@
   box-sizing: border-box;
   font-size: 1em;
   position: relative;
-  /* left: 2vh; */
   margin-bottom: 3vh;
-  text-align: center;
+  /* text-align: center; */
   /* border-color: #b3b3b3; */
   border-width: 1px;
+  font-family: "Saira Semi Condensed", sans-serif;
 }
 .profile-user {
   background-color: #efecec;
@@ -158,7 +165,7 @@
   padding-right: 3vh;
   background-color: #a0e4cb; */
 /* } */
-/* 
+/*
 .profile-location {
   margin-left: 10vh;
   margin-top: 1vh;
@@ -183,7 +190,9 @@
   background-color: #a0e4cb;
 } */
 .profile-h2 {
-  margin-left: 3vh;
+  /* margin-left: 3vh; */
+  margin: 0px;
+  font-size: 1.3em;
 }
 .profile-btn-createAccountBtn {
   margin: 8vh 8vh;

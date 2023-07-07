@@ -10,6 +10,7 @@
   display: flex;
   height: 90vh;
   overflow-y: scroll;
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
   align-items: center;
 }
 
@@ -33,6 +34,7 @@
 
 h2.tradingHistory-title {
   margin: 0px;
+  font-size: 1.3em;
 }
 
 .tradingHistory-title-icon {
