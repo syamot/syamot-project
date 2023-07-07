@@ -12,7 +12,6 @@ import { GrTransaction } from "react-icons/gr";
 const MyPage = (props) => {
   const { setSelectFlag, oneUser } = props;
 
-  console.log(oneUser);
   const logOut = () => {
     localStorage.setItem("user", "");
     document.location.reload();
@@ -23,7 +22,7 @@ const MyPage = (props) => {
         <div className="mypage-icons">
           <BsBell
             className="mypage-navi-icon"
-            onClick={() => setSelectFlag("tradingHistory")}
+            onClick={() => setSelectFlag("notice")}
           />
           <BiEdit
             className="mypage-navi-icon"
@@ -68,11 +67,23 @@ const MyPage = (props) => {
             }}
           />
         </div>
+        <div className="mypage-user-contents">
+          <div className="mypage-user-contents-piece">
+            <BsBell className="mypage-contents-icon" />
+            <p>お知らせ</p>
+          </div>
+          <IoIosArrowForward
+            className="mypage-contents-icon"
+            onClick={() => {
+              setSelectFlag("notice");
+            }}
+          />
+        </div>
 
         <div className="mypage-user-contents">
           <div className="mypage-user-contents-piece">
             <GrTransaction className="mypage-contents-icon" />
-            <p>取引画面</p>
+            <p>購入した商品</p>
           </div>
           <IoIosArrowForward
             className="mypage-contents-icon"
