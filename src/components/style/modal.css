@@ -123,3 +123,78 @@
   transform: translateY(5px);
   box-shadow: 0 0 0;
 }
+.signUp-textarea {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 33vh;
+  width: 33vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  /* padding-top: 8vh; */
+  position: relative;
+  top: -3vh;
+  border-style: solid;
+  padding: 5px;
+  border-color: #b4b4b4;
+  border-radius: 2vh;
+}
+.signUp-textarea > p {
+  position: relative;
+  top: 40vh;
+  font-size: 2vh;
+}
+.signUp-btn {
+  width: 40vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+  margin-top: 3vh;
+}
+.modal-signUp-box {
+  height: 67%;
+}
+.signUp-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 2em;
+  border: none;
+}
+
+.signUp-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0 0.5em;
+  position: relative;
+  cursor: pointer;
+}
+
+.signUp-checkbox label::before {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 2px solid #d6dde3;
+  content: "";
+}
+
+.signUp-checkbox label:has(:checked)::after {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  transform: rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid #2589d0;
+  border-width: 0 3px 3px 0;
+  content: "";
+}
+
+.signUp-checkbox input {
+  display: none;
+}

@@ -170,6 +170,7 @@ function App() {
         <>
           <SignUp
             setSelectFlag={setSelectFlag}
+            selectFlag={selectFlag}
             items={items}
             setItems={setItems}
             setSelectImg={setSelectImg}
