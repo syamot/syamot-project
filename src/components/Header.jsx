@@ -98,18 +98,22 @@ const Header = (props) => {
           className="header-syamotIcon"
         /> */}
         <h1 className="header-header1">Syamo-t</h1>
-        <FaUserCircle
-          className="header-userIcon"
-          onClick={() => {
-            changeMyPage();
-          }}
-        />
-        {readCount !== 0 && (
-          <div className="circleIcon-box">
-            <BiSolidCircle className="circleIcon" />
-            <p className="circleIcon-number">{readCount}</p>
-          </div>
-        )}
+        <div className="header-userIcon-FaUserCircle">
+          <FaUserCircle
+            className="header-userIcon"
+            onClick={() => {
+              changeMyPage();
+            }}
+          />
+          {readCount !== 0 ? (
+            <div className="circleIcon-box">
+              <BiSolidCircle className="circleIcon" />
+              <p className="circleIcon-number">{readCount}</p>
+            </div>
+          ) : (
+            <div className="circleIcon_fake"></div>
+          )}
+        </div>
       </header>
     </>
   );

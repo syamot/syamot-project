@@ -38,29 +38,33 @@ const Transaction = (props) => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      // console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
+      console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
 
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
         .filter((e1) => {
+          console.log("F1======", e1.item_id === selectImg.id);
           return e1.item_id === selectImg.id;
         })
         //チャットのBuyerID===ログイン者のID
         //チャットの出品者ID===選択した投稿の出品者ID
 
         .filter((e2) => {
-          // console.log(
-          //   e2.buyer_id,
-          //   oneUser.id,
-          //   e2.seller_id,
-          //   selectImg.item_seller
-          // );
-          // console.log(
-          //   e2.buyer_id,
-          //   Number(selectBuyer),
-          //   e2.seller_id,
-          //   oneUser.id
-          // );
+          console.log("メッセージ：", e2.message);
+          console.log(
+            "F2_購入者========",
+            e2.buyer_id,
+            oneUser.id,
+            e2.seller_id,
+            selectImg.item_seller
+          );
+          console.log(
+            "F2_出品者========",
+            e2.buyer_id,
+            Number(selectBuyer),
+            e2.seller_id,
+            oneUser.id
+          );
           return (
             // 購入者側
             (e2.buyer_id === oneUser.id &&
@@ -69,7 +73,7 @@ const Transaction = (props) => {
             (e2.buyer_id === Number(selectBuyer) && e2.seller_id === oneUser.id)
           );
         });
-      // console.log(filterChat);
+      console.log("filterChat========", filterChat);
       //chatDataを最新順に並び替え
       const dateAscChatData = filterChat.sort(function (a, b) {
         if (a.send_date > b.send_date) return 1;
@@ -445,8 +449,12 @@ const Transaction = (props) => {
   };
 
   const pageHandler = () => {
-
-    setSelectFlag("card");
+    setSelectFlag(beforeFlag);
+    if (beforeFlag === "contactList") {
+      setBeforeFlag("card");
+    } else {
+      setBeforeFlag("list");
+    }
   };
 
   return (
@@ -526,7 +534,6 @@ const Transaction = (props) => {
         >
           手数料支払い
         </button>
-
         {oneUser.length !== 0 &&
           (oneUser.id === selectImg.item_seller ? (
             selectImg.item_approval_flag === false ? (
