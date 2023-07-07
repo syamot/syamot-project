@@ -1,4 +1,5 @@
 const express = require("express");
+
 // dotenv はknexの前に置いてね
 require("dotenv").config({
   path: "./.env",
