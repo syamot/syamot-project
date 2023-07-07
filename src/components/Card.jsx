@@ -131,10 +131,6 @@ const Card = (props) => {
           <button
             className="card-buyBtn"
             onClick={() => {
-              console.log("oneuser.id:", oneUser.id);
-              console.log("selectImg.item_seller", selectImg.item_seller);
-              console.log("sellerUser:", sellerUser);
-
               // 購入者であれば連絡リストに遷移
               if (oneUser.id === sellerUser[0].id) {
                 console.log("contact");

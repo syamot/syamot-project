@@ -7,6 +7,7 @@ import { BiSolidCircle } from "react-icons/bi";
 import { ImHome } from "react-icons/im";
 
 import "./style/header.css";
+import ConfettiComponent from "./ConfettiComponent";
 
 const Header = (props) => {
   const {
@@ -18,6 +19,7 @@ const Header = (props) => {
     setSellerChatData,
     buyerChatData,
     setBuyerChatData,
+    beforeFlag,
   } = props;
   const pageHandler = () => {
     setSelectFlag("list");
@@ -82,7 +84,6 @@ const Header = (props) => {
         }).length;
   const readCount = sellerReadCount + buyerReadCount;
   // console.log("readCount=====", readCount);
-
   return (
     <>
       <header className="header-head">
