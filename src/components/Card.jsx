@@ -123,6 +123,7 @@ const Card = (props) => {
           <p className="card-cardItem">備考欄</p>
           <textarea
             className="card-cardItemTxtarea"
+            readOnly
             defaultValue={selectImg.item_explanation}
           ></textarea>
         </div>

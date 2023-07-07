@@ -414,28 +414,13 @@ const ItemPost = (props) => {
             onChange={(e) => {
               handleChange(e, "item_name");
             }}
-            placeholder="40文字まで"
+            placeholder="10文字まで"
             defaultValue={selectItemName}
+            maxlength="10"
           ></input>
         </div>
 
         <h4 className="post-h4">商品詳細</h4>
-        {/* <div className="post-box-piece">
-          <p>商品の状態※</p>
-          <select
-            defaultValue={selectStatus}
-            onChange={(e) => {
-              handleChange(e, "item_condition");
-            }}
-          >
-            <option value="新品、未使用">新品、未使用</option>
-            <option value="未使用に近い">未使用に近い</option>
-            <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
-            <option value="やや傷や汚れあり">やや傷や汚れあり</option>
-            <option value="傷や汚れあり">傷や汚れあり</option>
-            <option value="全体的に状態が悪い">全体的に状態が悪い</option>
-          </select>
-        </div> */}
         <div className="post-box-piece">
           <p className="post-P">出品期限※</p>
           <input

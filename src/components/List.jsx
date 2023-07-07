@@ -7,6 +7,7 @@ import { GrUpdate } from "react-icons/gr";
 import { VscFilter } from "react-icons/vsc";
 import { VscFilterFilled } from "react-icons/vsc";
 import { FaBuildingUser } from "react-icons/fa6";
+import { LuFilterX } from "react-icons/lu";
 
 import Modal from "./Modal";
 import ListCard from "./ListCard";
@@ -108,7 +109,18 @@ function List(props) {
     setFilteredArea(newUserArea);
     setdeadline("near");
     setModalAreaSort(newUserArea);
-    setIsClickedY(true);
+  };
+  const handleMyareaCancel = (e) => {
+    console.log("キャンセル");
+    // 寮
+    setFilteredArea("会社寮一覧");
+    // カテゴリー
+    setFilteredItem("商品カテゴリー");
+    // フリーワード
+    setInputText("");
+    // 日付
+    setdeadline("near");
+    setIsClickedY(false);
   };
   const [isClickedY, setIsClickedY] = useState(false);
   useEffect(() => {
@@ -255,6 +267,12 @@ function List(props) {
           {/* <button className="list-userhome" onClick={(e) => handleMyarea(e)}>
             自分の寮
           </button> */}
+          {/* <div
+            className={"list-userhome rotationY"}
+            onClick={(e) => handleMyareaCancel(e)}
+          >
+            <LuFilterX className="list-myHomeIcon" />
+          </div> */}
         </div>
 
         {/* エリアソート */}
