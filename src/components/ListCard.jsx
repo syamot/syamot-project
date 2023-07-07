@@ -1,42 +1,49 @@
-import React from "react";
-import { AiFillHeart } from "react-icons/ai";
-import { AiOutlineHeart } from "react-icons/ai";
-import "./style/card.css";
-import Swipe from "./Swipe";
-import { IoIosArrowBack } from "react-icons/io";
-import { BiEdit } from "react-icons/bi";
+// import React, { useState } from "react";
+// import { Card, CardImage, CardTitle, CardTags } from "react-cards";
 
 //詳細情報ページ
-const ListCard = (props) => {
-  const {
-    setSelectFlag,
-    selectImg,
-    users,
-    oneUser,
-    setOneUser,
-    URL,
-    userData,
-    beforeFlag,
-    setBeforeFlag,
-    setEditItem,
-  } = props;
+// const ListCard = (props) => {
+//   const {
+//     setSelectFlag,
+//     selectImg,
+//     users,
+//     oneUser,
+//     setOneUser,
+//     URL,
+//     userData,
+//     beforeFlag,
+//     setBeforeFlag,
+//     setEditItem,
+//   } = props;
 
-  return (
-    <div class="l-wrapper_02 card-radius_02">
-      <article class="card_02">
-        <div class="card__header_02">
-          <p class="card__title_02">サムネイルのタイトル</p>
-          <figure class="card__thumbnail_02">
-            <img
-              src="https://dubdesign.net/wp-content/uploads/2020/05/0514_inhouse_designereyecatch.jpg"
-              alt="サムネイル"
-              class="card__image_02"
-            />
-          </figure>
-        </div>
-      </article>
-    </div>
-  );
-};
+//   const [cards, setCards] = useState([
+//     {
+//       title: "Card 1",
+//       description: "This is a card with a title and a description.",
+//       tags: ["tag1", "tag2"],
+//       imageUrl:
+//         "https://placeholdit.imgix.net/~text?txtsize=33&txt=350x150&w=350&h=150",
+//     },
+//     {
+//       title: "Card 2",
+//       description: "This is another card with a title and a description.",
+//       tags: ["tag3", "tag4"],
+//       imageUrl:
+//         "https://placeholdit.imgix.net/~text?txtsize=33&txt=350x150&w=350&h=150",
+//     },
+//   ]);
 
-export default ListCard;
+//   return (
+//     <div>
+//       {cards.map((card) => (
+//         <Card key={card.id}>
+//           <CardImage src={card.imageUrl} alt={card.title} />
+//           <CardTitle>{card.title}</CardTitle>
+//           <CardTags>{card.tags.join(", ")}</CardTags>
+//         </Card>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default ListCard;
