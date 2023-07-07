@@ -45,6 +45,8 @@ function App() {
   const [purchaseList, setPurchaseList] = useState("");
   const [upDataFlag, setUpDataFlag] = useState(false);
   const [beforeFlag, setBeforeFlag] = useState("");
+  const [confetFlag, setConfetFlag] = useState(false);
+
   const [editItem, setEditItem] = useState({});
 
   // 売手側のチャット情報
@@ -199,8 +201,11 @@ function App() {
     case "list":
       return (
         <>
-          <ConfettiComponent />
+          {confetFlag && <ConfettiComponent setConfetFlag={setConfetFlag}
+          />}
+          {/* <ConfettiComponent /> */}
           <Header
+            beforeFlag={beforeFlag}
             setSelectFlag={setSelectFlag}
             setBeforeFlag={setBeforeFlag}
             URL={URL}
@@ -227,6 +232,7 @@ function App() {
             setUpDataFlag={setUpDataFlag}
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
+            setConfetFlag={setConfetFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -256,6 +262,8 @@ function App() {
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
             setEditItem={setEditItem}
+            confetFlag={confetFlag}
+            setConfetFlag={setConfetFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -295,6 +303,7 @@ function App() {
     case "transaction":
       return (
         <>
+          {confetFlag && <ConfettiComponent setConfetFlag={setConfetFlag} />}
           <Header
             setSelectFlag={setSelectFlag}
             setBeforeFlag={setBeforeFlag}
@@ -319,6 +328,7 @@ function App() {
             selectFlag={selectFlag}
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
+            setConfetFlag={setConfetFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -480,6 +490,8 @@ function App() {
             beforeFlag={beforeFlag}
             editItem={editItem}
             setItems={setItems}
+            confetFlag={confetFlag}
+            setConfetFlag={setConfetFlag}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>

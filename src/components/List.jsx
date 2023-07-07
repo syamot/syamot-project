@@ -27,6 +27,7 @@ function List(props) {
     setUpDataFlag,
     beforeFlag,
     setBeforeFlag,
+    setConfetFlag,
   } = props;
   // Modalのselectbox値
   const [modalAreaSort, setModalAreaSort] = useState("");

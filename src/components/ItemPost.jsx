@@ -9,8 +9,15 @@ import { FaRegPaperPlane } from "react-icons/fa";
 // S3アップロード用配列
 let imagePathArr = [];
 const ItemPost = (props) => {
-  const { setSelectFlag, URL, beforeFlag, setBeforeFlag, editItem, setItems } =
-    props;
+  const {
+    setSelectFlag,
+    URL,
+    beforeFlag,
+    setBeforeFlag,
+    editItem,
+    setItems,
+    setConfetFlag,
+  } = props;
   // const [imgPathArr, setImgPathArr] = useState([]);
   const [itemObj, setItemObj] = useState({});
   // アップロード時のローディング画面
@@ -37,6 +44,7 @@ const ItemPost = (props) => {
   };
 
   const handleClick = async () => {
+    setConfetFlag("post");
     // S3へアップした画像のURLを入れる配列
     const postImagePath = [];
     let uploadFlag = false;

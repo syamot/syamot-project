@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { BsSend } from "react-icons/bs";
 
@@ -22,6 +22,7 @@ const Transaction = (props) => {
     setSelectFlag,
     setBeforeFlag,
     beforeFlag,
+    setConfetFlag,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   // const [messages, setMessages] = useState([]);
@@ -289,6 +290,8 @@ const Transaction = (props) => {
 
   // 受取完了処理
   const complete = async () => {
+    setConfetFlag(true);
+    playAudio();
     if (selectImg.item_transaction_flag !== true) {
       try {
         // チャットTBを書き換え
@@ -561,9 +564,22 @@ const Transaction = (props) => {
       }
     }
   }
-
+  // music===================
+  const audioRef = useRef(null);
+  const playAudio = () => {
+    audioRef.current.play();
+  };
+  const pauseAudio = () => {
+    audioRef.current.pause();
+  };
+  const resetAudio = () => {
+    audioRef.current.currentTime = 0;
+  };
   return (
     <div className="transaction-all">
+      <audio ref={audioRef}>
+        <source src="music/thankyou1.mp3" type="audio/mp3" />
+      </audio>
       <div className="transaction-titleBrock">
         <IoIosArrowBack
           className="transaction-backIcon"
