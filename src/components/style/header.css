@@ -28,6 +28,7 @@
   font-size: 4.5vh;
   text-decoration: underline;
   color: #0d4c92;
+  /* position: relative; */
 }
 
 .header-userIcon-FaUserCircle {
@@ -63,3 +64,10 @@
   width: 4vh;
   height: 4vh;
 }
+/* .header-syamotIco {
+  width: 5vh;
+  height: 5vh;
+  margin: 0;
+  position: relative;
+  left: 3vh;
+} */

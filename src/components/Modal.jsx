@@ -17,6 +17,7 @@ function Modal(props) {
     modalItemSort,
     setModalItemSort,
     selectFlag,
+    createAddUser,
   } = props;
   // const openModal = () => {
   //   setModalVisible(true);
@@ -28,7 +29,12 @@ function Modal(props) {
   const handleModalClick = (e) => {
     e.stopPropagation(); // クリックイベントのバブリングを防止
   };
-
+  //アカウント登録のフラグ管理
+  const [signUpFlag, setsignUpFlag] = useState(false);
+  const checkClick = (e) => {
+    console.log(e.target.checked);
+    setsignUpFlag(e.target.checked);
+  };
   if (selectFlag === "list") {
     return (
       <div>
@@ -158,6 +164,119 @@ function Modal(props) {
                   }}
                 >
                   確認しました
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {modalVisible && (
+          <div id="modalArea" className="modalArea" onClick={closeModal}>
+            {/* Modal Content */}
+            <div
+              className="modal-Content  modal-signUp-box"
+              onClick={handleModalClick}
+            >
+              <div className="modal-HeadBlock">
+                <p className="modal-Head">確認事項</p>
+              </div>
+              {/* エリアソート */}
+              <div className="modal-boxSet">
+                <div className="signUp-textarea">
+                  <p className="modal-signUp-text">
+                    アプリを開始する前に、
+                    <br />
+                    以下の確認事項があります。
+                    <br />
+                    <br />
+                    1. アプリの手数料について -<br />
+                    アプリでは、購入者がアプリの
+                    <br />
+                    存続を支えるために手数料
+                    <br />
+                    として500円を負担して頂きます。
+                    <br />
+                    手数料は、購入時の支払いに
+                    <br />
+                    含まれ、アプリの運営や開発に
+                    <br />
+                    使用されます。
+                    <br />
+                    <br />
+                    2. 手数料の目的 -<br />
+                    手数料は、アプリの継続的な提供や
+                    <br />
+                    機能改善、セキュリティ対策、
+                    <br />
+                    カスタマーサポートの向上など、
+                    <br />
+                    より良いサービスを提供するために
+                    <br />
+                    必要です。 購入者の皆様のご理解と
+                    <br />
+                    ご協力により、アプリの 品質向上に取り組むことができます。
+                    <br />
+                    <br />
+                    3. 手数料の支払い方法 -<br />
+                    手数料は、商品購入時にPayPayにて
+                    <br />
+                    金額500円をお支払い頂きます。
+                    <br />
+                    <br />
+                    4. 手数料の明細 -<br />
+                    購入時の明細や領収書には、手数料の詳細が含まれます。
+                    <br />
+                    購入者は、ご自身の購入履歴や支払い明細を
+                    参照頂くことができます。
+                    <br />
+                    <br />
+                    5. 禁止事項 -<br />
+                    本アプリは、手数料以外は無償での
+                    <br />
+                    取引を提供しています。
+                    <br />
+                    個人間での金銭授受は絶対に
+                    <br />
+                    おやめ下さい。
+                    <br />
+                    弊社は、その際の金銭トラブル
+                    <br />
+                    について一切責任を負いません。
+                    <br />
+                    <br />
+                    6. 最後に -<br />
+                    ご理解とご協力を頂き、
+                    <br />
+                    アプリの存続とサービス向上に
+                    <br />
+                    ご協力頂けることを
+                    心から感謝しています。アプリの利用に際して、
+                    <br />
+                    どうぞよろしくお願いいたします。
+                  </p>
+                </div>
+                <fieldset className="signUp-checkbox">
+                  <label>
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      onChange={(e) => checkClick(e)}
+                    />
+                    同意します
+                  </label>
+                </fieldset>
+                <button
+                  onClick={() => {
+                    setTimeout(createAddUser(), 200);
+                  }}
+                  className="signUp-btn"
+                  disabled={!signUpFlag}
+                >
+                  承諾しました
                 </button>
               </div>
             </div>
