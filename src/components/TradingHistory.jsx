@@ -85,7 +85,7 @@ function TradingHistory(props) {
           onClick={() => setSelectFlag("myPage")}
         />
         <div className="tradingHistory-title-box">
-          <h2 className="tradingHistory-title">取引管理</h2>
+          <h2 className="tradingHistory-title">購入した商品</h2>
           <GrTransaction className="tradingHistory-title-icon" />
         </div>
         <div className="tradingHistory-position-adjustment"></div>
