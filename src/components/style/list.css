@@ -212,7 +212,7 @@ ul.list-image-list {
   background-color: #e6edf3;
   font-size: 1em;
   outline: none;
-  box-shadow: 0 5px 5px #00000067;
+  /* box-shadow: 0 5px 5px #00000067; */
 }
 .list-searchIconBlock {
   display: flex;
@@ -226,7 +226,7 @@ ul.list-image-list {
   width: 7vh;
   border-radius: 1vh 0 0 1vh;
   background-color: #e6edf3;
-  box-shadow: 0 5px 5px #00000067;
+  /* box-shadow: 0 5px 5px #00000067; */
 }
 .list-searchIcon {
   width: 4vh;
@@ -244,7 +244,7 @@ ul.list-image-list {
   width: 9vh;
   border-radius: 0vh 1vh 1vh 0vh;
   background-color: #59c1bd;
-  box-shadow: 0 5px 5px #00000067;
+  /* box-shadow: 0 5px 5px #00000067; */
 }
 .list-filterIcon {
   width: 4vh;
@@ -263,7 +263,7 @@ ul.list-image-list {
   background-color: #59c1bd;
   border: none;
   outline: none;
-  box-shadow: 0 5px 5px #00000067;
+  /* box-shadow: 0 5px 5px #00000067; */
   width: 7vh;
   display: flex;
   justify-content: center;
@@ -300,11 +300,12 @@ ul.list-image-list {
   /* border-style: solid; */
   border-radius: 100%;
   /* margin-right: 5vh; */
-  box-shadow: 4px 4px 20px 7px rgba(0, 0, 0, 0.4);
-  background-color: #59c1bd;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.4);
+  background-color: #0d4c92;
   position: fixed;
   bottom: 5vh;
   right: 5vh;
+  color: #ffffff;
 }
 
 .list-addIcon {

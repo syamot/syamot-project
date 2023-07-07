@@ -160,6 +160,8 @@
   align-content: center;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
 }
 /* ============================================== */
 .post-closeBtnBlock {
@@ -331,4 +333,27 @@ h2.post-History-title {
   height: 100px;
   box-shadow: 0 5px 5px #00000067;
   border-radius: 1vh;
+}
+.post-updateBtn {
+  width: 20vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+  height: 6vh;
+  margin-right: 5vh;
+}
+.post-deleteBtn {
+  width: 20vh;
+  font-size: 3vh;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #00000067;
+  height: 6vh;
 }
