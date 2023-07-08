@@ -127,6 +127,7 @@ function List(props) {
     setInputText("");
     // 日付
     setdeadline("near");
+    // 初期化
     setModalAreaSort("");
     setModalItemFilter("");
     setModalItemSort("");
