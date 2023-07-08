@@ -34,6 +34,7 @@ function List(props) {
   const [modalAreaSort, setModalAreaSort] = useState("");
   const [modalItemFilter, setModalItemFilter] = useState("");
   const [modalItemSort, setModalItemSort] = useState("");
+
   // filterの有無のステータス
   const [filterStatus, setFilterStatus] = useState(false);
   // console.log(users);
@@ -43,6 +44,11 @@ function List(props) {
 
   // fileter有無の判定関数
   const filterOnOff = () => {
+    console.log("fileter有無の判定関数=========");
+    console.log("inputText====", inputText);
+    console.log("modalAreaSort====", modalAreaSort);
+    console.log("modalItemSort====", modalItemSort);
+    console.log("modalItemFilter====", modalItemFilter);
     if (
       inputText === "" &&
       modalAreaSort === "" &&
@@ -109,20 +115,25 @@ function List(props) {
     setFilteredArea(newUserArea);
     setdeadline("near");
     setModalAreaSort(newUserArea);
+    setIsClickedY(true);
   };
   const handleMyareaCancel = (e) => {
     console.log("キャンセル");
     // 寮
-    setFilteredArea("会社寮一覧");
+    setFilteredArea("");
     // カテゴリー
-    setFilteredItem("商品カテゴリー");
+    setFilteredItem("");
     // フリーワード
     setInputText("");
     // 日付
     setdeadline("near");
-    setIsClickedY(false);
+    setModalAreaSort("");
+    setModalItemFilter("");
+    setModalItemSort("");
+    setIsClickedY2(true);
   };
   const [isClickedY, setIsClickedY] = useState(false);
+  const [isClickedY2, setIsClickedY2] = useState(false);
   useEffect(() => {
     if (isClickedY) {
       // playAudio();
@@ -131,9 +142,18 @@ function List(props) {
       }, 1000);
     }
   }, [isClickedY]);
+  useEffect(() => {
+    if (isClickedY2) {
+      // playAudio();
+      setTimeout(() => {
+        setIsClickedY2(false);
+      }, 1000);
+    }
+  }, [isClickedY2]);
 
   //*＊全ての検索・ソート実作業＆表示準備*＊
   useEffect(() => {
+    console.log("ソート実行〜〜〜〜〜〜〜");
     let sortedArray = [];
     const resultImgs = items;
 
@@ -256,6 +276,7 @@ function List(props) {
               />
             )}
           </div>
+          {console.log("isClickedY=======", isClickedY)}
           <div
             className={
               !isClickedY ? "list-userhome" : "list-userhome rotationY"
@@ -267,12 +288,14 @@ function List(props) {
           {/* <button className="list-userhome" onClick={(e) => handleMyarea(e)}>
             自分の寮
           </button> */}
-          {/* <div
-            className={"list-userhome rotationY"}
+          <div
+            className={
+              !isClickedY2 ? "list-userhome" : "list-userhome rotationY"
+            }
             onClick={(e) => handleMyareaCancel(e)}
           >
             <LuFilterX className="list-myHomeIcon" />
-          </div> */}
+          </div>
         </div>
 
         {/* エリアソート */}

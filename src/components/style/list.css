@@ -254,7 +254,7 @@ ul.list-image-list {
 .list-userhome {
   height: 7vh;
   margin: 0;
-  margin-left: 3vh;
+  margin-left: 1vh;
   background: #59c1bd;
   color: #0d4c92;
   font-size: 15px;
@@ -281,6 +281,28 @@ ul.list-image-list {
     transform: rotateY(720deg);
   }
 }
+
+/* .list-userhome2 {
+  height: 7vh;
+  margin: 0;
+  margin-left: 3vh;
+  background: #59c1bd;
+  color: #0d4c92;
+  font-size: 15px;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  width: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+.list-userhome2:active {
+  animation: 1s rotationY;
+} */
 
 .list-boxset {
   display: flex;
