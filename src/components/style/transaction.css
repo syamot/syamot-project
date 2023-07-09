@@ -231,7 +231,7 @@ body {
 }
 
 .transaction-dummy {
-  width: 25rem;
+  width: auto;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
