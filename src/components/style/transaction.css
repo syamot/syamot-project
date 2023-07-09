@@ -1,3 +1,6 @@
+body {
+  overflow: auto;
+}
 .transaction-all {
   position: fixed;
   top: 10vh;
