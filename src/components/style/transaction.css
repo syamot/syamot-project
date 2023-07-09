@@ -67,8 +67,11 @@
   display: flex;
   position: absolute;
   top: 61vh;
-  left: 3vh;
+  margin: 0 3%;
+  left: 0;
   align-items: center;
+  width: 94%;
+  /* background-color: red; */
 }
 
 /* ここ　送信者 */
@@ -164,12 +167,13 @@
 
 .transaction-chatInput {
   font-size: 2vh;
-  width: 31vh;
+  width: 90%;
   height: 2vh;
   position: relative;
   top: 0vh;
   padding: 1vh;
   border-radius: 2vh;
+  /* margin: 0 2% 0 1%; */
 }
 
 .transaction-messageContent {
@@ -264,8 +268,14 @@
 }
 
 .transaction-sendBtn {
-  width: 3.5vh;
-  height: 3.5vh;
-  margin-left: 2vh;
+  width: 4vh;
+  height: auto;
+  /* margin-left: 2%; */
+  /* margin: 0 2% 0 2%; */
+  margin: auto;
   transform: rotate(45deg);
+  position: relative;
+  top: 0;
+  /* right: 18px; */
+  /* background: aliceblue; */
 }
