@@ -3,8 +3,9 @@ body {
   font-family: "M PLUS 1p", sans-serif;
 
   min-height: 100vh;
+  min-height: 100dvh;
   /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+  /* min-height: -webkit-fill-available; */
 }
 input {
   font-family: "M PLUS 1p", sans-serif;
@@ -21,5 +22,7 @@ li {
 }
 
 html {
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
+  min-height: 100vh;
+  min-height: 100dvh;
 }
