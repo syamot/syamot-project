@@ -1,3 +1,6 @@
+body {
+  overflow: auto;
+}
 .card-mainBrock {
   position: relative;
   top: 10vh;
