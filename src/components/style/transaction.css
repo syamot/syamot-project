@@ -2,7 +2,7 @@ body {
   overflow: auto;
 }
 .transaction-all {
-  position: fixed;
+  position: relative;
   top: 10vh;
   display: flex;
   flex-direction: column;
