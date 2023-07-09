@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@500&family=Noto+Sans+JP:wght@500&display=swap");
 body {
   font-family: "M PLUS 1p", sans-serif;
+
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
 input {
   font-family: "M PLUS 1p", sans-serif;
@@ -14,4 +18,8 @@ button {
 }
 li {
   list-style: none;
+}
+
+html {
+  height: -webkit-fill-available;
 }
