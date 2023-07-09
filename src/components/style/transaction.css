@@ -10,7 +10,7 @@ body {
   width: 100%;
   /* padding-left: 1%; */
   /* padding-left: 1%; */
-  max-height: 90vh;
+  height: 90vh;
   background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
 
@@ -194,10 +194,10 @@ body {
 .transaction-footerBlock {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 25rem;
   position: relative;
   top: 6vh;
-  height: 15vh;
+  /* height: 15vh; */
   align-items: center;
 }
 
@@ -231,11 +231,10 @@ body {
 }
 
 .transaction-dummy {
-  width: 40vh;
+  width: 25rem;
   font-size: 3vh;
   border-style: solid;
   border-radius: 1vh;
-
   background-color: #bdbaba;
   border: none;
   outline: none;
