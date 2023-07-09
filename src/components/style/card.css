@@ -3,13 +3,13 @@
   top: 10vh;
   width: 98%;
   /* margin: 0 1vw; */
-  height: 100vh;
+  height: 90vh;
   /* max-height: 100vh; */
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   /* width: 100%; */
   padding-left: 1%;
@@ -25,7 +25,7 @@
 
 .card-imageBrock {
   position: relative;
-  top: -5vh;
+  top: 2vh;
   width: 25vh;
   margin: 0 5vw;
   display: flex;
@@ -45,12 +45,12 @@
   justify-content: flex-start;
   align-items: flex-start;
   position: relative;
-  top: -3vh;
+  top: 4vh;
   max-height: 38vh;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: white;
-  padding: 5px;
+  padding: 15px;
   border-radius: 15px;
   width: 85%;
   border: none;
@@ -115,8 +115,9 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  bottom: 1vh;
+  position: relative;
+  /* bottom: 5vh; */
+  top: 5vh;
 }
 .card-buyBtn {
   width: 40vh;
@@ -167,8 +168,8 @@
   padding: 2vh 0;
   border-bottom: solid 0.1px;
   border-color: #a0a0a0;
-  position: absolute;
-  top: 1px;
+  position: relative;
+  top: 0px;
 }
 
 .card-position-adjustment {
