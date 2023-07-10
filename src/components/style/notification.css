@@ -2,13 +2,13 @@
   flex-direction: column;
   flex-wrap: nowrap;
   position: fixed;
-  top: 10vh;
+  top: 10dvh;
   width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 81vh;
+  max-height: 81dvh;
   display: flex;
-  height: 81vh;
+  height: 81dvh;
   overflow-y: scroll;
   align-items: stretch;
 }

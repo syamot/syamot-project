@@ -7,13 +7,13 @@ h2.contactList-title {
   flex-direction: column;
   flex-wrap: nowrap;
   position: fixed;
-  top: 10vh;
+  top: 10dvh;
   width: 100%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 90vh;
+  max-height: 90dvh;
   display: flex;
-  height: 90vh;
+  height: 90dvh;
   overflow-y: scroll;
   align-items: stretch;
   background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
@@ -26,15 +26,15 @@ h2.contactList-title {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 2vh 0;
+  padding: 2dvh 0;
   border-bottom: solid 0.1px;
   border-color: #a0a0a0;
 }
 
 .contactList-navi-icon {
-  margin: 0px 1.5vh;
-  width: 4vh;
-  height: 4vh;
+  margin: 0px 1.5dvh;
+  width: 4dvh;
+  height: 4dvh;
 }
 
 .contactList-position-adjustment {
@@ -42,10 +42,10 @@ h2.contactList-title {
 }
 
 .contactList-userIcon {
-  width: 8vh;
-  height: 8vh;
+  width: 8dvh;
+  height: 8dvh;
   color: #0d4c92;
-  margin-left: 4vh;
+  margin-left: 4dvh;
 }
 
 /* img */
@@ -64,8 +64,8 @@ h2.contactList-title {
   border-bottom: solid 0.1px;
   border-color: #a0a0a0;
   flex-wrap: nowrap;
-  padding: 2vh 0;
-  padding-right: 4vh;
+  padding: 2dvh 0;
+  padding-right: 4dvh;
   justify-content: flex-start;
 }
 
@@ -87,9 +87,9 @@ ul.contactList-image-list {
 
 .contactList-nextIcon {
   position: absolute;
-  right: 4vh;
-  height: 5vh;
-  width: 5vh;
+  right: 4dvh;
+  height: 5dvh;
+  width: 5dvh;
 }
 /* imgのブロック */
 .contactList-imgBlock {
@@ -101,8 +101,8 @@ ul.contactList-image-list {
 .contactList-info {
   position: relative;
   display: flex;
-  left: -2vh;
-  top: -1vh;
+  left: -2dvh;
+  top: -1dvh;
   flex-direction: column;
   align-items: flex-start;
 }

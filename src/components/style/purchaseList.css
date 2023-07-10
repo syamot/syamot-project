@@ -2,13 +2,13 @@
   flex-direction: column;
   flex-wrap: nowrap;
   position: fixed;
-  top: 10vh;
+  top: 10dvh;
   width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 81vh;
+  max-height: 81dvh;
   display: flex;
-  height: 81vh;
+  height: 81dvh;
   overflow-y: scroll;
   align-items: stretch;
 } */
@@ -21,13 +21,13 @@ h2.purchase-title {
   flex-direction: column;
   flex-wrap: nowrap;
   position: fixed;
-  top: 10vh;
+  top: 10dvh;
   width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  max-height: 83vh;
+  max-height: 83dvh;
   display: flex;
-  height: 83vh;
+  height: 83dvh;
   overflow-y: scroll;
   align-items: stretch;
 }
@@ -73,9 +73,9 @@ ul.purchase-image-list {
 
 .purchase-nextIcon {
   position: relative;
-  right: -2vh;
-  height: 5vh;
-  width: 5vh;
+  right: -2dvh;
+  height: 5dvh;
+  width: 5dvh;
 }
 /* imgのブロック */
 .purchase-imgBlock {
@@ -91,10 +91,10 @@ ul.purchase-image-list {
   align-items: center;
   overflow: hidden;
   position: relative;
-  left: 1vh;
+  left: 1dvh;
 }
 /* textのブロック */
 .purchase-info {
   position: relative;
-  left: 2vh;
+  left: 2dvh;
 }

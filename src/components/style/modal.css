@@ -19,28 +19,28 @@
   align-items: center;
 }
 .modal-Head {
-  margin-top: 5vh;
-  font-size: 3vh;
-  /* margin-left: 6vh; */
+  margin-top: 5dvh;
+  font-size: 3dvh;
+  /* margin-left: 6dvh; */
 }
 /* .modal-closeIcon {
-  height: 5vh;
-  width: 5vh;
+  height: 5dvh;
+  width: 5dvh;
   color: gray;
   position: relative;
-  left: 7vh;
-  top: -2vh;
+  left: 7dvh;
+  top: -2dvh;
 } */
 .modal-Content {
   height: 50%;
   width: 80%;
   background-color: #ffffff;
-  border-radius: 2vh;
+  border-radius: 2dvh;
 }
 .modal-boxSet {
   display: flex;
   position: relative;
-  top: 2vh;
+  top: 2dvh;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
@@ -57,7 +57,7 @@
 
 .modal-selectbox {
   position: relative;
-  margin: 2vh;
+  margin: 2dvh;
 }
 
 .modal-selectbox::before,
@@ -105,19 +105,19 @@
 }
 
 .modal-warning-box p {
-  margin: 1vh 0;
+  margin: 1dvh 0;
 }
 
 .modal-warning-box button {
-  width: 40vh;
-  font-size: 3vh;
+  width: 40dvh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   background-color: #59c1bd;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
-  margin-top: 3vh;
+  margin-top: 3dvh;
 }
 .modal-warning-box button:active {
   transform: translateY(5px);
@@ -126,36 +126,36 @@
 .signUp-textarea {
   overflow: hidden;
   overflow-y: scroll;
-  height: 33vh;
-  width: 33vh;
+  height: 33dvh;
+  width: 33dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   align-content: center;
-  /* padding-top: 8vh; */
+  /* padding-top: 8dvh; */
   position: relative;
-  top: -3vh;
+  top: -3dvh;
   border-style: solid;
   padding: 5px;
   border-color: #b4b4b4;
-  border-radius: 2vh;
+  border-radius: 2dvh;
 }
 .signUp-textarea > p {
   position: relative;
-  top: 40vh;
-  font-size: 2vh;
+  top: 40dvh;
+  font-size: 2dvh;
 }
 .signUp-btn {
-  width: 40vh;
-  font-size: 3vh;
+  width: 40dvh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   background-color: #59c1bd;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
-  margin-top: 3vh;
+  margin-top: 3dvh;
 }
 .modal-signUp-box {
   height: 67%;

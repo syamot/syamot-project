@@ -20,14 +20,17 @@ const Header = (props) => {
     buyerChatData,
     setBuyerChatData,
     beforeFlag,
+    setSelectBuyer,
   } = props;
   const pageHandler = () => {
     setSelectFlag("list");
     // setBeforeFlag("");
+    setSelectBuyer(0); //初期化
   };
   const changeMyPage = () => {
     setSelectFlag("myPage");
     // setBeforeFlag("");
+    setSelectBuyer(0); //初期化
   };
 
   // const [sellerChatData, setSellerChatData] = useState();

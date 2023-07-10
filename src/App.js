@@ -119,7 +119,7 @@ function App() {
         (elem) => new Date(elem.item_deadline) < new Date()
       );
       setDeadLineList(AddDeadLineList);
-      console.log("AddDeadLineList============", AddDeadLineList);
+      // console.log("AddDeadLineList============", AddDeadLineList);
 
       const userPurchaseList = itemData.filter((elem) => {
         if (elem.soldBuyer_id === openUserId) {
@@ -204,8 +204,7 @@ function App() {
     case "list":
       return (
         <>
-          {confetFlag && <ConfettiComponent setConfetFlag={setConfetFlag}
-          />}
+          {confetFlag && <ConfettiComponent setConfetFlag={setConfetFlag} />}
           {/* <ConfettiComponent /> */}
           <Header
             beforeFlag={beforeFlag}
@@ -217,6 +216,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <List
             setSelectFlag={setSelectFlag}
@@ -252,6 +252,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <Card
             setSelectFlag={setSelectFlag}
@@ -284,6 +285,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <ContactList
             setSelectFlag={setSelectFlag}
@@ -316,6 +318,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <Transaction
             setSelectFlag={setSelectFlag}
@@ -332,6 +335,7 @@ function App() {
             beforeFlag={beforeFlag}
             setBeforeFlag={setBeforeFlag}
             setConfetFlag={setConfetFlag}
+            setSelectBuyer={setSelectBuyer}
           />
           {/* <Footer setSelectFlag={setSelectFlag} /> */}
         </>
@@ -348,6 +352,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <MyPage setSelectFlag={setSelectFlag} oneUser={oneUser} />
         </>
@@ -364,6 +369,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <Profile
             setSelectFlag={setSelectFlag}
@@ -386,6 +392,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <TradingHistory
             items={items}
@@ -415,6 +422,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <Notice
             items={items}
@@ -442,6 +450,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <ExhibitionList
             selectFlag={selectFlag}
@@ -472,6 +481,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <Favorite
             oneUser={oneUser}
@@ -496,6 +506,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <PurchaseList
             items={items}
@@ -518,6 +529,7 @@ function App() {
             setSellerChatData={setSellerChatData}
             buyerChatData={buyerChatData}
             setBuyerChatData={setBuyerChatData}
+            setSelectBuyer={setSelectBuyer}
           />
           <ItemPost
             setSelectFlag={setSelectFlag}
