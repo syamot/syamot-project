@@ -3,14 +3,14 @@
 } */
 .transaction-all {
   position: relative;
-  top: 10vh;
+  top: 10dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   /* padding-left: 1%; */
   /* padding-left: 1%; */
-  height: 90vh;
+  height: 90dvh;
   background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
 
@@ -21,8 +21,8 @@
   width: 100%;
   justify-content: space-between;
   position: relative;
-  top: 2vh;
-  height: 7vh;
+  top: 2dvh;
+  height: 7dvh;
 }
 
 .transaction-title {
@@ -32,44 +32,44 @@
 }
 
 .transaction-posionAdjust {
-  margin: 0px 1.5vh;
-  width: 4vh;
+  margin: 0px 1.5dvh;
+  width: 4dvh;
 }
 
 .transaction-backIcon {
-  margin: 0px 1.5vh;
-  width: 4vh;
-  height: 4vh;
+  margin: 0px 1.5dvh;
+  width: 4dvh;
+  height: 4dvh;
 }
 
 .transaction-titleName {
-  font-size: 2vh;
+  font-size: 2dvh;
   margin: 0;
 }
 
 .transaction-mainBlock {
-  top: 3vh;
+  top: 3dvh;
   position: relative;
   width: 80%;
-  height: 71vh;
-  max-height: 68vh;
+  height: 71dvh;
+  max-height: 68dvh;
   display: flex;
   flex-direction: column;
   border-style: solid;
   border-color: gray;
   background-color: #e4f5f3;
-  border-radius: 1vh;
+  border-radius: 1dvh;
 }
 
 .transaction-chatBlock {
   overflow-y: scroll;
-  max-height: 60vh;
+  max-height: 60dvh;
 }
 
 .transaction-postMessageBlock {
   display: flex;
   position: absolute;
-  top: 61vh;
+  top: 61dvh;
   margin: 0 3%;
   left: 0;
   align-items: center;
@@ -165,28 +165,28 @@
   vertical-align: middle;
   border-bottom: 0.5px solid #333;
   padding: 20px 0.5px 0px 0px;
-  margin: 1vh;
+  margin: 1dvh;
 }
 
 .transaction-chatInput {
-  font-size: 2vh;
+  font-size: 2dvh;
   width: 90%;
-  height: 2vh;
+  height: 2dvh;
   position: relative;
-  top: 0vh;
-  padding: 1vh;
-  border-radius: 2vh;
+  top: 0dvh;
+  padding: 1dvh;
+  border-radius: 2dvh;
   /* margin: 0 2% 0 1%; */
 }
 
 .transaction-messageContent {
-  font-size: 1.8vh;
+  font-size: 1.8dvh;
   /* border: 1px solid #333; */
   border-radius: 8px;
   vertical-align: middle;
-  /* padding: 1vh; */
-  margin: 1vh;
-  border-radius: 2vh;
+  /* padding: 1dvh; */
+  margin: 1dvh;
+  border-radius: 2dvh;
   max-width: 13rem;
   word-break: break-all;
 }
@@ -196,28 +196,28 @@
   flex-direction: column;
   width: 25rem;
   position: relative;
-  top: 6vh;
-  /* height: 15vh; */
+  top: 6dvh;
+  /* height: 15dvh; */
   align-items: center;
 }
 
 /* .transaction-payment {
-  height: 9vh;
+  height: 9dvh;
   background-color: #ff5758;
   border: #ff5758;
   color: white;
   margin: 0;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
 } */
 
 .transaction-payment {
-  width: 40vh;
-  font-size: 3vh;
+  width: 40dvh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   color: white;
   background-color: #ff5758;
   border: none;
@@ -232,9 +232,9 @@
 
 .transaction-dummy {
   width: auto;
-  font-size: 3vh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   background-color: #bdbaba;
   border: none;
   outline: none;
@@ -242,22 +242,22 @@
 }
 
 /* .transaction-statusBtn {
-  height: 9vh;
+  height: 9dvh;
   background-color: #d9d9d9;
   border: #d9d9d9;
   color: black;
-  margin: 2vh 0;
-  border-radius: 1vh;
+  margin: 2dvh 0;
+  border-radius: 1dvh;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #00000067;
 } */
 
 .transaction-statusBtn {
-  width: 40vh;
-  font-size: 3vh;
+  width: 40dvh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   background-color: #0c4c92;
   border: none;
   outline: none;
@@ -270,7 +270,7 @@
 }
 
 .transaction-sendBtn {
-  width: 4vh;
+  width: 4dvh;
   height: auto;
   /* margin-left: 2%; */
   /* margin: 0 2% 0 2%; */

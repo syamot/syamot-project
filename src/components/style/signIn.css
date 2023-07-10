@@ -47,13 +47,13 @@
 }
 .loginHead {
   font-family: "Saira Semi Condensed", sans-serif;
-  font-size: 6vh;
+  font-size: 6dvh;
   text-decoration: underline;
   color: #0d4c92;
 }
 .createHead {
   font-family: "Saira Semi Condensed", sans-serif;
-  font-size: 4vh;
+  font-size: 4dvh;
   text-decoration: underline;
   color: #0d4c92;
 }
@@ -68,14 +68,14 @@
 .tmc-email,
 .private-email,
 .location {
-  width: 51vh;
-  height: 7vh;
+  width: 51dvh;
+  height: 7dvh;
   padding: 5px 15px;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   box-sizing: border-box;
   font-size: 1em;
   position: relative;
-  margin-bottom: 3vh;
+  margin-bottom: 3dvh;
   /* text-align: center; */
   /* border-color: #b3b3b3; */
   border-width: 1px;
@@ -83,21 +83,21 @@
 }
 
 .area {
-  /* margin: 1vh 0; */
-  /* width: 36vh; */
+  /* margin: 1dvh 0; */
+  /* width: 36dvh; */
 }
 
 .loginBtn {
   font-family: "Saira Semi Condensed", sans-serif;
-  width: 50vh;
-  font-size: 3vh;
+  width: 50dvh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   background-color: #0c4c92;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #042244;
-  height: 6vh;
+  height: 6dvh;
   color: #fff;
 }
 .loginBtn:active {
@@ -111,43 +111,43 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 10dvh;
   margin: 0;
-  margin-top: 2vh;
+  margin-top: 2dvh;
   width: 100%;
 }
 .NewAccount {
   margin: 0;
   color: gray;
-  font-size: 2vh;
+  font-size: 2dvh;
   font-family: "Saira Semi Condensed", sans-serif;
 }
 .hrStart {
   width: 10%;
   margin: 0;
-  margin-right: 1vh;
+  margin-right: 1dvh;
 }
 .hrEnd {
   width: 10%;
   margin: 0;
-  margin-left: 1vh;
+  margin-left: 1dvh;
 }
 .addAccount {
   cursor: pointer;
-  margin-top: -2vh;
+  margin-top: -2dvh;
 }
 
 .createAccountBtn {
   font-family: "Saira Semi Condensed", sans-serif;
-  width: 50vh;
-  font-size: 3vh;
+  width: 50dvh;
+  font-size: 3dvh;
   border-style: solid;
-  border-radius: 1vh;
+  border-radius: 1dvh;
   background-color: #0c4c92;
   border: none;
   outline: none;
   box-shadow: 0 5px 5px #042244;
-  height: 6vh;
+  height: 6dvh;
   color: #fff;
 }
 .loginBtn:active {
@@ -160,22 +160,22 @@
   align-items: center;
 }
 .tmc-email {
-  /* width: 22vh; */
-  margin-left: 18vh;
-  padding-right: 22vh;
+  /* width: 22dvh; */
+  margin-left: 18dvh;
+  padding-right: 22dvh;
 }
 .sign-up-side p {
   font-size: 10px;
   margin: 0px;
   position: relative;
-  left: -20vh;
-  font-size: 2vh;
+  left: -20dvh;
+  font-size: 2dvh;
 }
 
 .signIn-selectbox {
   position: relative;
-  margin: 2vh;
-  margin-bottom: 3vh;
+  margin: 2dvh;
+  margin-bottom: 3dvh;
 }
 
 .signIn-selectbox::before,
@@ -207,7 +207,7 @@
 
 .signIn-selectbox select {
   appearance: none;
-  min-width: 51vh;
+  min-width: 51dvh;
   height: 2.8em;
   padding: 0.4em 3.6em 0.4em 0.8em;
   border-radius: 3px;
@@ -231,8 +231,8 @@
 }
 
 .signUp-syamotIcon {
-  width: 20vh;
-  height: 20vh;
+  width: 20dvh;
+  height: 20dvh;
   position: relative;
-  top: 6vh;
+  top: 6dvh;
 }
