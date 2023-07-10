@@ -10,6 +10,10 @@ body {
   overflow: auto;
   height: 100vh;
   height: 100dvh;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
 }
 
 input {
