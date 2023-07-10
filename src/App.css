@@ -25,3 +25,10 @@ button {
 li {
   list-style: none;
 }
+
+urlbar {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+}
