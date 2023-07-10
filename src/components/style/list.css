@@ -65,7 +65,7 @@ ul.list-image-list {
   padding: 0.2rem 0.4rem 0.2rem 1rem;
   color: #000000;
   border-radius: 100vh 0 0 100vh;
-  background: #3bea78;
+  background: #64dc8e;
   font-size: 0.8rem;
 }
 
@@ -130,7 +130,8 @@ ul.list-image-list {
   position: fixed;
   top: 22vh;
   width: 100%;
-  max-height: 90vh;
+  max-height: 78vh;
+  max-height: 78dvh;
   display: flex;
   height: 100%;
   /* overflow-y: scroll; */
