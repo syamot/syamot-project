@@ -13,7 +13,7 @@ exports.up = function (knex) {
     table.boolean("seller_read_flag").notNullable();
     table.integer("item_id").notNullable();
     table.integer("user_id").notNullable();
-    table.foreign("item_id").references("items.id");
+    // table.foreign("item_id").references("items.id");//外部キー制約のため削除できなかったのでコメントアウトした
     table.foreign("user_id").references("user.id");
     table.foreign("buyer_id").references("user.id");
     table.foreign("seller_id").references("user.id");

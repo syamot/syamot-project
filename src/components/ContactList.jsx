@@ -99,11 +99,8 @@ const ContactList = (props) => {
               新着メッセージはありません
             </li>
           ) : (
-            Object.entries(chatData).map(([user_id, arr]) => (
-              <li
-                key={`contactList_${arr[0].id}`}
-                className="contact-image-item"
-              >
+            Object.entries(chatData).map(([user_id, arr], index) => (
+              <li key={`contactList_${index}`} className="contact-image-item">
                 <div className="contactList-image-box">
                   <div className="contactList-imgBlock">
                     <FaUserCircle className="contactList-userIcon" />
@@ -121,9 +118,10 @@ const ContactList = (props) => {
                       </p>
                       {/* <p>商品の状態:{arr[0].item_status}</p> */}
                     </div>
+                    {console.log("😏😏😏😏😏😏😏😏😏😏😏😏", user_id, arr)}
                     <GrNext
                       className="contactList-nextIcon"
-                      id={arr[0].id}
+                      id={index}
                       onClick={() => {
                         setSelectBuyer(user_id);
                         setSelectFlag("transaction");

@@ -23,6 +23,7 @@ const Transaction = (props) => {
     setBeforeFlag,
     beforeFlag,
     setConfetFlag,
+    setSelectBuyer,
   } = props;
   const [sendTxt, setSendTxt] = useState("");
   // const [messages, setMessages] = useState([]);
@@ -492,6 +493,7 @@ const Transaction = (props) => {
     } else {
       setBeforeFlag("list");
     }
+    setSelectBuyer(0); //初期化
   };
 
   //   {/* 出品者*/}
