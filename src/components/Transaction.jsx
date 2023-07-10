@@ -34,45 +34,70 @@ const Transaction = (props) => {
     .user_name;
 
   // const socket = io("http://localhost:8000");
+  // スクロール用
   const chatBlockRef = useRef(null);
-
+  const [shouldScroll, setShouldScroll] = useState(true);
   useEffect(() => {
-    // 投稿が追加されたら最下端にスクロールする処理
+    if (shouldScroll) {
+      // 投稿が追加されたら最下端にスクロールする処理
+      const chatBlock = chatBlockRef.current;
+      chatBlock.scrollTop = chatBlock.scrollHeight;
+    }
+  }, [chatData, shouldScroll]);
+
+  const handleScroll = () => {
     const chatBlock = chatBlockRef.current;
-    chatBlock.scrollTop = chatBlock.scrollHeight;
-  }, [chatData]);
+    const { scrollTop, scrollHeight, clientHeight } = chatBlock;
+    const isScrolledToBottom = scrollTop + clientHeight === scrollHeight;
+    console.log(
+      "handleScrollhandleScrollhandleScrollhandleScrollhandleScrollhandleScroll",
+      scrollHeight,
+      scrollTop + clientHeight
+    );
+    // スクロール位置が一番下の時のみ自動スクロール
+    if (isScrolledToBottom) {
+      console.log("スクロールON👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹👹");
+      setShouldScroll(true);
+    } else {
+      console.log(
+        "スクロールOFF F F F F F F F F F F FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      );
+      setShouldScroll(false);
+    }
+  };
+  // ここまで
 
   useEffect(() => {
     const fetchData = async () => {
       const chat = await fetch(URL + "/chatAllData");
       const chatJson = await chat.json();
-      console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
+      // console.log("JJJJJJJJJJJJJJJJJJJJJ", chatJson);
 
       const filterChat = chatJson
         //選択した写真のアイテムのチャット
         .filter((e1) => {
-          console.log("F1======", e1.item_id === selectImg.id);
+          // console.log("F1======", e1.item_id === selectImg.id);
           return e1.item_id === selectImg.id;
         })
         //チャットのBuyerID===ログイン者のID
         //チャットの出品者ID===選択した投稿の出品者ID
 
         .filter((e2) => {
-          console.log("メッセージ：", e2.message);
-          console.log(
-            "F2_購入者========",
-            e2.buyer_id,
-            oneUser.id,
-            e2.seller_id,
-            selectImg.item_seller
-          );
-          console.log(
-            "F2_出品者========",
-            e2.buyer_id,
-            Number(selectBuyer),
-            e2.seller_id,
-            oneUser.id
-          );
+          // console.log("メッセージ：", e2.message);
+          // console.log(
+          //   "F2_購入者========",
+          //   e2.buyer_id,
+          //   oneUser.id,
+          //   e2.seller_id,
+          //   selectImg.item_seller
+          // );
+          // console.log(
+          //   "F2_出品者========",
+          //   e2.buyer_id,
+          //   Number(selectBuyer),
+          //   e2.seller_id,
+          //   oneUser.id
+          // );
           return (
             // 購入者側
             (e2.buyer_id === oneUser.id &&
@@ -81,7 +106,7 @@ const Transaction = (props) => {
             (e2.buyer_id === Number(selectBuyer) && e2.seller_id === oneUser.id)
           );
         });
-      console.log("filterChat========", filterChat);
+      // console.log("filterChat========", filterChat);
       //chatDataを最新順に並び替え
       const dateAscChatData = filterChat.sort(function (a, b) {
         if (a.send_date > b.send_date) return 1;
@@ -168,7 +193,7 @@ const Transaction = (props) => {
   }, [URL, chatData, selectImg.id, selectImg.item_seller, oneUser.id]);
 
   useEffect(() => {
-    console.log("chatData=====", chatData);
+    // console.log("chatData=====", chatData);
   }, [chatData]);
 
   //setSelectImgの内容をchatDataをもとに更新
@@ -625,7 +650,11 @@ const Transaction = (props) => {
       </div>
 
       <div className="transaction-mainBlock">
-        <div className="transaction-chatBlock" ref={chatBlockRef}>
+        <div
+          className="transaction-chatBlock"
+          ref={chatBlockRef}
+          onScroll={handleScroll}
+        >
           {chatData.map((chat, index) => {
             // console.log(chat);
             if (

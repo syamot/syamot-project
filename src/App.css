@@ -12,3 +12,6 @@ button {
 * {
   font-family: "M PLUS 1p", sans-serif;
 }
+li {
+  list-style: none;
+}

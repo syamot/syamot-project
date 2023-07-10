@@ -252,9 +252,9 @@ ul.list-image-list {
   color: #0d4c92;
 }
 .list-userhome {
-  height: 7vh;
+  height: 6vh;
   margin: 0;
-  margin-left: 3vh;
+  margin-left: 1vh;
   background: #59c1bd;
   color: #0d4c92;
   font-size: 15px;
@@ -264,11 +264,15 @@ ul.list-image-list {
   border: none;
   outline: none;
   /* box-shadow: 0 5px 5px #00000067; */
-  width: 7vh;
+  width: 6vh;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 100%;
+  min-width: 6vh;
+  max-width: 6vh;
+  min-height: 6vh;
+  max-height: 6vh;
 }
 .rotationY {
   animation: 1s rotationY;
@@ -281,6 +285,28 @@ ul.list-image-list {
     transform: rotateY(720deg);
   }
 }
+
+/* .list-userhome2 {
+  height: 7vh;
+  margin: 0;
+  margin-left: 3vh;
+  background: #59c1bd;
+  color: #0d4c92;
+  font-size: 15px;
+  border-style: solid;
+  border-radius: 1vh;
+  background-color: #59c1bd;
+  border: none;
+  outline: none;
+  width: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+.list-userhome2:active {
+  animation: 1s rotationY;
+} */
 
 .list-boxset {
   display: flex;
