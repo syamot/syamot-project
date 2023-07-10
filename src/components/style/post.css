@@ -47,7 +47,8 @@
   max-height: 90vh;
   display: flex;
   /* height: 81vh; */
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-y: auto;
   align-items: stretch;
   background: linear-gradient(180deg, rgb(255, 255, 255), rgb(89, 193, 189));
 }
@@ -283,15 +284,23 @@
   /* outline: none; */
   /* box-shadow: 0 5px 5px #00000067; */
   height: 6vh;
-  background-color: #0c4c92;
+  /* background-color: #0c4c92;
   border: none;
   outline: none;
   box-shadow: 0 0.3em 0 #042244;
-  color: white;
+  color: white; */
+  background-color: #0c4c92;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #042244;
+  height: 6vh;
+  color: #fff;
 }
 .post-button:active {
-  margin-top: 0.2em;
-  box-shadow: 0 0.1em 0 #042244;
+  /* margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244; */
+  transform: translateY(5px);
+  box-shadow: 0 0 0;
 }
 
 .post-h4 {
@@ -354,15 +363,23 @@ h2.post-History-title {
   /* box-shadow: 0 5px 5px #00000067; */
   height: 6vh;
   margin-right: 5vh;
-  background-color: #0c4c92;
+  /* background-color: #0c4c92;
   border: none;
   outline: none;
   box-shadow: 0 0.3em 0 #042244;
-  color: white;
+  color: white; */
+  background-color: #0c4c92;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #042244;
+  height: 6vh;
+  color: #fff;
 }
 .post-updateBtn:active {
-  margin-top: 0.2em;
-  box-shadow: 0 0.1em 0 #042244;
+  /* margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244; */
+  transform: translateY(5px);
+  box-shadow: 0 0 0;
 }
 
 .post-deleteBtn {
@@ -375,13 +392,21 @@ h2.post-History-title {
   /* outline: none; */
   /* box-shadow: 0 5px 5px #00000067; */
   height: 6vh;
-  background-color: #0c4c92;
+  /* background-color: #0c4c92;
   border: none;
   outline: none;
   box-shadow: 0 0.3em 0 #042244;
-  color: white;
+  color: white; */
+  background-color: #0c4c92;
+  border: none;
+  outline: none;
+  box-shadow: 0 5px 5px #042244;
+  height: 6vh;
+  color: #fff;
 }
 .post-deleteBtn:active {
-  margin-top: 0.2em;
-  box-shadow: 0 0.1em 0 #042244;
+  /* margin-top: 0.2em;
+  box-shadow: 0 0.1em 0 #042244; */
+  transform: translateY(5px);
+  box-shadow: 0 0 0;
 }
