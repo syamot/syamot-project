@@ -1,12 +1,13 @@
-body {
+/* body {
   overflow: auto;
-}
+} */
 .card-mainBrock {
   position: relative;
   top: 10vh;
   width: 98%;
   /* margin: 0 1vw; */
   height: 90vh;
+  height: 90dvh;
   /* max-height: 100vh; */
   display: flex;
   flex-direction: column;
@@ -102,7 +103,7 @@ body {
   border-radius: 3px;
   max-width: 80%;
   min-width: 80%;
-  min-height: 120%;
+  min-height: 100%;
 
   min-height: 5vh;
 }
