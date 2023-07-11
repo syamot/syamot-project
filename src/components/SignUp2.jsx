@@ -7,13 +7,15 @@ export const SignUp2 = (props) => {
   //   const [name, setName] = useState("test"); // 「ご氏名」の部分
   //   const [company, setCompany] = useState("test"); // 「会社名」の部分
   //   const [title, setTitle] = useState("test"); // 「件名」の部分
-  const [mail, setMail] = useState("ruiruiruipon3110@gmail.com"); // 「メールアドレス」の部分
+  const [mail, setMail] = useState("syamotsyamot0423@gmail.com"); // 「メールアドレス」の部分
+  // const [mail, setMail] = useState("ruiruiruipon3110@gmail.com"); // 「メールアドレス」の部分
   //   const [message, setMessage] = useState(""); // 「お問い合わせ内容」の部分
   useEffect(() => {
     console.log("認証コード", message);
   }, []);
   const userID = "jJheKawtmjVu4zAYX";
-  const serviceID = "service_10yt1ej";
+  const serviceID = "service_ab2tzvj";
+  // const serviceID = "service_10yt1ej";
   const templateID = "template_u4m4aoo";
 
   const sendMail = () => {
@@ -33,7 +35,7 @@ export const SignUp2 = (props) => {
   };
 
   useEffect(() => {
-    // sendMail();
+    sendMail();
   }, []);
 
   // 新規登録処理
